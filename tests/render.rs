@@ -1,0 +1,202 @@
+use std::path::PathBuf;
+use std::process::Command;
+
+use chorus_render::dsp::chorus::Chorus;
+use chorus_render::dsp::delay_line::DelayLine;
+use chorus_render::dsp::lfo::Lfo;
+use chorus_render::{LATENCY_SAMPLES, Params, preroll, render};
+use hound::{SampleFormat, WavReader, WavSpec, WavWriter};
+
+const SR: f32 = 48000.0;
+
+/// Deterministic noise in [-amp, amp).
+fn noise(n: usize, seed: u32, amp: f32) -> Vec<f32> {
+    let mut s = seed;
+    (0..n)
+        .map(|_| {
+            s = s.wrapping_mul(1_664_525).wrapping_add(1_013_904_223);
+            ((s >> 8) as f32 / (1 << 23) as f32 - 1.0) * amp
+        })
+        .collect()
+}
+
+fn params(rate_hz: f32, depth_ms: f32, delay_ms: f32, mix: f32, lfo_phase: f32) -> Params {
+    Params { rate_hz, depth_ms, delay_ms, mix, lfo_phase, warmup_samples: 0 }
+}
+
+fn argmax_abs(x: &[f32]) -> usize {
+    (0..x.len()).max_by(|&a, &b| x[a].abs().total_cmp(&x[b].abs())).unwrap()
+}
+
+fn tmp(name: &str) -> PathBuf {
+    PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join(name)
+}
+
+fn write_i16(path: &PathBuf, samples: &[i16]) {
+    let spec = WavSpec {
+        channels: 1,
+        sample_rate: SR as u32,
+        bits_per_sample: 16,
+        sample_format: SampleFormat::Int,
+    };
+    let mut w = WavWriter::create(path, spec).unwrap();
+    for &s in samples {
+        w.write_sample(s).unwrap();
+    }
+    w.finalize().unwrap();
+}
+
+fn read_i16(path: &PathBuf) -> Vec<i16> {
+    WavReader::open(path).unwrap().samples::<i16>().map(Result::unwrap).collect()
+}
+
+/// Runs the `render` binary on int16 samples.
+fn run_bin(name: &str, dry: &[i16], json: &str) -> Vec<i16> {
+    let (dry_path, json_path, wet_path) =
+        (tmp(&format!("{name}_dry.wav")), tmp(&format!("{name}.json")), tmp(&format!("{name}_wet.wav")));
+    write_i16(&dry_path, dry);
+    std::fs::write(&json_path, json).unwrap();
+    let status = Command::new(env!("CARGO_BIN_EXE_render"))
+        .args([&dry_path, &json_path, &wet_path])
+        .status()
+        .unwrap();
+    assert!(status.success(), "render failed for {name}");
+    read_i16(&wet_path)
+}
+
+// Raw DSP: an impulse comes out at the same index at mix 0, and exactly the
+// set delay later at mix 1 with no depth. Anything else is latency.
+#[test]
+fn measured_latency_matches_constant() {
+    let n = 4000;
+    let at = 1000;
+    for (mix, extra) in [(0.0, 0), (1.0, 480)] {
+        let mut chorus = Chorus::new(SR);
+        chorus.set_depth_ms(0.0);
+        chorus.set_delay_ms(10.0);
+        chorus.set_mix(mix);
+        let out: Vec<f32> = (0..n)
+            .map(|i| chorus.process(if i == at { 1.0 } else { 0.0 }, 0.0).0)
+            .collect();
+        let latency = argmax_abs(&out) as isize - (at + extra) as isize;
+        assert_eq!(latency, LATENCY_SAMPLES as isize, "mix {mix}");
+    }
+}
+
+#[test]
+fn mix_zero_nulls_against_dry_through_binary() {
+    let dry: Vec<i16> = noise(20000, 5, 1.0).iter().map(|&x| (x * 30000.0) as i16).collect();
+    let warmup = 2048;
+    let json = format!(
+        r#"{{"rate_hz": 3.3, "depth_ms": 5.0, "delay_ms": 20.0, "mix": 0.0,
+            "lfo_phase": 0.7, "warmup_samples": {warmup}}}"#
+    );
+    let wet = run_bin("null", &dry, &json);
+    assert_eq!(wet.len(), dry.len() - warmup);
+    assert_eq!(wet, dry[warmup..], "mix 0 does not null");
+}
+
+// After warmup trimming, the wet impulse is exactly delay_ms after the dry one.
+#[test]
+fn binary_keeps_alignment_with_warmup() {
+    let mut dry = vec![0i16; 10000];
+    dry[5000] = 20000;
+    let warmup = 2048;
+    let json = format!(
+        r#"{{"rate_hz": 1.0, "depth_ms": 0.0, "delay_ms": 10.0, "mix": 1.0,
+            "lfo_phase": 0.0, "warmup_samples": {warmup}}}"#
+    );
+    let wet = run_bin("align", &dry, &json);
+    let peak = (0..wet.len()).max_by_key(|&i| wet[i].unsigned_abs()).unwrap();
+    assert_eq!(peak, 5000 - warmup + 480);
+    assert_eq!(wet[peak], 20000);
+}
+
+/// Left channel of the chorus, built from the DSP's own parts with the LFO
+/// phase set directly.
+fn reference(dry: &[f32], p: &Params, phase: f32) -> Vec<f32> {
+    let mut dl = DelayLine::new((SR * (30.0 / 1000.0)).ceil() as usize);
+    let mut lfo = Lfo::new(SR);
+    lfo.set_rate(p.rate_hz);
+    lfo.set_phase(phase);
+    let delay = SR * (p.delay_ms / 1000.0);
+    let depth = SR * (p.depth_ms / 1000.0);
+    dry.iter()
+        .map(|&x| {
+            let d = delay + depth * lfo.next();
+            dl.write(x);
+            let wet = dl.read_frac(d);
+            x * (1.0 - p.mix) + wet * p.mix
+        })
+        .collect()
+}
+
+#[test]
+fn lfo_starts_at_requested_phase() {
+    let dry = noise(30000, 11, 0.9);
+    for (rate, phase) in [(0.1, 0.0), (0.1, 0.93), (0.8, 0.25), (3.7, 0.5), (5.0, 0.999)] {
+        let p = params(rate, 5.0, 15.0, 0.8, phase);
+        let (_, achieved) = preroll(rate, SR, 0, phase);
+        let d = (achieved - phase).abs();
+        let inc = rate / SR;
+        assert!(d.min(1.0 - d) <= inc, "rate {rate} target {phase}: got {achieved}");
+        let got = render(&dry, SR, &p).unwrap();
+        assert_eq!(got, reference(&dry, &p, achieved), "rate {rate} phase {phase}");
+    }
+}
+
+// With warmup, the phase must be the target at the first *output* sample.
+#[test]
+fn lfo_phase_counts_from_after_warmup() {
+    let warmup = 2048;
+    let dry = noise(warmup + 20000, 13, 0.9);
+    let target = 0.6;
+    let mut p = params(2.0, 5.0, 12.0, 1.0, target);
+    let (silence, _) = preroll(2.0, SR, warmup, target);
+
+    // Reference: run the reference LFO from phase 0 through silence + warmup.
+    let mut input = vec![0.0; silence];
+    input.extend_from_slice(&dry);
+    let expected = reference(&input, &p, 0.0)[silence + warmup..].to_vec();
+    p.warmup_samples = warmup;
+    assert_eq!(render(&dry, SR, &p).unwrap(), expected);
+
+    // And the phase at that point is close to the target.
+    let mut lfo = Lfo::new(SR);
+    lfo.set_rate(2.0);
+    lfo.set_phase(target);
+    let mut chorus_lfo = Lfo::new(SR);
+    chorus_lfo.set_rate(2.0);
+    for _ in 0..silence + warmup {
+        chorus_lfo.next();
+    }
+    assert!((lfo.next() - chorus_lfo.next()).abs() < 1e-3);
+}
+
+#[test]
+fn rejects_out_of_range_params() {
+    let dry = vec![0.0; 100];
+    for p in [
+        params(0.05, 2.0, 15.0, 0.5, 0.0),
+        params(6.0, 2.0, 15.0, 0.5, 0.0),
+        params(1.0, -0.1, 15.0, 0.5, 0.0),
+        params(1.0, 5.1, 15.0, 0.5, 0.0),
+        params(1.0, 2.0, 6.9, 0.5, 0.0),
+        params(1.0, 2.0, 25.1, 0.5, 0.0),
+        params(1.0, 2.0, 15.0, 1.1, 0.0),
+        params(1.0, 2.0, 15.0, 0.5, 1.0),
+        params(1.0, 2.0, 15.0, f32::NAN, 0.0),
+    ] {
+        assert!(render(&dry, SR, &p).is_err(), "{p:?}");
+    }
+    let mut p = params(1.0, 2.0, 15.0, 0.5, 0.0);
+    p.warmup_samples = 101;
+    assert!(render(&dry, SR, &p).is_err(), "warmup longer than input");
+}
+
+#[test]
+fn fresh_instance_gives_identical_output() {
+    let dry = noise(10000, 17, 0.9);
+    let p = params(1.3, 3.0, 9.0, 0.6, 0.4);
+    assert_eq!(render(&dry, SR, &p).unwrap(), render(&dry, SR, &p).unwrap());
+}
