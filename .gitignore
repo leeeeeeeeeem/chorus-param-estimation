@@ -1,6 +1,9 @@
 target/
 .venv/
-data/
+data/*
+!data/README.md
+!data/splits.json
+!data/manifest.csv
 __pycache__/
 .pytest_cache/
 .DS_Store
