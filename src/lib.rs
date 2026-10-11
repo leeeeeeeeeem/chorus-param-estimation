@@ -1,6 +1,6 @@
 // The chorus DSP from the plugin repo, compiled from its source files.
 // It is a private module of the plugin crate, so it can't be a path dependency.
-#[allow(dead_code)]
+#[allow(dead_code, clippy::all)]
 #[path = "../../crazy-chorus/src/dsp/mod.rs"]
 pub mod dsp;
 
@@ -51,7 +51,7 @@ impl Params {
 /// `target` after those plus `warmup` steps, and the phase it lands on.
 /// Mirrors the f32 accumulator in `dsp::lfo` so the result is exact.
 pub fn preroll(rate_hz: f32, sample_rate: f32, warmup: usize, target: f32) -> (usize, f32) {
-    let inc = (rate_hz / sample_rate).max(0.0).min(0.5);
+    let inc = (rate_hz / sample_rate).clamp(0.0, 0.5);
     let period = (1.0 / inc).ceil() as usize + 1;
     let mut phase: f32 = 0.0;
     let mut best = (0, 0.0, f32::INFINITY);
@@ -93,9 +93,7 @@ pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<f32>, Str
         chorus.process(0.0, 0.0);
     }
 
-    let mut out: Vec<f32> = dry.iter().map(|&x| chorus.process(x, x).0).collect();
-    for _ in 0..LATENCY_SAMPLES {
-        out.push(chorus.process(0.0, 0.0).0);
-    }
+    let input = dry.iter().copied().chain(std::iter::repeat_n(0.0, LATENCY_SAMPLES));
+    let mut out: Vec<f32> = input.map(|x| chorus.process(x, x).0).collect();
     Ok(out.split_off(p.warmup_samples + LATENCY_SAMPLES))
 }
