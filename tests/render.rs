@@ -1,13 +1,15 @@
 use std::path::PathBuf;
 use std::process::Command;
 
-use chorus_render::dsp::chorus::Chorus;
+use chorus_render::dsp::chorus::{Chorus, MAX_DELAY_MS, MAX_DEPTH_MS};
 use chorus_render::dsp::delay_line::DelayLine;
 use chorus_render::dsp::lfo::Lfo;
-use chorus_render::{LATENCY_SAMPLES, Params, preroll, render};
+use chorus_render::{LATENCY_SAMPLES, Params, render, start_phase};
 use hound::{SampleFormat, WavReader, WavSpec, WavWriter};
 
-const SR: f32 = 48000.0;
+const SR: f32 = 22050.0;
+/// 20 ms, a whole number of samples at 22.05 kHz.
+const DELAY_20MS: usize = 441;
 
 /// Deterministic noise in [-amp, amp).
 fn noise(n: usize, seed: u32, amp: f32) -> Vec<f32> {
@@ -70,10 +72,10 @@ fn run_bin(name: &str, dry: &[i16], json: &str) -> Vec<i16> {
 fn measured_latency_matches_constant() {
     let n = 4000;
     let at = 1000;
-    for (mix, extra) in [(0.0, 0), (1.0, 480)] {
+    for (mix, extra) in [(0.0, 0), (1.0, DELAY_20MS)] {
         let mut chorus = Chorus::new(SR);
         chorus.set_depth_ms(0.0);
-        chorus.set_delay_ms(10.0);
+        chorus.set_delay_ms(20.0);
         chorus.set_mix(mix);
         let out: Vec<f32> = (0..n)
             .map(|i| chorus.process(if i == at { 1.0 } else { 0.0 }, 0.0).0)
@@ -103,19 +105,19 @@ fn binary_keeps_alignment_with_warmup() {
     dry[5000] = 20000;
     let warmup = 2048;
     let json = format!(
-        r#"{{"rate_hz": 1.0, "depth_ms": 0.0, "delay_ms": 10.0, "mix": 1.0,
+        r#"{{"rate_hz": 1.0, "depth_ms": 0.0, "delay_ms": 20.0, "mix": 1.0,
             "lfo_phase": 0.0, "warmup_samples": {warmup}}}"#
     );
     let wet = run_bin("align", &dry, &json);
     let peak = (0..wet.len()).max_by_key(|&i| wet[i].unsigned_abs()).unwrap();
-    assert_eq!(peak, 5000 - warmup + 480);
+    assert_eq!(peak, 5000 - warmup + DELAY_20MS);
     assert_eq!(wet[peak], 20000);
 }
 
 /// Left channel of the chorus, built from the DSP's own parts with the LFO
 /// phase set directly.
 fn reference(dry: &[f32], p: &Params, phase: f32) -> Vec<f32> {
-    let mut dl = DelayLine::new((SR * (30.0 / 1000.0)).ceil() as usize);
+    let mut dl = DelayLine::new((SR * ((MAX_DELAY_MS + MAX_DEPTH_MS) / 1000.0)).ceil() as usize);
     let mut lfo = Lfo::new(SR);
     lfo.set_rate(p.rate_hz);
     lfo.set_phase(phase);
@@ -136,12 +138,9 @@ fn lfo_starts_at_requested_phase() {
     let dry = noise(30000, 11, 0.9);
     for (rate, phase) in [(0.1, 0.0), (0.1, 0.93), (0.8, 0.25), (3.7, 0.5), (5.0, 0.999)] {
         let p = params(rate, 5.0, 15.0, 0.8, phase);
-        let (_, achieved) = preroll(rate, SR, 0, phase);
-        let d = (achieved - phase).abs();
-        let inc = rate / SR;
-        assert!(d.min(1.0 - d) <= inc, "rate {rate} target {phase}: got {achieved}");
+        assert_eq!(start_phase(&p, SR), phase, "no warmup, no shift");
         let got = render(&dry, SR, &p).unwrap();
-        assert_eq!(got, reference(&dry, &p, achieved), "rate {rate} phase {phase}");
+        assert_eq!(got, reference(&dry, &p, phase), "rate {rate} phase {phase}");
     }
 }
 
@@ -150,27 +149,30 @@ fn lfo_starts_at_requested_phase() {
 fn lfo_phase_counts_from_after_warmup() {
     let warmup = 2048;
     let dry = noise(warmup + 20000, 13, 0.9);
-    let target = 0.6;
-    let mut p = params(2.0, 5.0, 12.0, 1.0, target);
-    let (silence, _) = preroll(2.0, SR, warmup, target);
+    for (rate, target) in [(0.1, 0.0), (2.0, 0.6), (5.0, 0.95)] {
+        let mut p = params(rate, 5.0, 12.0, 1.0, target);
+        p.warmup_samples = warmup;
+        let start = start_phase(&p, SR);
+        let expected = reference(&dry, &p, start)[warmup..].to_vec();
+        assert_eq!(render(&dry, SR, &p).unwrap(), expected, "rate {rate}");
 
-    // Reference: run the reference LFO from phase 0 through silence + warmup.
-    let mut input = vec![0.0; silence];
-    input.extend_from_slice(&dry);
-    let expected = reference(&input, &p, 0.0)[silence + warmup..].to_vec();
-    p.warmup_samples = warmup;
-    assert_eq!(render(&dry, SR, &p).unwrap(), expected);
-
-    // And the phase at that point is close to the target.
-    let mut lfo = Lfo::new(SR);
-    lfo.set_rate(2.0);
-    lfo.set_phase(target);
-    let mut chorus_lfo = Lfo::new(SR);
-    chorus_lfo.set_rate(2.0);
-    for _ in 0..silence + warmup {
-        chorus_lfo.next();
+        // An LFO started at `start` matches one started at the target once
+        // the warmup has passed.
+        let mut from_start = Lfo::new(SR);
+        let mut at_target = Lfo::new(SR);
+        for lfo in [&mut from_start, &mut at_target] {
+            lfo.set_rate(rate);
+        }
+        from_start.set_phase(start);
+        at_target.set_phase(target);
+        for _ in 0..warmup {
+            from_start.next();
+        }
+        for n in 0..1000 {
+            let (a, b) = (from_start.next(), at_target.next());
+            assert!((a - b).abs() < 1e-3, "rate {rate}, sample {n}: {a} vs {b}");
+        }
     }
-    assert!((lfo.next() - chorus_lfo.next()).abs() < 1e-3);
 }
 
 #[test]
