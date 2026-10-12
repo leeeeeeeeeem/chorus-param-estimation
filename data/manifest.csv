@@ -1,0 +1,835 @@
+file,source,group_id,split,role,duration,licence
+vocalset/female7/FULL__female7__arpeggios__straight__f7_arpeggios_straight_a_00.wav,vocalset,female7,train,pool,7.397,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__slow_piano__m9_arpeggios_f_slow_piano_e_00.wav,vocalset,male9,train,pool,8.296,CC BY 4.0
+vocalset/female3/FULL__female3__scales__slow_forte__f3_scales_f_slow_forte_e_00.wav,vocalset,female3,test,pool,9.846,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__straight__f8_arpeggios_straight_a_00.wav,vocalset,female8,train,pool,7.597,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__vocal_fry__m3_arpeggios_vocal_fry_i_00.wav,vocalset,male3,train,pool,10.795,CC BY 4.0
+vocalset/male11/FULL__male11__scales__breathy__m11_scales_breathy_u_00.wav,vocalset,male11,train,pool,5.348,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__slow_forte__m1_arpeggios_c_slow_forte_u_00.wav,vocalset,male1,train,pool,9.296,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__inhaled__m7_long_inhaled_a_00.wav,vocalset,male7,train,pool,5.248,CC BY 4.0
+vocalset/female2/FULL__female2__scales__fast_forte__f2_scales_c_fast_forte_e_00.wav,vocalset,female2,val,pool,2.949,CC BY 4.0
+vocalset/female1/FULL__female1__scales__slow_piano__f1_scales_c_slow_piano_u_00.wav,vocalset,female1,test,pool,11.245,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__belt__m5_arpeggios_belt_a_00.wav,vocalset,male5,train,pool,4.148,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__straight__f6_arpeggios_straight_u_00.wav,vocalset,female6,val,pool,7.297,CC BY 4.0
+vocalset/female9/FULL__female9__scales__vocal_fry__f9_scales_vocal_fry_e_00.wav,vocalset,female9,train,pool,7.597,CC BY 4.0
+vocalset/male8/FULL__male8__scales__slow_piano__m8_scales_c_slow_piano_e_00.wav,vocalset,male8,train,pool,7.846,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__straight__m4_arpeggios_straight_i_00.wav,vocalset,male4,train,pool,7.047,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__breathy__m2_arpeggios_breathy_e_00.wav,vocalset,male2,val,pool,8.796,CC BY 4.0
+vocalset/male10/FULL__male10__arpeggios__belt__m10_arpeggios_belt_e_00.wav,vocalset,male10,train,pool,5.298,CC BY 4.0
+vocalset/male6/FULL__male6__scales__fast_forte__m6_scales_f_fast_forte_i_00.wav,vocalset,male6,train,pool,3.648,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__breathy__f7_arpeggios_breathy_u_00.wav,vocalset,female7,train,pool,7.347,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__fast_forte__m9_arpeggios_f_fast_forte_i_00.wav,vocalset,male9,train,pool,2.399,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__belt__f3_arpeggios_belt_i_00.wav,vocalset,female3,test,pool,7.697,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__straight__f8_long_straight_e_00.wav,vocalset,female8,train,pool,3.548,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__straight__f8_long_straight_e_01.wav,vocalset,female8,train,pool,3.548,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__straight__f8_long_straight_e_02.wav,vocalset,female8,train,pool,3.948,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_o_00.wav,vocalset,female5,train,pool,2.899,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_o_01.wav,vocalset,female5,train,pool,3.998,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_o_02.wav,vocalset,female5,train,pool,7.097,CC BY 4.0
+vocalset/male3/FULL__male3__excerpts__straight__m3_row_straight_00.wav,vocalset,male3,train,pool,6.347,CC BY 4.0
+vocalset/male3/FULL__male3__excerpts__straight__m3_row_straight_01.wav,vocalset,male3,train,pool,6.297,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__straight__f4_long_straight_u_00.wav,vocalset,female4,test,pool,3.348,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__straight__f4_long_straight_u_01.wav,vocalset,female4,test,pool,2.749,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__straight__f4_long_straight_u_02.wav,vocalset,female4,test,pool,3.249,CC BY 4.0
+vocalset/male11/FULL__male11__arpeggios__breathy__m11_arpeggios_breathy_o_00.wav,vocalset,male11,train,pool,7.197,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__slow_forte__m1_arpeggios_c_slow_forte_i_00.wav,vocalset,male1,train,pool,9.096,CC BY 4.0
+vocalset/female2/FULL__female2__scales__breathy__f2_scales_breathy_i_00.wav,vocalset,female2,val,pool,6.997,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__pp__f1_long_pp_u_00.wav,vocalset,female1,test,pool,2.549,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__pp__f1_long_pp_u_01.wav,vocalset,female1,test,pool,2.799,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__pp__f1_long_pp_u_02.wav,vocalset,female1,test,pool,2.699,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__straight__m5_long_straight_i_00.wav,vocalset,male5,train,pool,7.996,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__slow_forte__f6_arpeggios_f_slow_forte_a_00.wav,vocalset,female6,val,pool,7.846,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_dona_straight_00.wav,vocalset,female9,train,pool,9.146,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_dona_straight_01.wav,vocalset,female9,train,pool,8.596,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__messa__m8_long_messa_o_00.wav,vocalset,male8,train,pool,2.899,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__messa__m8_long_messa_o_01.wav,vocalset,male8,train,pool,2.649,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__messa__m8_long_messa_o_02.wav,vocalset,male8,train,pool,2.899,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__breathy__m4_arpeggios_breathy_a_00.wav,vocalset,male4,train,pool,6.697,CC BY 4.0
+vocalset/male2/FULL__male2__scales__straight__m2_scales_straight_u_00.wav,vocalset,male2,val,pool,11.195,CC BY 4.0
+vocalset/male10/FULL__male10__arpeggios__slow_forte__m10_arpeggios_f_slow_forte_i_00.wav,vocalset,male10,train,pool,6.847,CC BY 4.0
+vocalset/male6/FULL__male6__scales__fast_forte__m6_scales_f_fast_forte_a_00.wav,vocalset,male6,train,pool,3.448,CC BY 4.0
+vocalset/male9/FULL__male9__scales__straight__m9_scales_straight_a_00.wav,vocalset,male9,train,pool,12.095,CC BY 4.0
+vocalset/female3/FULL__female3__scales__breathy__f3_scales_breathy_i_00.wav,vocalset,female3,test,pool,9.546,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_piano__f8_scales_c_slow_piano_a_00.wav,vocalset,female8,train,pool,11.395,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__slow_forte__f5_arpeggios_f_slow_forte_a_00.wav,vocalset,female5,train,pool,6.047,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__m3_arpeggios_f_fast_piano_a_00.wav,vocalset,male3,train,pool,2.849,CC BY 4.0
+vocalset/female4/FULL__female4__scales__slow_forte__f4_scales_c_slow_forte_a_00.wav,vocalset,female4,test,pool,10.745,CC BY 4.0
+vocalset/male11/FULL__male11__long_tones__inhaled__m11_long_inhaled_o_00.wav,vocalset,male11,train,pool,6.947,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_piano__m1_scales_f_fast_piano_o_00.wav,vocalset,male1,train,pool,3.398,CC BY 4.0
+vocalset/male7/FULL__male7__scales__vocal_fry__m7_scales_vocal_fry_u_00.wav,vocalset,male7,train,pool,9.546,CC BY 4.0
+vocalset/female2/FULL__female2__scales__vocal_fry__f2_scales_vocal_fry_e_00.wav,vocalset,female2,val,pool,9.746,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__slow_piano__f1_arpeggios_c_slow_piano_o_00.wav,vocalset,female1,test,pool,6.997,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_forte__m5_arpeggios_c_fast_forte_e_00.wav,vocalset,male5,train,pool,3.049,CC BY 4.0
+vocalset/female6/FULL__female6__scales__fast_forte__f6_scales_f_fast_forte_a_00.wav,vocalset,female6,val,pool,3.149,CC BY 4.0
+vocalset/female9/FULL__female9__scales__slow_piano__f9_scales_f_slow_piano_a_00.wav,vocalset,female9,train,pool,9.846,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__inhaled__m8_long_inhaled_a_00.wav,vocalset,male8,train,pool,5.547,CC BY 4.0
+vocalset/male4/FULL__male4__scales__belt__m4_scales_belt_e_00.wav,vocalset,male4,train,pool,6.047,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__vocal_fry__m2_arpeggios_vocal_fry_i_00.wav,vocalset,male2,val,pool,9.046,CC BY 4.0
+vocalset/male10/FULL__male10__excerpts__straight__m10_caro_straight_00.wav,vocalset,male10,train,pool,31.936,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__slow_piano__m6_arpeggios_f_slow_piano_u_00.wav,vocalset,male6,train,pool,7.397,CC BY 4.0
+vocalset/female7/FULL__female7__scales__fast_forte__f7_scales_f_fast_forte_o_00.wav,vocalset,female7,train,pool,3.099,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_e_00.wav,vocalset,male9,train,pool,4.548,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_e_01.wav,vocalset,male9,train,pool,4.348,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_e_02.wav,vocalset,male9,train,pool,4.548,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__belt__f3_arpeggios_belt_e_00.wav,vocalset,female3,test,pool,7.796,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_piano__f8_scales_c_slow_piano_e_00.wav,vocalset,female8,train,pool,11.945,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__slow_piano__f5_arpeggios_f_slow_piano_a_00.wav,vocalset,female5,train,pool,6.447,CC BY 4.0
+vocalset/male3/FULL__male3__scales__straight__m3_scales_straight_e_00.wav,vocalset,male3,train,pool,18.142,CC BY 4.0
+vocalset/female4/FULL__female4__scales__belt__f4_scales_belt_i_00.wav,vocalset,female4,test,pool,6.097,CC BY 4.0
+vocalset/male11/FULL__male11__arpeggios__slow_piano__m11_arpeggios_f_slow_piano_u_00.wav,vocalset,male11,train,pool,7.097,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_forte__m1_scales_f_fast_forte_i_00.wav,vocalset,male1,train,pool,3.398,CC BY 4.0
+vocalset/male7/FULL__male7__arpeggios__slow_piano__m7_arpeggios_c_slow_piano_i_00.wav,vocalset,male7,train,pool,7.047,CC BY 4.0
+vocalset/female2/FULL__female2__scales__straight__f2_scales_straight_e_00.wav,vocalset,female2,val,pool,11.595,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__belt__f1_arpeggios_belt_c_u_00.wav,vocalset,female1,test,pool,6.647,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_forte__m5_arpeggios_f_fast_forte_i_00.wav,vocalset,male5,train,pool,3.698,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__breathy__f6_arpeggios_breathy_u_00.wav,vocalset,female6,val,pool,7.297,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__slow_piano__f9_arpeggios_f_slow_piano_o_00.wav,vocalset,female9,train,pool,5.997,CC BY 4.0
+vocalset/male8/FULL__male8__scales__vocal_fry__m8_scales_vocal_fry_e_00.wav,vocalset,male8,train,pool,8.496,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__pp__m4_long_pp_i_00.wav,vocalset,male4,train,pool,10.045,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__inhaled__m2_long_inhaled_i_00.wav,vocalset,male2,val,pool,4.998,CC BY 4.0
+vocalset/male10/FULL__male10__scales__belt__m10_scales_belt_o_00.wav,vocalset,male10,train,pool,5.298,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__fast_forte__m6_arpeggios_c_fast_forte_u_00.wav,vocalset,male6,train,pool,2.749,CC BY 4.0
+vocalset/female7/FULL__female7__scales__slow_forte__f7_scales_f_slow_forte_u_00.wav,vocalset,female7,train,pool,6.897,CC BY 4.0
+vocalset/female7/FULL__female7__scales__slow_forte__f7_scales_f_slow_forte_u_01.wav,vocalset,female7,train,pool,5.348,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__forte__m9_long_forte_e_00.wav,vocalset,male9,train,pool,6.997,CC BY 4.0
+vocalset/female3/FULL__female3__scales__breathy__f3_scales_breathy_o_00.wav,vocalset,female3,test,pool,9.046,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__slow_forte__f8_arpeggios_c_slow_forte_i_00.wav,vocalset,female8,train,pool,7.996,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__straight__f5_arpeggios_straight_u_00.wav,vocalset,female5,train,pool,6.947,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__arps_c_fast_piano_00.wav,vocalset,male3,train,pool,2.449,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__arps_c_fast_piano_01.wav,vocalset,male3,train,pool,2.399,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__arps_c_fast_piano_02.wav,vocalset,male3,train,pool,2.399,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__arps_c_fast_piano_03.wav,vocalset,male3,train,pool,2.449,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__arps_c_fast_piano_04.wav,vocalset,male3,train,pool,2.549,CC BY 4.0
+vocalset/female4/FULL__female4__scales__fast_forte__f4_scales_c_fast_forte_u_00.wav,vocalset,female4,test,pool,3.199,CC BY 4.0
+vocalset/male11/FULL__male11__long_tones__pp__m11_long_pp_u_00.wav,vocalset,male11,train,pool,7.447,CC BY 4.0
+vocalset/male1/FULL__male1__excerpts__straight__m1_dona_straight_00.wav,vocalset,male1,train,pool,9.995,CC BY 4.0
+vocalset/male1/FULL__male1__excerpts__straight__m1_dona_straight_01.wav,vocalset,male1,train,pool,10.345,CC BY 4.0
+vocalset/female2/FULL__female2__scales__fast_piano__f2_scales_c_fast_piano_o_00.wav,vocalset,female2,val,pool,3.099,CC BY 4.0
+vocalset/female1/FULL__female1__scales__slow_forte__f1_scales_f_slow_forte_i_00.wav,vocalset,female1,test,pool,11.095,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__vocal_fry__m5_arpeggios_vocal_fry_o_00.wav,vocalset,male5,train,pool,11.845,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__slow_piano__f6_arpeggios_c_slow_piano_o_00.wav,vocalset,female6,val,pool,8.096,CC BY 4.0
+vocalset/female9/FULL__female9__scales__fast_forte__f9_scales_f_fast_forte_o_00.wav,vocalset,female9,train,pool,3.498,CC BY 4.0
+vocalset/male8/FULL__male8__scales__straight__m8_scales_straight_a_00.wav,vocalset,male8,train,pool,7.597,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_u_00.wav,vocalset,male4,train,pool,2.399,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_u_01.wav,vocalset,male4,train,pool,3.149,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_u_02.wav,vocalset,male4,train,pool,3.149,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__belt__m2_arpeggios_belt_u_00.wav,vocalset,male2,val,pool,5.348,CC BY 4.0
+vocalset/male10/FULL__male10__long_tones__inhaled__m10_long_inhaled_a_00.wav,vocalset,male10,train,pool,4.198,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__fast_piano__m6_arpeggios_c_fast_piano_u_00.wav,vocalset,male6,train,pool,2.449,CC BY 4.0
+vocalset/male9/FULL__male9__scales__fast_piano__m9_scales_c_fast_piano_o_00.wav,vocalset,male9,train,pool,3.498,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__pp__f3_long_pp_o_00.wav,vocalset,female3,test,pool,9.146,CC BY 4.0
+vocalset/female8/FULL__female8__scales__fast_forte__f8_scales_f_fast_forte_a_00.wav,vocalset,female8,train,pool,3.798,CC BY 4.0
+vocalset/female5/FULL__female5__scales__fast_forte__f5_scales_f_fast_forte_a_00.wav,vocalset,female5,train,pool,2.549,CC BY 4.0
+vocalset/male3/FULL__male3__excerpts__straight__m3_dona_straight_00.wav,vocalset,male3,train,pool,19.541,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__belt__f4_arpeggios_belt_i_00.wav,vocalset,female4,test,pool,4.698,CC BY 4.0
+vocalset/male11/FULL__male11__scales__fast_forte__m11_scales_f_fast_forte_i_00.wav,vocalset,male11,train,pool,3.798,CC BY 4.0
+vocalset/male1/FULL__male1__scales__slow_forte__m1_scales_f_slow_forte_i_00.wav,vocalset,male1,train,pool,11.745,CC BY 4.0
+vocalset/male7/FULL__male7__arpeggios__slow_forte__m7_arpeggios_c_slow_forte_a_00.wav,vocalset,male7,train,pool,6.047,CC BY 4.0
+vocalset/female1/FULL__female1__scales__fast_piano__f1_scales_f_fast_piano_i_00.wav,vocalset,female1,test,pool,3.398,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__slow_piano__m5_arpeggios_c_slow_piano_o_00.wav,vocalset,male5,train,pool,6.797,CC BY 4.0
+vocalset/female6/FULL__female6__scales__slow_forte__f6_scales_f_slow_forte_o_00.wav,vocalset,female6,val,pool,7.796,CC BY 4.0
+vocalset/female9/FULL__female9__scales__fast_piano__f9_scales_c_fast_piano_a_00.wav,vocalset,female9,train,pool,3.698,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__fast_forte__m8_arpeggios_f_fast_forte_i_00.wav,vocalset,male8,train,pool,2.499,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__inhaled__m4_long_inhaled_i_00.wav,vocalset,male4,train,pool,4.198,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__slow_forte__m2_arpeggios_c_slow_forte_u_00.wav,vocalset,male2,val,pool,8.196,CC BY 4.0
+vocalset/male6/FULL__male6__scales__belt__m6_scales_belt_o_00.wav,vocalset,male6,train,pool,12.894,CC BY 4.0
+vocalset/female7/FULL__female7__scales__fast_piano__f7_scales_f_fast_piano_o_00.wav,vocalset,female7,train,pool,3.498,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__straight__m9_arpeggios_straight_i_00.wav,vocalset,male9,train,pool,8.196,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__fast_forte__f3_arpeggios_c_fast_forte_e_00.wav,vocalset,female3,test,pool,2.499,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__slow_forte__f8_arpeggios_f_slow_forte_i_00.wav,vocalset,female8,train,pool,8.096,CC BY 4.0
+vocalset/female5/FULL__female5__scales__fast_piano__f5_scales_c_fast_piano_e_00.wav,vocalset,female5,train,pool,2.499,CC BY 4.0
+vocalset/male3/FULL__male3__scales__belt__m3_scales_belt_i_00.wav,vocalset,male3,train,pool,6.397,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__vocal_fry__f4_arpeggios_vocal_fry_e_00.wav,vocalset,female4,test,pool,9.296,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_piano__m1_scales_f_fast_piano_a_00.wav,vocalset,male1,train,pool,3.648,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__straight__m7_long_straight_o_00.wav,vocalset,male7,train,pool,9.296,CC BY 4.0
+vocalset/female2/FULL__female2__scales__slow_piano__f2_scales_c_slow_piano_o_00.wav,vocalset,female2,val,pool,9.846,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__straight__f1_long_straight_u_00.wav,vocalset,female1,test,pool,2.299,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__straight__f1_long_straight_u_01.wav,vocalset,female1,test,pool,2.349,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__straight__f1_long_straight_u_02.wav,vocalset,female1,test,pool,2.749,CC BY 4.0
+vocalset/male5/FULL__male5__scales__fast_forte__m5_scales_f_fast_forte_o_00.wav,vocalset,male5,train,pool,5.747,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__vocal_fry__f6_arpeggios_vocal_fry_u_00.wav,vocalset,female6,val,pool,6.597,CC BY 4.0
+vocalset/female9/FULL__female9__long_tones__messa__f9_long_messa_e_00.wav,vocalset,female9,train,pool,8.696,CC BY 4.0
+vocalset/male8/FULL__male8__scales__fast_forte__m8_scales_f_fast_forte_e_00.wav,vocalset,male8,train,pool,3.898,CC BY 4.0
+vocalset/male2/FULL__male2__scales__slow_forte__m2_scales_c_slow_forte_u_00.wav,vocalset,male2,val,pool,10.745,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__straight__m6_arpeggios_straight_u_00.wav,vocalset,male6,train,pool,7.846,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__vocal_fry__f7_arpeggios_vocal_fry_i_00.wav,vocalset,female7,train,pool,7.447,CC BY 4.0
+vocalset/male9/FULL__male9__scales__fast_piano__m9_scales_c_fast_piano_e_00.wav,vocalset,male9,train,pool,3.798,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__vocal_fry__f3_arpeggios_vocal_fry_u_00.wav,vocalset,female3,test,pool,8.596,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__forte__f8_long_forte_i_00.wav,vocalset,female8,train,pool,3.848,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__forte__f8_long_forte_i_01.wav,vocalset,female8,train,pool,3.848,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__forte__f8_long_forte_i_02.wav,vocalset,female8,train,pool,3.348,CC BY 4.0
+vocalset/female5/FULL__female5__scales__breathy__f5_scales_breathy_a_00.wav,vocalset,female5,train,pool,12.594,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__vocal_fry__m3_arpeggios_vocal_fry_a_00.wav,vocalset,male3,train,pool,10.345,CC BY 4.0
+vocalset/female4/FULL__female4__scales__slow_forte__f4_scales_c_slow_forte_e_00.wav,vocalset,female4,test,pool,10.295,CC BY 4.0
+vocalset/male11/FULL__male11__scales__slow_piano__m11_scales_c_slow_piano_o_00.wav,vocalset,male11,train,pool,8.846,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__slow_piano__m1_arpeggios_f_slow_piano_u_00.wav,vocalset,male1,train,pool,11.195,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_piano__m7_scales_f_slow_piano_i_00.wav,vocalset,male7,train,pool,12.045,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__straight__f2_long_straight_o_00.wav,vocalset,female2,val,pool,9.646,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__pp__m5_long_pp_e_00.wav,vocalset,male5,train,pool,9.346,CC BY 4.0
+vocalset/female6/FULL__female6__long_tones__straight__f6_long_straight_o_00.wav,vocalset,female6,val,pool,6.397,CC BY 4.0
+vocalset/female9/FULL__female9__scales__straight__f9_scales_straight_o_00.wav,vocalset,female9,train,pool,7.497,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__breathy__m8_arpeggios_breathy_a_00.wav,vocalset,male8,train,pool,5.897,CC BY 4.0
+vocalset/male4/FULL__male4__excerpts__straight__m4_dona_straight_00.wav,vocalset,male4,train,pool,7.447,CC BY 4.0
+vocalset/male4/FULL__male4__excerpts__straight__m4_dona_straight_01.wav,vocalset,male4,train,pool,6.797,CC BY 4.0
+vocalset/male2/FULL__male2__scales__slow_piano__m2_scales_c_slow_piano_u_00.wav,vocalset,male2,val,pool,11.545,CC BY 4.0
+vocalset/male10/FULL__male10__long_tones__pp__m10_long_pp_i_00.wav,vocalset,male10,train,pool,7.147,CC BY 4.0
+vocalset/male6/FULL__male6__scales__slow_piano__m6_scales_f_slow_piano_a_00.wav,vocalset,male6,train,pool,15.493,CC BY 4.0
+vocalset/female7/FULL__female7__scales__fast_piano__f7_scales_c_fast_piano_u_00.wav,vocalset,female7,train,pool,3.099,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__vocal_fry__m9_arpeggios_vocal_fry_a_00.wav,vocalset,male9,train,pool,8.296,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__breathy__f3_arpeggios_breathy_u_00.wav,vocalset,female3,test,pool,7.447,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_piano__f8_scales_c_slow_piano_u_00.wav,vocalset,female8,train,pool,11.945,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__slow_piano__f5_arpeggios_c_slow_piano_o_00.wav,vocalset,female5,train,pool,6.547,CC BY 4.0
+vocalset/male3/FULL__male3__long_tones__forte__m3_long_forte_i_00.wav,vocalset,male3,train,pool,6.497,CC BY 4.0
+vocalset/female4/FULL__female4__scales__vocal_fry__f4_scales_vocal_fry_u_00.wav,vocalset,female4,test,pool,11.545,CC BY 4.0
+vocalset/male11/FULL__male11__scales__slow_piano__m11_scales_f_slow_piano_e_00.wav,vocalset,male11,train,pool,8.596,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_forte__m1_scales_f_fast_forte_a_00.wav,vocalset,male1,train,pool,3.149,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__straight__f2_arpeggios_straight_i_00.wav,vocalset,female2,val,pool,7.796,CC BY 4.0
+vocalset/female1/FULL__female1__scales__straight__f1_scales_straight_o_00.wav,vocalset,female1,test,pool,10.595,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_piano__m5_arpeggios_c_fast_piano_o_00.wav,vocalset,male5,train,pool,4.348,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__straight__f6_arpeggios_straight_o_00.wav,vocalset,female6,val,pool,7.297,CC BY 4.0
+vocalset/female9/FULL__female9__long_tones__straight__f9_long_straight_e_00.wav,vocalset,female9,train,pool,7.647,CC BY 4.0
+vocalset/male8/FULL__male8__scales__straight__m8_scales_straight_e_00.wav,vocalset,male8,train,pool,7.746,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_a_00.wav,vocalset,male4,train,pool,3.299,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_a_01.wav,vocalset,male4,train,pool,3.748,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__messa__m4_long_messa_a_02.wav,vocalset,male4,train,pool,3.598,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__pp__m2_long_pp_i_00.wav,vocalset,male2,val,pool,9.246,CC BY 4.0
+vocalset/male10/FULL__male10__arpeggios__slow_piano__m10_arpeggios_f_slow_piano_u_00.wav,vocalset,male10,train,pool,7.697,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__slow_piano__m6_arpeggios_c_slow_piano_o_00.wav,vocalset,male6,train,pool,7.547,CC BY 4.0
+vocalset/female7/FULL__female7__scales__fast_forte__f7_scales_c_fast_forte_o_00.wav,vocalset,female7,train,pool,2.999,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__straight__m9_arpeggios_straight_o_00.wav,vocalset,male9,train,pool,7.946,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__straight__f3_long_straight_e_00.wav,vocalset,female3,test,pool,2.499,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__straight__f3_long_straight_e_01.wav,vocalset,female3,test,pool,2.699,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__straight__f3_long_straight_e_02.wav,vocalset,female3,test,pool,2.749,CC BY 4.0
+vocalset/female5/FULL__female5__scales__slow_piano__f5_scales_c_slow_piano_a_00.wav,vocalset,female5,train,pool,8.146,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__slow_forte__m3_arpeggios_c_slow_forte_e_00.wav,vocalset,male3,train,pool,8.396,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__slow_piano__f4_arpeggios_f_slow_piano_o_00.wav,vocalset,female4,test,pool,5.547,CC BY 4.0
+vocalset/male11/FULL__male11__scales__fast_forte__m11_scales_f_fast_forte_e_00.wav,vocalset,male11,train,pool,3.798,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_forte__m1_scales_c_fast_forte_e_00.wav,vocalset,male1,train,pool,3.199,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_forte__m7_scales_c_slow_forte_u_00.wav,vocalset,male7,train,pool,9.396,CC BY 4.0
+vocalset/female2/FULL__female2__scales__fast_piano__f2_scales_c_fast_piano_u_00.wav,vocalset,female2,val,pool,3.149,CC BY 4.0
+vocalset/male5/FULL__male5__scales__slow_piano__m5_scales_c_slow_piano_o_00.wav,vocalset,male5,train,pool,8.796,CC BY 4.0
+vocalset/female6/FULL__female6__scales__belt__f6_scales_belt_e_00.wav,vocalset,female6,val,pool,5.597,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__slow_forte__f9_arpeggios_f_slow_forte_a_00.wav,vocalset,female9,train,pool,5.248,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__forte__m8_long_forte_o_00.wav,vocalset,male8,train,pool,8.296,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__slow_forte__m4_arpeggios_c_slow_forte_i_00.wav,vocalset,male4,train,pool,8.246,CC BY 4.0
+vocalset/male2/FULL__male2__scales__fast_piano__m2_scales_c_fast_piano_i_00.wav,vocalset,male2,val,pool,3.748,CC BY 4.0
+vocalset/male10/FULL__male10__scales__breathy__m10_scales_breathy_u_00.wav,vocalset,male10,train,pool,5.398,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__belt__m6_arpeggios_belt_o_00.wav,vocalset,male6,train,pool,7.896,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__fast_piano__f7_arpeggios_f_fast_piano_u_00.wav,vocalset,female7,train,pool,2.349,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__pp__f3_long_pp_e_00.wav,vocalset,female3,test,pool,8.396,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__straight__f8_long_straight_i_00.wav,vocalset,female8,train,pool,8.246,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__straight__f8_long_straight_i_01.wav,vocalset,female8,train,pool,3.848,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_piano__m3_arpeggios_f_fast_piano_o_00.wav,vocalset,male3,train,pool,2.899,CC BY 4.0
+vocalset/female4/FULL__female4__excerpts__straight__f4_dona_straight_00.wav,vocalset,female4,test,pool,8.746,CC BY 4.0
+vocalset/female4/FULL__female4__excerpts__straight__f4_dona_straight_01.wav,vocalset,female4,test,pool,8.796,CC BY 4.0
+vocalset/male11/FULL__male11__scales__vocal_fry__m11_scales_vocal_fry_a_00.wav,vocalset,male11,train,pool,5.847,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_forte__m7_scales_f_slow_forte_o_00.wav,vocalset,male7,train,pool,10.695,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__slow_forte__f2_arpeggios_f_slow_forte_o_00.wav,vocalset,female2,val,pool,7.097,CC BY 4.0
+vocalset/female1/FULL__female1__scales__belt__f1_scales_belt_i_00.wav,vocalset,female1,test,pool,9.296,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__straight__m5_long_straight_o_00.wav,vocalset,male5,train,pool,8.696,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__belt__f6_arpeggios_belt_2_o_00.wav,vocalset,female6,val,pool,6.097,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__slow_piano__f9_arpeggios_c_slow_piano_e_00.wav,vocalset,female9,train,pool,7.297,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__slow_forte__m8_arpeggios_f_slow_forte_u_00.wav,vocalset,male8,train,pool,5.747,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__slow_piano__m4_arpeggios_f_slow_piano_i_00.wav,vocalset,male4,train,pool,8.546,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__fast_piano__m2_arpeggios_f_fast_piano_i_00.wav,vocalset,male2,val,pool,2.299,CC BY 4.0
+vocalset/male10/FULL__male10__scales__fast_forte__m10_scales_f_fast_forte_e_00.wav,vocalset,male10,train,pool,3.498,CC BY 4.0
+vocalset/male6/FULL__male6__scales__slow_forte__m6_scales_c_slow_forte_e_00.wav,vocalset,male6,train,pool,16.792,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__slow_piano__f7_arpeggios_f_slow_piano_i_00.wav,vocalset,female7,train,pool,7.796,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__fast_forte__m9_arpeggios_c_fast_forte_o_00.wav,vocalset,male9,train,pool,2.299,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__pp__f3_long_pp_i_00.wav,vocalset,female3,test,pool,9.346,CC BY 4.0
+vocalset/female8/FULL__female8__long_tones__inhaled__f8_long_inhaled_a_00.wav,vocalset,female8,train,pool,6.147,CC BY 4.0
+vocalset/male3/FULL__male3__scales__slow_forte__m3_scales_c_slow_forte_e_00.wav,vocalset,male3,train,pool,12.095,CC BY 4.0
+vocalset/male11/FULL__male11__arpeggios__belt__m11_arpeggios_belt_e_00.wav,vocalset,male11,train,pool,6.747,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__slow_forte__m1_arpeggios_f_slow_forte_i_00.wav,vocalset,male1,train,pool,9.396,CC BY 4.0
+vocalset/male7/FULL__male7__scales__vocal_fry__m7_scales_vocal_fry_e_00.wav,vocalset,male7,train,pool,9.296,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__forte__m5_long_forte_o_00.wav,vocalset,male5,train,pool,8.546,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__belt__f6_arpeggios_belt_1_a_00.wav,vocalset,female6,val,pool,6.447,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__belt__f9_arpeggios_belt_u_00.wav,vocalset,female9,train,pool,4.248,CC BY 4.0
+vocalset/male8/FULL__male8__scales__breathy__m8_scales_breathy_a_00.wav,vocalset,male8,train,pool,8.496,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__fast_piano__m4_arpeggios_c_fast_piano_o_00.wav,vocalset,male4,train,pool,2.949,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__forte__m2_long_forte_e_00.wav,vocalset,male2,val,pool,3.199,CC BY 4.0
+vocalset/male10/FULL__male10__long_tones__forte__m10_long_forte_u_00.wav,vocalset,male10,train,pool,7.297,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__breathy__m6_arpeggios_breathy_a_00.wav,vocalset,male6,train,pool,7.597,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__belt__f7_arpeggios_belt_o_00.wav,vocalset,female7,train,pool,6.497,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__straight__m9_arpeggios_straight_e_00.wav,vocalset,male9,train,pool,7.846,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__slow_forte__f3_arpeggios_c_slow_forte_o_00.wav,vocalset,female3,test,pool,7.547,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_u_00.wav,vocalset,female5,train,pool,3.448,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_u_01.wav,vocalset,female5,train,pool,3.798,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_u_02.wav,vocalset,female5,train,pool,2.349,CC BY 4.0
+vocalset/male3/FULL__male3__scales__fast_piano__m3_scales_c_fast_piano_o_00.wav,vocalset,male3,train,pool,3.448,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__messa__f4_long_messa_e_00.wav,vocalset,female4,test,pool,2.399,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__messa__f4_long_messa_e_01.wav,vocalset,female4,test,pool,2.899,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__messa__f4_long_messa_e_02.wav,vocalset,female4,test,pool,3.348,CC BY 4.0
+vocalset/male11/FULL__male11__arpeggios__breathy__m11_arpeggios_breathy_u_00.wav,vocalset,male11,train,pool,5.997,CC BY 4.0
+vocalset/male1/FULL__male1__long_tones__straight__m1_long_straight_a_00.wav,vocalset,male1,train,pool,9.146,CC BY 4.0
+vocalset/female2/FULL__female2__scales__slow_piano__f2_scales_f_slow_piano_o_00.wav,vocalset,female2,val,pool,11.395,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__messa__f1_long_messa_e_00.wav,vocalset,female1,test,pool,2.449,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__messa__f1_long_messa_e_01.wav,vocalset,female1,test,pool,3.498,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__messa__f1_long_messa_e_02.wav,vocalset,female1,test,pool,3.898,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_forte__m5_arpeggios_c_fast_forte_i_00.wav,vocalset,male5,train,pool,3.448,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__slow_piano__f6_arpeggios_f_slow_piano_o_00.wav,vocalset,female6,val,pool,8.246,CC BY 4.0
+vocalset/female9/FULL__female9__scales__breathy__f9_scales_breathy_a_00.wav,vocalset,female9,train,pool,8.246,CC BY 4.0
+vocalset/male8/FULL__male8__scales__slow_forte__m8_scales_f_sow_forte_o_00.wav,vocalset,male8,train,pool,7.846,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__straight__m4_arpeggios_straight_a_00.wav,vocalset,male4,train,pool,7.447,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__forte__m6_long_forte_o_00.wav,vocalset,male6,train,pool,2.649,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__forte__m6_long_forte_o_01.wav,vocalset,male6,train,pool,2.599,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__forte__m6_long_forte_o_02.wav,vocalset,male6,train,pool,2.599,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__slow_piano__m9_arpeggios_c_slow_piano_o_00.wav,vocalset,male9,train,pool,8.596,CC BY 4.0
+vocalset/female3/FULL__female3__scales__slow_piano__f3_scales_f_slow_piano_e_00.wav,vocalset,female3,test,pool,11.095,CC BY 4.0
+vocalset/female8/FULL__female8__scales__vocal_fry__f8_scales_vocal_fry_i_00.wav,vocalset,female8,train,pool,10.345,CC BY 4.0
+vocalset/female5/FULL__female5__scales__fast_piano__f5_scales_f_fast_piano_u_00.wav,vocalset,female5,train,pool,2.499,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_forte__m3_arpeggios_f_fast_forte_i_00.wav,vocalset,male3,train,pool,3.099,CC BY 4.0
+vocalset/female4/FULL__female4__long_tones__pp__f4_long_pp_e_00.wav,vocalset,female4,test,pool,11.345,CC BY 4.0
+vocalset/male11/FULL__male11__scales__slow_forte__m11_scales_f_slow_forte_a_00.wav,vocalset,male11,train,pool,8.746,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_piano__m1_scales_f_fast_piano_e_00.wav,vocalset,male1,train,pool,3.498,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__messa__m7_long_messa_a_00.wav,vocalset,male7,train,pool,4.898,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__messa__m7_long_messa_a_01.wav,vocalset,male7,train,pool,6.347,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__messa__m7_long_messa_a_02.wav,vocalset,male7,train,pool,8.146,CC BY 4.0
+vocalset/female2/FULL__female2__scales__belt__f2_scales_belt_e_00.wav,vocalset,female2,val,pool,6.647,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__inhaled__f1_long_inhaled_u_00.wav,vocalset,female1,test,pool,3.249,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__inhaled__f1_long_inhaled_u_01.wav,vocalset,female1,test,pool,3.498,CC BY 4.0
+vocalset/male5/FULL__male5__scales__fast_forte__m5_scales_c_fast_forte_e_00.wav,vocalset,male5,train,pool,5.847,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__vocal_fry__f6_arpeggios_vocal_fry_i_00.wav,vocalset,female6,val,pool,6.447,CC BY 4.0
+vocalset/female9/FULL__female9__long_tones__messa__f9_long_messa_u_00.wav,vocalset,female9,train,pool,9.496,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__forte__m8_long_forte_a_00.wav,vocalset,male8,train,pool,8.846,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__forte__m4_long_forte_a_00.wav,vocalset,male4,train,pool,2.749,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__forte__m4_long_forte_a_01.wav,vocalset,male4,train,pool,3.099,CC BY 4.0
+vocalset/male4/FULL__male4__long_tones__forte__m4_long_forte_a_02.wav,vocalset,male4,train,pool,2.699,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__straight__m2_long_straight_a_00.wav,vocalset,male2,val,pool,2.599,CC BY 4.0
+vocalset/male10/FULL__male10__scales__breathy__m10_scales_breathy_o_00.wav,vocalset,male10,train,pool,5.448,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__slow_forte__m6_arpeggios_f_slow_forte_i_00.wav,vocalset,male6,train,pool,5.298,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__slow_forte__f7_arpeggios_c_slow_forte_i_00.wav,vocalset,female7,train,pool,7.247,CC BY 4.0
+vocalset/male9/FULL__male9__scales__slow_forte__m9_scales_c_slow_forte_o_00.wav,vocalset,male9,train,pool,10.095,CC BY 4.0
+vocalset/female3/FULL__female3__scales__fast_piano__f3_scales_f_fast_piano_e_00.wav,vocalset,female3,test,pool,3.548,CC BY 4.0
+vocalset/female8/FULL__female8__scales__vocal_fry__f8_scales_vocal_fry_u_00.wav,vocalset,female8,train,pool,10.945,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_e_00.wav,vocalset,female5,train,pool,2.899,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_e_01.wav,vocalset,female5,train,pool,3.448,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_e_02.wav,vocalset,female5,train,pool,3.049,CC BY 4.0
+vocalset/male3/FULL__male3__scales__fast_forte__m3_scales_c_fast_forte_i_00.wav,vocalset,male3,train,pool,3.548,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__fast_piano__f4_arpeggios_c_fast_piano_e_00.wav,vocalset,female4,test,pool,3.448,CC BY 4.0
+vocalset/male1/FULL__male1__long_tones__forte__m1_long_forte_i_00.wav,vocalset,male1,train,pool,8.296,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__inhaled__m7_long_inhaled_i_00.wav,vocalset,male7,train,pool,4.198,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__inhaled__f2_long_inhaled_o_00.wav,vocalset,female2,val,pool,6.347,CC BY 4.0
+vocalset/female1/FULL__female1__scales__straight__f1_scales_straight_i_00.wav,vocalset,female1,test,pool,10.345,CC BY 4.0
+vocalset/male5/FULL__male5__scales__slow_forte__m5_scales_c_slow_forte_e_00.wav,vocalset,male5,train,pool,12.694,CC BY 4.0
+vocalset/female6/FULL__female6__scales__fast_piano__f6_scales_c_fast_piano_o_00.wav,vocalset,female6,val,pool,3.748,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__vocal_fry__f9_arpeggios_vocal_fry_i_00.wav,vocalset,female9,train,pool,6.197,CC BY 4.0
+vocalset/male8/FULL__male8__scales__straight__m8_scales_straight_o_00.wav,vocalset,male8,train,pool,7.796,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__straight__m4_arpeggios_straight_u_00.wav,vocalset,male4,train,pool,6.747,CC BY 4.0
+vocalset/male2/FULL__male2__scales__vocal_fry__m2_scales_vocal_fry_e_00.wav,vocalset,male2,val,pool,14.543,CC BY 4.0
+vocalset/male10/FULL__male10__long_tones__straight__m10_long_straight_i_00.wav,vocalset,male10,train,pool,6.897,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__vocal_fry__m6_arpeggios_vocal_fry_o_00.wav,vocalset,male6,train,pool,11.295,CC BY 4.0
+vocalset/male9/FULL__male9__scales__belt__m9_scales_belt_a_00.wav,vocalset,male9,train,pool,10.245,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__slow_forte__f3_arpeggios_c_slow_forte_a_00.wav,vocalset,female3,test,pool,7.097,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__straight__f8_arpeggios_straight_o_00.wav,vocalset,female8,train,pool,7.647,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_e_00.wav,vocalset,female5,train,pool,2.999,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_e_01.wav,vocalset,female5,train,pool,3.948,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__pp__f5_long_pp_e_02.wav,vocalset,female5,train,pool,4.998,CC BY 4.0
+vocalset/male3/FULL__male3__long_tones__pp__m3_long_pp_a_00.wav,vocalset,male3,train,pool,7.297,CC BY 4.0
+vocalset/female4/FULL__female4__scales__slow_forte__f4_scales_c_slow_forte_i_00.wav,vocalset,female4,test,pool,10.645,CC BY 4.0
+vocalset/male11/FULL__male11__scales__fast_piano__m11_scales_f_fast_piano_o_00.wav,vocalset,male11,train,pool,3.448,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__slow_piano__m1_arpeggios_c_slow_piano_u_00.wav,vocalset,male1,train,pool,10.095,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_forte__m7_scales_c_slow_forte_e_00.wav,vocalset,male7,train,pool,8.746,CC BY 4.0
+vocalset/female2/FULL__female2__scales__fast_forte__f2_scales_f_fast_forte_u_00.wav,vocalset,female2,val,pool,3.199,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_piano__m5_arpeggios_f_fast_piano_a_00.wav,vocalset,male5,train,pool,3.698,CC BY 4.0
+vocalset/female6/FULL__female6__scales__slow_forte__f6_scales_f_slow_forte_u_00.wav,vocalset,female6,val,pool,8.196,CC BY 4.0
+vocalset/male8/FULL__male8__scales__vocal_fry__m8_scales_vocal_fry_i_00.wav,vocalset,male8,train,pool,8.196,CC BY 4.0
+vocalset/male4/FULL__male4__scales__slow_piano__m4_scales_c_slow_piano_i_00.wav,vocalset,male4,train,pool,12.994,CC BY 4.0
+vocalset/male2/FULL__male2__scales__straight__m2_scales_straight_o_00.wav,vocalset,male2,val,pool,10.445,CC BY 4.0
+vocalset/male10/FULL__male10__scales__slow_piano__m10_scales_c_slow_piano_i_00.wav,vocalset,male10,train,pool,10.695,CC BY 4.0
+vocalset/male6/FULL__male6__scales__fast_piano__m6_scales_f_fast_piano_o_00.wav,vocalset,male6,train,pool,3.598,CC BY 4.0
+vocalset/female7/FULL__female7__scales__straight__f7_scales_straight_a_00.wav,vocalset,female7,train,pool,11.595,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__fast_piano__m9_arpeggios_f_fast_piano_u_00.wav,vocalset,male9,train,pool,2.749,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__forte__f3_long_forte_i_00.wav,vocalset,female3,test,pool,7.397,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__slow_piano__f8_arpeggios_c_slow_piano_o_00.wav,vocalset,female8,train,pool,8.796,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__inhaled__f5_long_inhaled_a_00.wav,vocalset,female5,train,pool,3.099,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__fast_forte__m3_arpeggios_f_fast_forte_o_00.wav,vocalset,male3,train,pool,2.899,CC BY 4.0
+vocalset/female4/FULL__female4__scales__breathy__f4_scales_breathy_o_00.wav,vocalset,female4,test,pool,9.796,CC BY 4.0
+vocalset/male11/FULL__male11__scales__breathy__m11_scales_breathy_e_00.wav,vocalset,male11,train,pool,5.048,CC BY 4.0
+vocalset/male1/FULL__male1__scales__slow_piano__m1_scales_c_slow_piano_o_00.wav,vocalset,male1,train,pool,14.843,CC BY 4.0
+vocalset/male7/FULL__male7__long_tones__pp__m7_long_pp_i_00.wav,vocalset,male7,train,pool,11.495,CC BY 4.0
+vocalset/female2/FULL__female2__scales__fast_forte__f2_scales_f_fast_forte_o_00.wav,vocalset,female2,val,pool,3.348,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__slow_piano__f1_arpeggios_c_slow_piano_a_00.wav,vocalset,female1,test,pool,7.447,CC BY 4.0
+vocalset/male5/FULL__male5__scales__belt__m5_scales_belt_a_00.wav,vocalset,male5,train,pool,5.148,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_caro_straight_00.wav,vocalset,female9,train,pool,6.997,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_caro_straight_01.wav,vocalset,female9,train,pool,6.747,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_caro_straight_02.wav,vocalset,female9,train,pool,6.347,CC BY 4.0
+vocalset/female9/FULL__female9__excerpts__straight__f9_caro_straight_03.wav,vocalset,female9,train,pool,8.046,CC BY 4.0
+vocalset/male8/FULL__male8__scales__slow_piano__m8_scales_f_slow_piano_i_00.wav,vocalset,male8,train,pool,8.346,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__fast_forte__m4_arpeggios_c_fast_forte_e_00.wav,vocalset,male4,train,pool,2.299,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__vocal_fry__m2_arpeggios_vocal_fry_u_00.wav,vocalset,male2,val,pool,10.045,CC BY 4.0
+vocalset/male6/FULL__male6__scales__slow_piano__m6_scales_f_slow_piano_e_00.wav,vocalset,male6,train,pool,16.393,CC BY 4.0
+vocalset/female7/FULL__female7__excerpts__straight__f7_row_straight_00.wav,vocalset,female7,train,pool,5.947,CC BY 4.0
+vocalset/female7/FULL__female7__excerpts__straight__f7_row_straight_01.wav,vocalset,female7,train,pool,5.997,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__fast_piano__m9_arpeggios_f_fast_piano_i_00.wav,vocalset,male9,train,pool,2.349,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__messa__f3_long_messa_a_00.wav,vocalset,female3,test,pool,3.199,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__messa__f3_long_messa_a_01.wav,vocalset,female3,test,pool,3.199,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__messa__f3_long_messa_a_02.wav,vocalset,female3,test,pool,3.249,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__breathy__f8_arpeggios_breathy_u_00.wav,vocalset,female8,train,pool,9.146,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__forte__f5_long_forte_u_00.wav,vocalset,female5,train,pool,3.249,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__forte__f5_long_forte_u_01.wav,vocalset,female5,train,pool,3.698,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__forte__f5_long_forte_u_02.wav,vocalset,female5,train,pool,4.198,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__slow_forte__m3_arpeggios_c_slow_forte_u_00.wav,vocalset,male3,train,pool,8.746,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__fast_forte__f4_arpeggios_c_fast_forte_i_00.wav,vocalset,female4,test,pool,2.249,CC BY 4.0
+vocalset/male1/FULL__male1__scales__slow_forte__m1_scales_c_slow_forte_u_00.wav,vocalset,male1,train,pool,11.495,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_forte__m7_scales_f_slow_forte_i_00.wav,vocalset,male7,train,pool,10.245,CC BY 4.0
+vocalset/female2/FULL__female2__scales__breathy__f2_scales_breathy_u_00.wav,vocalset,female2,val,pool,6.697,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__vocal_fry__f1_arpeggios_vocal_fry_a_00.wav,vocalset,female1,test,pool,8.146,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__breathy__m5_arpeggios_breathy_i_00.wav,vocalset,male5,train,pool,6.597,CC BY 4.0
+vocalset/female6/FULL__female6__scales__fast_forte__f6_scales_f_fast_forte_i_00.wav,vocalset,female6,val,pool,3.348,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__slow_piano__f9_arpeggios_f_slow_piano_e_00.wav,vocalset,female9,train,pool,6.197,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__straight__m8_arpeggios_straight_i_00.wav,vocalset,male8,train,pool,6.347,CC BY 4.0
+vocalset/male4/FULL__male4__scales__fast_forte__m4_scales_f_fast_forte_a_00.wav,vocalset,male4,train,pool,4.148,CC BY 4.0
+vocalset/male2/FULL__male2__scales__fast_piano__m2_scales_c_fast_piano_a_00.wav,vocalset,male2,val,pool,3.348,CC BY 4.0
+vocalset/male10/FULL__male10__long_tones__straight__m10_long_straight_e_00.wav,vocalset,male10,train,pool,6.297,CC BY 4.0
+vocalset/male6/FULL__male6__scales__slow_forte__m6_scales_c_slow_forte_i_00.wav,vocalset,male6,train,pool,17.792,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__straight__f7_arpeggios_straight_e_00.wav,vocalset,female7,train,pool,7.397,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_o_00.wav,vocalset,male9,train,pool,3.798,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_o_01.wav,vocalset,male9,train,pool,4.998,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__messa__m9_long_messa_o_02.wav,vocalset,male9,train,pool,3.049,CC BY 4.0
+vocalset/female3/FULL__female3__scales__vocal_fry__f3_scales_vocal_fry_a_00.wav,vocalset,female3,test,pool,9.096,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_00.wav,vocalset,female8,train,pool,4.398,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_01.wav,vocalset,female8,train,pool,4.248,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_02.wav,vocalset,female8,train,pool,3.998,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_03.wav,vocalset,female8,train,pool,4.648,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_04.wav,vocalset,female8,train,pool,4.148,CC BY 4.0
+vocalset/female8/FULL__female8__excerpts__straight__f8_caro_straight_05.wav,vocalset,female8,train,pool,13.644,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__slow_forte__f5_arpeggios_f_slow_forte_o_00.wav,vocalset,female5,train,pool,6.197,CC BY 4.0
+vocalset/male3/FULL__male3__scales__straight__m3_scales_straight_u_00.wav,vocalset,male3,train,pool,18.642,CC BY 4.0
+vocalset/female4/FULL__female4__scales__breathy__f4_scales_breathy_u_00.wav,vocalset,female4,test,pool,9.446,CC BY 4.0
+vocalset/male11/FULL__male11__scales__fast_forte__m11_scales_c_fast_forte_u_00.wav,vocalset,male11,train,pool,3.748,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__breathy__m1_arpeggios_breathy_i_00.wav,vocalset,male1,train,pool,10.645,CC BY 4.0
+vocalset/male7/FULL__male7__scales__fast_piano__m7_scales_f_fast_piano_o_00.wav,vocalset,male7,train,pool,3.299,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__breathy__f2_arpeggios_breathy_a_00.wav,vocalset,female2,val,pool,6.697,CC BY 4.0
+vocalset/female1/FULL__female1__scales__fast_piano__f1_scales_c_fast_piano_e_00.wav,vocalset,female1,test,pool,3.199,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_00.wav,vocalset,male5,train,pool,9.046,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_01.wav,vocalset,male5,train,pool,4.098,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_02.wav,vocalset,male5,train,pool,5.098,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_03.wav,vocalset,male5,train,pool,4.098,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_04.wav,vocalset,male5,train,pool,3.998,CC BY 4.0
+vocalset/male5/FULL__male5__excerpts__straight__m5_caro_straight_05.wav,vocalset,male5,train,pool,9.846,CC BY 4.0
+vocalset/female6/FULL__female6__scales__slow_forte__f6_scales_c_slow_forte_u_00.wav,vocalset,female6,val,pool,8.996,CC BY 4.0
+vocalset/female9/FULL__female9__scales__slow_forte__f9_scales_f_slow_forte_a_00.wav,vocalset,female9,train,pool,9.346,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__forte__m8_long_forte_e_00.wav,vocalset,male8,train,pool,8.696,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__slow_forte__m4_arpeggios_f_slow_forte_i_00.wav,vocalset,male4,train,pool,8.146,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__fast_piano__m2_arpeggios_f_fast_piano_e_00.wav,vocalset,male2,val,pool,2.299,CC BY 4.0
+vocalset/male10/FULL__male10__scales__fast_forte__m10_scales_f_fast_forte_o_00.wav,vocalset,male10,train,pool,3.398,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__belt__m6_arpeggios_belt_a_00.wav,vocalset,male6,train,pool,8.096,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__fast_piano__f7_arpeggios_f_fast_piano_i_00.wav,vocalset,female7,train,pool,2.349,CC BY 4.0
+vocalset/male9/FULL__male9__scales__slow_forte__m9_scales_f_slow_forte_a_00.wav,vocalset,male9,train,pool,10.695,CC BY 4.0
+vocalset/female3/FULL__female3__long_tones__forte__f3_long_forte_e_00.wav,vocalset,female3,test,pool,7.447,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_piano__f8_scales_f_slow_piano_i_00.wav,vocalset,female8,train,pool,11.595,CC BY 4.0
+vocalset/female5/FULL__female5__scales__breathy__f5_scales_breathy_i_00.wav,vocalset,female5,train,pool,9.995,CC BY 4.0
+vocalset/male3/FULL__male3__scales__fast_forte__m3_scales_c_fast_forte_e_00.wav,vocalset,male3,train,pool,3.448,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__slow_forte__f4_arpeggios_f_slow_forte_i_00.wav,vocalset,female4,test,pool,4.998,CC BY 4.0
+vocalset/male1/FULL__male1__arpeggios__breathy__m1_arpeggios_breathy_e_00.wav,vocalset,male1,train,pool,10.195,CC BY 4.0
+vocalset/male7/FULL__male7__arpeggios__slow_piano__m7_arpeggios_c_slow_piano_e_00.wav,vocalset,male7,train,pool,6.747,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__slow_piano__f2_arpeggios_f_slow_piano_u_00.wav,vocalset,female2,val,pool,6.947,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__slow_piano__f1_arpeggios_f_slow_piano_e_00.wav,vocalset,female1,test,pool,7.147,CC BY 4.0
+vocalset/male5/FULL__male5__scales__slow_forte__m5_scales_f_slow_forte_e_00.wav,vocalset,male5,train,pool,11.745,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__straight__f6_arpeggios_straight_e_00.wav,vocalset,female6,val,pool,7.297,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__straight__f9_arpeggios_straight_o_00.wav,vocalset,female9,train,pool,5.947,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__fast_piano__m8_arpeggios_f_fast_piano_i_00.wav,vocalset,male8,train,pool,3.099,CC BY 4.0
+vocalset/male4/FULL__male4__scales__slow_piano__m4_scales_c_slow_piano_o_00.wav,vocalset,male4,train,pool,13.094,CC BY 4.0
+vocalset/male2/FULL__male2__scales__fast_piano__m2_scales_f_fast_piano_a_00.wav,vocalset,male2,val,pool,3.998,CC BY 4.0
+vocalset/male10/FULL__male10__arpeggios__straight__m10_arpeggios_straight_a_00.wav,vocalset,male10,train,pool,6.997,CC BY 4.0
+vocalset/female7/FULL__female7__scales__vocal_fry__f7_scales_vocal_fry_o_00.wav,vocalset,female7,train,pool,8.746,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__slow_piano__m9_arpeggios_c_slow_piano_i_00.wav,vocalset,male9,train,pool,9.096,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__slow_forte__f3_arpeggios_f_slow_forte_a_00.wav,vocalset,female3,test,pool,8.346,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_forte__f8_scales_f_slow_forte_e_00.wav,vocalset,female8,train,pool,11.495,CC BY 4.0
+vocalset/female5/FULL__female5__scales__straight__f5_scales_straight_u_00.wav,vocalset,female5,train,pool,7.946,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__slow_forte__m3_arpeggios_f_slow_forte_a_00.wav,vocalset,male3,train,pool,7.946,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__slow_piano__f4_arpeggios_c_slow_piano_o_00.wav,vocalset,female4,test,pool,7.097,CC BY 4.0
+vocalset/male11/FULL__male11__arpeggios__straight__m11_arpeggios_straight_u_00.wav,vocalset,male11,train,pool,7.746,CC BY 4.0
+vocalset/male1/FULL__male1__scales__slow_piano__m1_scales_c_slow_piano_a_00.wav,vocalset,male1,train,pool,13.944,CC BY 4.0
+vocalset/male7/FULL__male7__scales__fast_piano__m7_scales_f_fast_piano_i_00.wav,vocalset,male7,train,pool,3.199,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__slow_piano__f2_arpeggios_f_slow_piano_i_00.wav,vocalset,female2,val,pool,7.297,CC BY 4.0
+vocalset/male5/FULL__male5__scales__slow_forte__m5_scales_f_slow_forte_u_00.wav,vocalset,male5,train,pool,11.395,CC BY 4.0
+vocalset/female6/FULL__female6__arpeggios__slow_forte__f6_arpeggios_f_slow_forte_o_00.wav,vocalset,female6,val,pool,8.096,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__straight__f9_arpeggios_straight_i_00.wav,vocalset,female9,train,pool,6.097,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__fast_forte__m8_arpeggios_f_fast_forte_a_00.wav,vocalset,male8,train,pool,2.499,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__fast_forte__m4_arpeggios_c_fast_forte_u_00.wav,vocalset,male4,train,pool,2.699,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__messa__m2_long_messa_i_00.wav,vocalset,male2,val,pool,2.799,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__messa__m2_long_messa_i_01.wav,vocalset,male2,val,pool,2.749,CC BY 4.0
+vocalset/male2/FULL__male2__long_tones__messa__m2_long_messa_i_02.wav,vocalset,male2,val,pool,3.149,CC BY 4.0
+vocalset/male10/FULL__male10__scales__fast_piano__scales_c_fast_piano_i_00.wav,vocalset,male10,train,pool,3.648,CC BY 4.0
+vocalset/male6/FULL__male6__scales__vocal_fry__m6_scales_vocal_fry_u_00.wav,vocalset,male6,train,pool,17.142,CC BY 4.0
+vocalset/female7/FULL__female7__arpeggios__breathy__f7_arpeggios_breathy_o_00.wav,vocalset,female7,train,pool,6.397,CC BY 4.0
+vocalset/male9/FULL__male9__arpeggios__vocal_fry__m9_arpeggios_vocal_fry_i_00.wav,vocalset,male9,train,pool,7.896,CC BY 4.0
+vocalset/female3/FULL__female3__arpeggios__straight__f3_arpeggios_straight_e_00.wav,vocalset,female3,test,pool,7.547,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__slow_piano__f8_arpeggios_c_slow_piano_e_00.wav,vocalset,female8,train,pool,8.596,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__slow_forte__m3_arpeggios_c_slow_forte_o_00.wav,vocalset,male3,train,pool,8.646,CC BY 4.0
+vocalset/female4/FULL__female4__scales__belt__f4_scales_belt_e_00.wav,vocalset,female4,test,pool,6.047,CC BY 4.0
+vocalset/male11/FULL__male11__scales__belt__m11_scales_belt_a_00.wav,vocalset,male11,train,pool,4.598,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_piano__m1_scales_c_fast_piano_i_00.wav,vocalset,male1,train,pool,3.398,CC BY 4.0
+vocalset/male7/FULL__male7__scales__slow_piano__m7_scales_f_slow_piano_u_00.wav,vocalset,male7,train,pool,13.194,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__messa__f2_long_messa_e_00.wav,vocalset,female2,val,pool,4.848,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__messa__f2_long_messa_e_01.wav,vocalset,female2,val,pool,4.548,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__messa__f2_long_messa_e_02.wav,vocalset,female2,val,pool,3.948,CC BY 4.0
+vocalset/male5/FULL__male5__scales__fast_forte__m5_scales_c_fast_forte_i_00.wav,vocalset,male5,train,pool,5.997,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__breathy__f9_arpeggios_breathy_u_00.wav,vocalset,female9,train,pool,4.998,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__straight__m8_arpeggios_straight_o_00.wav,vocalset,male8,train,pool,6.047,CC BY 4.0
+vocalset/male4/FULL__male4__scales__vocal_fry__m4_scales_vocal_fry_o_00.wav,vocalset,male4,train,pool,6.547,CC BY 4.0
+vocalset/male2/FULL__male2__scales__slow_piano__m2_scales_f_slow_piano_e_00.wav,vocalset,male2,val,pool,12.095,CC BY 4.0
+vocalset/male10/FULL__male10__arpeggios__slow_piano__m10_arpeggios_c_slow_piano_e_00.wav,vocalset,male10,train,pool,8.346,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__inhaled__m6_long_inhaled_i_00.wav,vocalset,male6,train,pool,5.298,CC BY 4.0
+vocalset/female7/FULL__female7__scales__slow_forte__f7_scales_f_slow_forte_a_00.wav,vocalset,female7,train,pool,6.797,CC BY 4.0
+vocalset/female7/FULL__female7__scales__slow_forte__f7_scales_f_slow_forte_a_01.wav,vocalset,female7,train,pool,5.048,CC BY 4.0
+vocalset/male9/FULL__male9__long_tones__forte__m9_long_forte_i_00.wav,vocalset,male9,train,pool,7.397,CC BY 4.0
+vocalset/female3/FULL__female3__scales__slow_forte__f3_scales_f_slow_forte_u_00.wav,vocalset,female3,test,pool,9.945,CC BY 4.0
+vocalset/female8/FULL__female8__scales__slow_forte__f8_scales_c_slow_forte_u_00.wav,vocalset,female8,train,pool,11.845,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__messa__f5_long_messa_e_00.wav,vocalset,female5,train,pool,2.299,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__messa__f5_long_messa_e_01.wav,vocalset,female5,train,pool,3.548,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__messa__f5_long_messa_e_02.wav,vocalset,female5,train,pool,4.248,CC BY 4.0
+vocalset/male3/FULL__male3__scales__slow_forte__m3_scales_f_slow_forte_u_00.wav,vocalset,male3,train,pool,6.997,CC BY 4.0
+vocalset/male3/FULL__male3__scales__slow_forte__m3_scales_f_slow_forte_u_01.wav,vocalset,male3,train,pool,3.848,CC BY 4.0
+vocalset/male3/FULL__male3__scales__slow_forte__m3_scales_f_slow_forte_u_02.wav,vocalset,male3,train,pool,7.097,CC BY 4.0
+vocalset/male11/FULL__male11__scales__slow_piano__m11_scales_c_slow_piano_e_00.wav,vocalset,male11,train,pool,8.946,CC BY 4.0
+vocalset/male1/FULL__male1__long_tones__pp__m1_long_pp_e_00.wav,vocalset,male1,train,pool,9.846,CC BY 4.0
+vocalset/male7/FULL__male7__scales__belt__m7_scales_belt_u_00.wav,vocalset,male7,train,pool,9.346,CC BY 4.0
+vocalset/female2/FULL__female2__long_tones__pp__f2_long_pp_u_00.wav,vocalset,female2,val,pool,9.496,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__forte__f1_long_forte_a_00.wav,vocalset,female1,test,pool,2.749,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__forte__f1_long_forte_a_01.wav,vocalset,female1,test,pool,2.649,CC BY 4.0
+vocalset/female1/FULL__female1__long_tones__forte__f1_long_forte_a_02.wav,vocalset,female1,test,pool,2.649,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__inhaled__m5_long_inhaled_i_00.wav,vocalset,male5,train,pool,3.448,CC BY 4.0
+vocalset/male5/FULL__male5__long_tones__inhaled__m5_long_inhaled_i_01.wav,vocalset,male5,train,pool,5.498,CC BY 4.0
+vocalset/female6/FULL__female6__scales__vocal_fry__f6_scales_vocal_fry_a_00.wav,vocalset,female6,val,pool,6.047,CC BY 4.0
+vocalset/female9/FULL__female9__arpeggios__vocal_fry__f9_arpeggios_vocal_fry_u_00.wav,vocalset,female9,train,pool,6.047,CC BY 4.0
+vocalset/male8/FULL__male8__long_tones__pp__m8_long_pp_e_00.wav,vocalset,male8,train,pool,8.246,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__slow_forte__m4_arpeggios_c_slow_forte_u_00.wav,vocalset,male4,train,pool,9.146,CC BY 4.0
+vocalset/male2/FULL__male2__scales__fast_forte__m2_scales_c_fast_forte_o_00.wav,vocalset,male2,val,pool,3.348,CC BY 4.0
+vocalset/male10/FULL__male10__scales__slow_forte__m10_scales_c_slow_forte_i_00.wav,vocalset,male10,train,pool,8.096,CC BY 4.0
+vocalset/male6/FULL__male6__arpeggios__slow_piano__m6_arpeggios_f_slow_piano_e_00.wav,vocalset,male6,train,pool,7.796,CC BY 4.0
+vocalset/female7/FULL__female7__scales__vocal_fry__f7_scales_vocal_fry_a_00.wav,vocalset,female7,train,pool,8.696,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_00.wav,vocalset,male9,train,pool,4.548,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_01.wav,vocalset,male9,train,pool,4.948,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_02.wav,vocalset,male9,train,pool,5.248,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_03.wav,vocalset,male9,train,pool,5.348,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_04.wav,vocalset,male9,train,pool,4.748,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_05.wav,vocalset,male9,train,pool,4.848,CC BY 4.0
+vocalset/male9/FULL__male9__excerpts__straight__m9_caro_straight_06.wav,vocalset,male9,train,pool,9.096,CC BY 4.0
+vocalset/female3/FULL__female3__scales__straight__f3_scales_straight_u_00.wav,vocalset,female3,test,pool,10.245,CC BY 4.0
+vocalset/female8/FULL__female8__scales__breathy__f8_scales_breathy_u_00.wav,vocalset,female8,train,pool,10.495,CC BY 4.0
+vocalset/female5/FULL__female5__arpeggios__belt__f5_arpeggios_belt_i_00.wav,vocalset,female5,train,pool,6.397,CC BY 4.0
+vocalset/male3/FULL__male3__scales__fast_piano__m3_scales_f_fast_piano_o_00.wav,vocalset,male3,train,pool,6.447,CC BY 4.0
+vocalset/female4/FULL__female4__arpeggios__slow_forte__f4_arpeggios_f_slow_forte_o_00.wav,vocalset,female4,test,pool,5.098,CC BY 4.0
+vocalset/male11/FULL__male11__scales__fast_forte__m11_scales_f_fast_forte_o_00.wav,vocalset,male11,train,pool,3.648,CC BY 4.0
+vocalset/male7/FULL__male7__arpeggios__vocal_fry__m7_arpeggios_vocal_fry_a_00.wav,vocalset,male7,train,pool,8.896,CC BY 4.0
+vocalset/female2/FULL__female2__arpeggios__slow_forte__f2_arpeggios_f_slow_forte_a_00.wav,vocalset,female2,val,pool,6.547,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__fast_forte__m5_arpeggios_c_fast_forte_o_00.wav,vocalset,male5,train,pool,3.149,CC BY 4.0
+vocalset/female6/FULL__female6__scales__fast_forte__f6_scales_c_fast_forte_i_00.wav,vocalset,female6,val,pool,3.748,CC BY 4.0
+vocalset/female9/FULL__female9__scales__slow_forte__f9_scales_f_slow_forte_i_00.wav,vocalset,female9,train,pool,9.846,CC BY 4.0
+vocalset/male8/FULL__male8__scales__slow_forte__m8_scales_f_sow_forte_a_00.wav,vocalset,male8,train,pool,7.896,CC BY 4.0
+vocalset/male4/FULL__male4__arpeggios__fast_piano__m4_arpeggios_f_fast_piano_e_00.wav,vocalset,male4,train,pool,2.499,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__straight__m2_arpeggios_straight_a_00.wav,vocalset,male2,val,pool,8.846,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__pp__m6_long_pp_o_00.wav,vocalset,male6,train,pool,7.347,CC BY 4.0
+vocalset/male6/FULL__male6__long_tones__pp__m6_long_pp_o_01.wav,vocalset,male6,train,pool,3.548,CC BY 4.0
+vocalset/male9/FULL__male9__scales__belt__m9_scales_belt_u_00.wav,vocalset,male9,train,pool,10.695,CC BY 4.0
+vocalset/female3/FULL__female3__scales__breathy__f3_scales_breathy_u_00.wav,vocalset,female3,test,pool,9.196,CC BY 4.0
+vocalset/female8/FULL__female8__arpeggios__belt__f8_arpeggios_belt_u_00.wav,vocalset,female8,train,pool,8.096,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_i_00.wav,vocalset,female5,train,pool,3.448,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_i_01.wav,vocalset,female5,train,pool,3.848,CC BY 4.0
+vocalset/female5/FULL__female5__long_tones__straight__f5_long_straight_i_02.wav,vocalset,female5,train,pool,2.799,CC BY 4.0
+vocalset/male3/FULL__male3__arpeggios__slow_piano__m3_arpeggios_c_slow_piano_u_00.wav,vocalset,male3,train,pool,9.046,CC BY 4.0
+vocalset/male11/FULL__male11__scales__slow_forte__m11_scales_f_slow_forte_o_00.wav,vocalset,male11,train,pool,9.096,CC BY 4.0
+vocalset/male1/FULL__male1__scales__fast_piano__m1_scales_c_fast_piano_e_00.wav,vocalset,male1,train,pool,3.648,CC BY 4.0
+vocalset/male7/FULL__male7__scales__fast_forte__m7_scales_f_fast_forte_e_00.wav,vocalset,male7,train,pool,3.249,CC BY 4.0
+vocalset/female2/FULL__female2__scales__vocal_fry__f2_scales_vocal_fry_i_00.wav,vocalset,female2,val,pool,9.196,CC BY 4.0
+vocalset/female1/FULL__female1__arpeggios__belt__f1_arpeggios_belt_c_o_00.wav,vocalset,female1,test,pool,6.847,CC BY 4.0
+vocalset/male5/FULL__male5__arpeggios__slow_piano__m5_arpeggios_f_slow_piano_o_00.wav,vocalset,male5,train,pool,7.846,CC BY 4.0
+vocalset/female6/FULL__female6__scales__fast_piano__f6_scales_f_fast_piano_a_00.wav,vocalset,female6,val,pool,3.199,CC BY 4.0
+vocalset/female9/FULL__female9__scales__fast_forte__f9_scales_c_fast_forte_i_00.wav,vocalset,female9,train,pool,3.898,CC BY 4.0
+vocalset/male8/FULL__male8__arpeggios__slow_piano__m8_arpeggios_f_slow_piano_e_00.wav,vocalset,male8,train,pool,5.747,CC BY 4.0
+vocalset/male4/FULL__male4__scales__fast_piano__m4_scales_f_fast_piano_a_00.wav,vocalset,male4,train,pool,4.098,CC BY 4.0
+vocalset/male2/FULL__male2__arpeggios__slow_forte__m2_arpeggios_c_slow_forte_o_00.wav,vocalset,male2,val,pool,7.547,CC BY 4.0
+idmt_guitar/metal_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__metal__audio__metal_7_75BPM_00.wav,idmt_guitar,metal_7,train,pool,35.934,CC BY-NC-ND 4.0
+idmt_guitar/jazz_6/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__jazz__audio__jazz_6_150BPM_00.wav,idmt_guitar,jazz_6,train,pool,18.292,CC BY-NC-ND 4.0
+idmt_guitar/country_2/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__country_folk__audio__country_2_110BPM_00.wav,idmt_guitar,country_2,test,pool,17.642,CC BY-NC-ND 4.0
+idmt_guitar/reggae_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__reggae_ska__audio__reggae_2_120BPM_00.wav,idmt_guitar,reggae_2,train,pool,2.449,CC BY-NC-ND 4.0
+idmt_guitar/reggae_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__reggae_ska__audio__reggae_2_120BPM_01.wav,idmt_guitar,reggae_2,train,pool,2.449,CC BY-NC-ND 4.0
+idmt_guitar/reggae_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__reggae_ska__audio__reggae_2_120BPM_02.wav,idmt_guitar,reggae_2,train,pool,2.399,CC BY-NC-ND 4.0
+idmt_guitar/reggae_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__reggae_ska__audio__reggae_2_120BPM_03.wav,idmt_guitar,reggae_2,train,pool,3.548,CC BY-NC-ND 4.0
+idmt_guitar/folk_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__country_folk__audio__folk_2_100BPM_00.wav,idmt_guitar,folk_2,train,pool,39.832,CC BY-NC-ND 4.0
+idmt_guitar/pop_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_4_100BPM_00.wav,idmt_guitar,pop_4,train,pool,2.999,CC BY-NC-ND 4.0
+idmt_guitar/ska_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__reggae_ska__audio__ska_1_150BPM_00.wav,idmt_guitar,ska_1,train,pool,12.844,CC BY-NC-ND 4.0
+idmt_guitar/country_4/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__country_folk__audio__country_4_80BPM_00.wav,idmt_guitar,country_4,train,pool,25.239,CC BY-NC-ND 4.0
+idmt_guitar/pop_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_3_130BPM_00.wav,idmt_guitar,pop_3,test,pool,14.793,CC BY-NC-ND 4.0
+idmt_guitar/jazz_4/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__jazz__audio__jazz_4_88BPM_00.wav,idmt_guitar,jazz_4,train,pool,51.027,CC BY-NC-ND 4.0
+idmt_guitar/pop_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__pop__audio__pop_2_120BPM_00.wav,idmt_guitar,pop_2,val,pool,24.039,CC BY-NC-ND 4.0
+idmt_guitar/metal_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__metal__audio__metal_5_180BPM_00.wav,idmt_guitar,metal_5,val,pool,13.394,CC BY-NC-ND 4.0
+idmt_guitar/pop_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__pop__audio__pop_5_90BPM_00.wav,idmt_guitar,pop_5,train,pool,12.194,CC BY-NC-ND 4.0
+idmt_guitar/pop_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__pop__audio__pop_5_90BPM_01.wav,idmt_guitar,pop_5,train,pool,8.846,CC BY-NC-ND 4.0
+idmt_guitar/folk_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__country_folk__audio__folk_3_180BPM_00.wav,idmt_guitar,folk_3,train,pool,26.688,CC BY-NC-ND 4.0
+idmt_guitar/classical_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__classical__audio__classical_3_60BPM_00.wav,idmt_guitar,classical_3,train,pool,35.834,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_00.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_01.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_02.wav,idmt_guitar,pop_7,train,pool,3.348,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_03.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_04.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_05.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_7_60BPM_06.wav,idmt_guitar,pop_7,train,pool,3.348,CC BY-NC-ND 4.0
+idmt_guitar/classical_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__classical__audio__classical_7_60BPM_00.wav,idmt_guitar,classical_7,train,pool,6.247,CC BY-NC-ND 4.0
+idmt_guitar/classical_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__classical__audio__classical_7_60BPM_01.wav,idmt_guitar,classical_7,train,pool,35.084,CC BY-NC-ND 4.0
+idmt_guitar/pop_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_1_130BPM_00.wav,idmt_guitar,pop_1,train,pool,22.24,CC BY-NC-ND 4.0
+idmt_guitar/classical_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__classical__audio__classical_6_100BPM_00.wav,idmt_guitar,classical_6,train,pool,9.146,CC BY-NC-ND 4.0
+idmt_guitar/classical_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__classical__audio__classical_6_100BPM_01.wav,idmt_guitar,classical_6,train,pool,9.146,CC BY-NC-ND 4.0
+idmt_guitar/metal_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__metal__audio__metal_8_125BPM_00.wav,idmt_guitar,metal_8,train,pool,16.842,CC BY-NC-ND 4.0
+idmt_guitar/country_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__country_folk__audio__country_5_100BPM_00.wav,idmt_guitar,country_5,train,pool,9.746,CC BY-NC-ND 4.0
+idmt_guitar/pop_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__pop__audio__pop_6_90BPM_00.wav,idmt_guitar,pop_6,train,pool,21.29,CC BY-NC-ND 4.0
+idmt_guitar/rock_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__rock_blues__audio__rock_4_125BPM_00.wav,idmt_guitar,rock_4,train,pool,15.343,CC BY-NC-ND 4.0
+idmt_guitar/jazz_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__jazz__audio__jazz_3_120BPM_00.wav,idmt_guitar,jazz_3,val,pool,3.099,CC BY-NC-ND 4.0
+idmt_guitar/jazz_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__jazz__audio__jazz_3_120BPM_01.wav,idmt_guitar,jazz_3,val,pool,20.041,CC BY-NC-ND 4.0
+idmt_guitar/latin_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__latin__audio__latin_8_160BPM_00.wav,idmt_guitar,latin_8,train,pool,4.348,CC BY-NC-ND 4.0
+idmt_guitar/classical_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_1_60BPM_00.wav,idmt_guitar,classical_1,test,pool,31.586,CC BY-NC-ND 4.0
+idmt_guitar/classical_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_1_60BPM_01.wav,idmt_guitar,classical_1,test,pool,33.585,CC BY-NC-ND 4.0
+idmt_guitar/rock_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__rock_blues__audio__rock_3_115BPM_00.wav,idmt_guitar,rock_3,train,pool,2.649,CC BY-NC-ND 4.0
+idmt_guitar/rock_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__rock_blues__audio__rock_3_115BPM_01.wav,idmt_guitar,rock_3,train,pool,2.749,CC BY-NC-ND 4.0
+idmt_guitar/latin_6/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__latin__audio__latin_6_120BPM_00.wav,idmt_guitar,latin_6,train,pool,15.993,CC BY-NC-ND 4.0
+idmt_guitar/reggae_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__reggae_ska__audio__reggae_1_120BPM_00.wav,idmt_guitar,reggae_1,val,pool,21.99,CC BY-NC-ND 4.0
+idmt_guitar/folk_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__country_folk__audio__folk_1_110BPM_00.wav,idmt_guitar,folk_1,val,pool,26.138,CC BY-NC-ND 4.0
+idmt_guitar/rock_6/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__rock_blues__audio__rock_6_120BPM_00.wav,idmt_guitar,rock_6,train,pool,48.028,CC BY-NC-ND 4.0
+idmt_guitar/rock_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__rock_blues__audio__rock_7_100BPM_00.wav,idmt_guitar,rock_7,test,pool,2.499,CC BY-NC-ND 4.0
+idmt_guitar/rock_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__rock_blues__audio__rock_7_100BPM_01.wav,idmt_guitar,rock_7,test,pool,60.123,CC BY-NC-ND 4.0
+idmt_guitar/country_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__country_folk__audio__country_1_150BPM_00.wav,idmt_guitar,country_1,train,pool,16.792,CC BY-NC-ND 4.0
+idmt_guitar/jazz_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_2_170BPM_00.wav,idmt_guitar,jazz_2,train,pool,2.499,CC BY-NC-ND 4.0
+idmt_guitar/metal_1/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__metal__audio__metal_1_160BPM_00.wav,idmt_guitar,metal_1,test,pool,15.093,CC BY-NC-ND 4.0
+idmt_guitar/classical_5/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_5_70BPM_00.wav,idmt_guitar,classical_5,train,pool,51.427,CC BY-NC-ND 4.0
+idmt_guitar/ska_2/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__reggae_ska__audio__ska_2_180BPM_00.wav,idmt_guitar,ska_2,train,pool,13.544,CC BY-NC-ND 4.0
+idmt_guitar/metal_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__metal__audio__metal_4_130BPM_00.wav,idmt_guitar,metal_4,test,pool,14.843,CC BY-NC-ND 4.0
+idmt_guitar/latin_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__latin__audio__latin_3_120BPM_00.wav,idmt_guitar,latin_3,train,pool,21.19,CC BY-NC-ND 4.0
+idmt_guitar/jazz_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_7_140BPM_00.wav,idmt_guitar,jazz_7,train,pool,16.992,CC BY-NC-ND 4.0
+idmt_guitar/classical_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__classical__audio__classical_8_120BPM_00.wav,idmt_guitar,classical_8,val,pool,16.043,CC BY-NC-ND 4.0
+idmt_guitar/country_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__country_folk__audio__country_3_120BPM_00.wav,idmt_guitar,country_3,train,pool,40.032,CC BY-NC-ND 4.0
+idmt_guitar/pop_8/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__pop__audio__pop_8_100BPM_00.wav,idmt_guitar,pop_8,train,pool,25.788,CC BY-NC-ND 4.0
+idmt_guitar/latin_5/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__latin__audio__latin_5_140BPM_00.wav,idmt_guitar,latin_5,train,pool,20.191,CC BY-NC-ND 4.0
+idmt_guitar/rock_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__rock_blues__audio__rock_1_120BPM_00.wav,idmt_guitar,rock_1,test,pool,15.893,CC BY-NC-ND 4.0
+idmt_guitar/jazz_5/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_5_100BPM_00.wav,idmt_guitar,jazz_5,test,pool,3.398,CC BY-NC-ND 4.0
+idmt_guitar/ska_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__reggae_ska__audio__ska_4_180BPM_00.wav,idmt_guitar,ska_4,train,pool,13.394,CC BY-NC-ND 4.0
+idmt_guitar/metal_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__metal__audio__metal_3_135BPM_00.wav,idmt_guitar,metal_3,train,pool,14.144,CC BY-NC-ND 4.0
+idmt_guitar/classical_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_4_60BPM_00.wav,idmt_guitar,classical_4,val,pool,20.641,CC BY-NC-ND 4.0
+idmt_guitar/classical_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__classical__audio__classical_2_60BPM_00.wav,idmt_guitar,classical_2,val,pool,32.085,CC BY-NC-ND 4.0
+idmt_guitar/ska_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__reggae_ska__audio__ska_3_180BPM_00.wav,idmt_guitar,ska_3,train,pool,15.343,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_00.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_01.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_02.wav,idmt_guitar,jazz_8,train,pool,8.246,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_03.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_04.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_05.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_06.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_07.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_08.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__jazz__audio__jazz_8_110BPM_09.wav,idmt_guitar,jazz_8,train,pool,6.297,CC BY-NC-ND 4.0
+idmt_guitar/latin_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__latin__audio__latin_7_150BPM_00.wav,idmt_guitar,latin_7,test,pool,6.097,CC BY-NC-ND 4.0
+idmt_guitar/latin_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__latin__audio__latin_7_150BPM_01.wav,idmt_guitar,latin_7,test,pool,9.196,CC BY-NC-ND 4.0
+idmt_guitar/latin_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__latin__audio__latin_7_150BPM_02.wav,idmt_guitar,latin_7,test,pool,12.344,CC BY-NC-ND 4.0
+idmt_guitar/rock_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__rock_blues__audio__rock_8_100BPM_00.wav,idmt_guitar,rock_8,train,pool,28.887,CC BY-NC-ND 4.0
+idmt_guitar/metal_6/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__metal__audio__metal_6_130BPM_00.wav,idmt_guitar,metal_6,train,pool,14.893,CC BY-NC-ND 4.0
+idmt_guitar/latin_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__latin__audio__latin_1_200BPM_00.wav,idmt_guitar,latin_1,val,pool,13.844,CC BY-NC-ND 4.0
+idmt_guitar/metal_2/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__metal__audio__metal_2_180BPM_00.wav,idmt_guitar,metal_2,train,pool,13.394,CC BY-NC-ND 4.0
+idmt_guitar/latin_4/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__latin__audio__latin_4_130BPM_00.wav,idmt_guitar,latin_4,train,pool,19.441,CC BY-NC-ND 4.0
+idmt_guitar/metal_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__metal__audio__metal_7_75BPM_00.wav,idmt_guitar,metal_7,train,pool,25.738,CC BY-NC-ND 4.0
+idmt_guitar/jazz_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_6_180BPM_00.wav,idmt_guitar,jazz_6,train,pool,5.398,CC BY-NC-ND 4.0
+idmt_guitar/jazz_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_6_180BPM_01.wav,idmt_guitar,jazz_6,train,pool,3.598,CC BY-NC-ND 4.0
+idmt_guitar/jazz_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_6_180BPM_02.wav,idmt_guitar,jazz_6,train,pool,3.498,CC BY-NC-ND 4.0
+idmt_guitar/jazz_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_6_180BPM_03.wav,idmt_guitar,jazz_6,train,pool,3.548,CC BY-NC-ND 4.0
+idmt_guitar/country_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__country_folk__audio__country_2_110BPM_00.wav,idmt_guitar,country_2,test,pool,17.442,CC BY-NC-ND 4.0
+idmt_guitar/folk_2/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__country_folk__audio__folk_2_100BPM_00.wav,idmt_guitar,folk_2,train,pool,40.532,CC BY-NC-ND 4.0
+idmt_guitar/pop_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__pop__audio__pop_4_120BPM_00.wav,idmt_guitar,pop_4,train,pool,2.599,CC BY-NC-ND 4.0
+idmt_guitar/rock_5/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__rock_blues__audio__rock_5_100BPM_00.wav,idmt_guitar,rock_5,train,pool,26.438,CC BY-NC-ND 4.0
+idmt_guitar/ska_1/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__reggae_ska__audio__ska_1_180BPM_00.wav,idmt_guitar,ska_1,train,pool,13.494,CC BY-NC-ND 4.0
+idmt_guitar/country_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__country_folk__audio__country_4_80BPM_00.wav,idmt_guitar,country_4,train,pool,11.995,CC BY-NC-ND 4.0
+idmt_guitar/pop_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__pop__audio__pop_3_130BPM_00.wav,idmt_guitar,pop_3,test,pool,22.19,CC BY-NC-ND 4.0
+idmt_guitar/jazz_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__jazz__audio__jazz_4_88BPM_00.wav,idmt_guitar,jazz_4,train,pool,43.48,CC BY-NC-ND 4.0
+idmt_guitar/pop_2/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__pop__audio__pop_2_140BPM_00.wav,idmt_guitar,pop_2,val,pool,13.794,CC BY-NC-ND 4.0
+idmt_guitar/metal_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__metal__audio__metal_5_150BPM_00.wav,idmt_guitar,metal_5,val,pool,28.937,CC BY-NC-ND 4.0
+idmt_guitar/folk_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__country_folk__audio__folk_3_130BPM_00.wav,idmt_guitar,folk_3,train,pool,30.386,CC BY-NC-ND 4.0
+idmt_guitar/classical_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__classical__audio__classical_3_50BPM_00.wav,idmt_guitar,classical_3,train,pool,42.98,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_00.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_01.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_02.wav,idmt_guitar,pop_7,train,pool,3.348,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_03.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_04.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_05.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/pop_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__pop__audio__pop_7_60BPM_06.wav,idmt_guitar,pop_7,train,pool,3.299,CC BY-NC-ND 4.0
+idmt_guitar/classical_7/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__classical__audio__classical_7_60BPM_00.wav,idmt_guitar,classical_7,train,pool,15.843,CC BY-NC-ND 4.0
+idmt_guitar/pop_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__pop__audio__pop_1_160BPM_00.wav,idmt_guitar,pop_1,train,pool,19.641,CC BY-NC-ND 4.0
+idmt_guitar/classical_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_6_75BPM_00.wav,idmt_guitar,classical_6,train,pool,12.394,CC BY-NC-ND 4.0
+idmt_guitar/classical_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__classical__audio__classical_6_75BPM_01.wav,idmt_guitar,classical_6,train,pool,13.444,CC BY-NC-ND 4.0
+idmt_guitar/metal_8/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__metal__audio__metal_8_100BPM_00.wav,idmt_guitar,metal_8,train,pool,22.04,CC BY-NC-ND 4.0
+idmt_guitar/country_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__country_folk__audio__country_5_80BPM_00.wav,idmt_guitar,country_5,train,pool,11.895,CC BY-NC-ND 4.0
+idmt_guitar/pop_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__pop__audio__pop_6_110BPM_00.wav,idmt_guitar,pop_6,train,pool,8.746,CC BY-NC-ND 4.0
+idmt_guitar/rock_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__rock_blues__audio__rock_4_110BPM_00.wav,idmt_guitar,rock_4,train,pool,5.298,CC BY-NC-ND 4.0
+idmt_guitar/rock_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__rock_blues__audio__rock_4_110BPM_01.wav,idmt_guitar,rock_4,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/rock_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__rock_blues__audio__rock_4_110BPM_02.wav,idmt_guitar,rock_4,train,pool,3.998,CC BY-NC-ND 4.0
+idmt_guitar/rock_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__rock_blues__audio__rock_4_110BPM_03.wav,idmt_guitar,rock_4,train,pool,3.049,CC BY-NC-ND 4.0
+idmt_guitar/latin_8/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__latin__audio__latin_8_160BPM_00.wav,idmt_guitar,latin_8,train,pool,16.542,CC BY-NC-ND 4.0
+idmt_guitar/classical_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__classical__audio__classical_1_80BPM_00.wav,idmt_guitar,classical_1,test,pool,57.774,CC BY-NC-ND 4.0
+idmt_guitar/rock_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__rock_blues__audio__rock_3_115BPM_00.wav,idmt_guitar,rock_3,train,pool,2.699,CC BY-NC-ND 4.0
+idmt_guitar/rock_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__rock_blues__audio__rock_3_115BPM_01.wav,idmt_guitar,rock_3,train,pool,2.699,CC BY-NC-ND 4.0
+idmt_guitar/latin_6/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__latin__audio__latin_6_140BPM_00.wav,idmt_guitar,latin_6,train,pool,19.291,CC BY-NC-ND 4.0
+idmt_guitar/reggae_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__reggae_ska__audio__reggae_1_95BPM_00.wav,idmt_guitar,reggae_1,val,pool,25.738,CC BY-NC-ND 4.0
+idmt_guitar/folk_1/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__country_folk__audio__folk_1_110BPM_00.wav,idmt_guitar,folk_1,val,pool,17.442,CC BY-NC-ND 4.0
+idmt_guitar/rock_6/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__rock_blues__audio__rock_6_100BPM_00.wav,idmt_guitar,rock_6,train,pool,57.624,CC BY-NC-ND 4.0
+idmt_guitar/rock_7/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__rock_blues__audio__rock_7_120BPM_00.wav,idmt_guitar,rock_7,test,pool,48.028,CC BY-NC-ND 4.0
+idmt_guitar/country_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__country_folk__audio__country_1_110BPM_00.wav,idmt_guitar,country_1,train,pool,24.939,CC BY-NC-ND 4.0
+idmt_guitar/jazz_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__jazz__audio__jazz_2_170BPM_00.wav,idmt_guitar,jazz_2,train,pool,51.777,CC BY-NC-ND 4.0
+idmt_guitar/metal_1/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__metal__audio__metal_1_160BPM_00.wav,idmt_guitar,metal_1,test,pool,12.394,CC BY-NC-ND 4.0
+idmt_guitar/classical_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__classical__audio__classical_5_100BPM_00.wav,idmt_guitar,classical_5,train,pool,39.932,CC BY-NC-ND 4.0
+idmt_guitar/ska_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__reggae_ska__audio__ska_2_150BPM_00.wav,idmt_guitar,ska_2,train,pool,18.042,CC BY-NC-ND 4.0
+idmt_guitar/metal_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__metal__audio__metal_4_180BPM_00.wav,idmt_guitar,metal_4,test,pool,13.444,CC BY-NC-ND 4.0
+idmt_guitar/latin_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__latin__audio__latin_3_100BPM_00.wav,idmt_guitar,latin_3,train,pool,19.291,CC BY-NC-ND 4.0
+idmt_guitar/jazz_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__jazz__audio__jazz_7_140BPM_00.wav,idmt_guitar,jazz_7,train,pool,24.039,CC BY-NC-ND 4.0
+idmt_guitar/reggae_3/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__reggae_ska__audio__reggae_3_120BPM_00.wav,idmt_guitar,reggae_3,val,pool,22.09,CC BY-NC-ND 4.0
+idmt_guitar/classical_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__classical__audio__classical_8_100BPM_00.wav,idmt_guitar,classical_8,val,pool,18.991,CC BY-NC-ND 4.0
+idmt_guitar/country_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__country_folk__audio__country_3_100BPM_00.wav,idmt_guitar,country_3,train,pool,38.183,CC BY-NC-ND 4.0
+idmt_guitar/pop_8/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__pop__audio__pop_8_85BPM_00.wav,idmt_guitar,pop_8,train,pool,29.437,CC BY-NC-ND 4.0
+idmt_guitar/latin_5/IDMT-SMT-GUITAR_V2__dataset4__Career SG__fast__latin__audio__latin_5_180BPM_00.wav,idmt_guitar,latin_5,train,pool,13.394,CC BY-NC-ND 4.0
+idmt_guitar/rock_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__rock_blues__audio__rock_1_120BPM_00.wav,idmt_guitar,rock_1,test,pool,22.54,CC BY-NC-ND 4.0
+idmt_guitar/jazz_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__jazz__audio__jazz_5_100BPM_00.wav,idmt_guitar,jazz_5,test,pool,5.697,CC BY-NC-ND 4.0
+idmt_guitar/jazz_5/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__jazz__audio__jazz_5_100BPM_01.wav,idmt_guitar,jazz_5,test,pool,6.897,CC BY-NC-ND 4.0
+idmt_guitar/ska_4/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__reggae_ska__audio__ska_4_150BPM_00.wav,idmt_guitar,ska_4,train,pool,12.844,CC BY-NC-ND 4.0
+idmt_guitar/metal_3/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__metal__audio__metal_3_100BPM_00.wav,idmt_guitar,metal_3,train,pool,19.191,CC BY-NC-ND 4.0
+idmt_guitar/classical_4/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__classical__audio__classical_4_80BPM_00.wav,idmt_guitar,classical_4,val,pool,15.643,CC BY-NC-ND 4.0
+idmt_guitar/classical_2/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__classical__audio__classical_2_60BPM_00.wav,idmt_guitar,classical_2,val,pool,32.035,CC BY-NC-ND 4.0
+idmt_guitar/ska_3/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__fast__reggae_ska__audio__ska_3_180BPM_00.wav,idmt_guitar,ska_3,train,pool,13.444,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_00.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_01.wav,idmt_guitar,jazz_8,train,pool,3.848,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_02.wav,idmt_guitar,jazz_8,train,pool,3.948,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_03.wav,idmt_guitar,jazz_8,train,pool,3.998,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_04.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_05.wav,idmt_guitar,jazz_8,train,pool,3.898,CC BY-NC-ND 4.0
+idmt_guitar/jazz_8/IDMT-SMT-GUITAR_V2__dataset4__Career SG__slow__jazz__audio__jazz_8_110BPM_06.wav,idmt_guitar,jazz_8,train,pool,6.347,CC BY-NC-ND 4.0
+idmt_guitar/latin_7/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__latin__audio__latin_7_130BPM_00.wav,idmt_guitar,latin_7,test,pool,34.184,CC BY-NC-ND 4.0
+idmt_guitar/rock_8/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__rock_blues__audio__rock_8_100BPM_00.wav,idmt_guitar,rock_8,train,pool,28.837,CC BY-NC-ND 4.0
+idmt_guitar/jazz_1/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__fast__jazz__audio__jazz_1_180BPM_00.wav,idmt_guitar,jazz_1,train,pool,26.688,CC BY-NC-ND 4.0
+idmt_guitar/metal_6/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__metal__audio__metal_6_110BPM_00.wav,idmt_guitar,metal_6,train,pool,24.439,CC BY-NC-ND 4.0
+idmt_guitar/latin_1/IDMT-SMT-GUITAR_V2__dataset4__Ibanez 2820__slow__latin__audio__latin_1_160BPM_00.wav,idmt_guitar,latin_1,val,pool,11.995,CC BY-NC-ND 4.0
+idmt_guitar/metal_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__metal__audio__metal_2_150BPM_00.wav,idmt_guitar,metal_2,train,pool,2.499,CC BY-NC-ND 4.0
+idmt_guitar/metal_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__metal__audio__metal_2_150BPM_01.wav,idmt_guitar,metal_2,train,pool,18.741,CC BY-NC-ND 4.0
+idmt_guitar/latin_2/IDMT-SMT-GUITAR_V2__dataset4__acoustic_pickup__slow__latin__audio__latin_2_100BPM_00.wav,idmt_guitar,latin_2,train,pool,23.14,CC BY-NC-ND 4.0
+guitarset/player01/01_Rock3-117-Bb_solo_mix_00.wav,guitarset,player01,val,pool,17.292,MIT (to confirm)
+guitarset/player01/01_Rock3-117-Bb_solo_mix_01.wav,guitarset,player01,val,pool,15.143,MIT (to confirm)
+guitarset/player00/00_Jazz3-137-Eb_solo_mix_00.wav,guitarset,player00,train,pool,27.987,MIT (to confirm)
+guitarset/player02/02_Jazz3-137-Eb_solo_mix_00.wav,guitarset,player02,train,pool,16.592,MIT (to confirm)
+guitarset/player02/02_Jazz3-137-Eb_solo_mix_01.wav,guitarset,player02,train,pool,10.195,MIT (to confirm)
+guitarset/player05/05_Jazz1-130-D_comp_mix_00.wav,guitarset,player05,test,pool,3.049,MIT (to confirm)
+guitarset/player05/05_Jazz1-130-D_comp_mix_01.wav,guitarset,player05,test,pool,2.549,MIT (to confirm)
+guitarset/player05/05_Jazz1-130-D_comp_mix_02.wav,guitarset,player05,test,pool,3.299,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_00.wav,guitarset,player03,train,pool,2.899,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_01.wav,guitarset,player03,train,pool,5.448,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_02.wav,guitarset,player03,train,pool,2.349,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_03.wav,guitarset,player03,train,pool,6.697,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_04.wav,guitarset,player03,train,pool,8.096,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_solo_mix_05.wav,guitarset,player03,train,pool,9.896,MIT (to confirm)
+guitarset/player04/04_Rock1-90-C#_comp_mix_00.wav,guitarset,player04,train,pool,31.985,MIT (to confirm)
+guitarset/player01/01_Funk1-114-Ab_comp_mix_00.wav,guitarset,player01,val,pool,25.239,MIT (to confirm)
+guitarset/player00/00_Jazz2-110-Bb_comp_mix_00.wav,guitarset,player00,train,pool,8.846,MIT (to confirm)
+guitarset/player00/00_Jazz2-110-Bb_comp_mix_01.wav,guitarset,player00,train,pool,25.538,MIT (to confirm)
+guitarset/player02/02_Jazz2-110-Bb_comp_mix_00.wav,guitarset,player02,train,pool,34.884,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_00.wav,guitarset,player03,train,pool,5.997,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_01.wav,guitarset,player03,train,pool,2.649,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_02.wav,guitarset,player03,train,pool,4.848,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_03.wav,guitarset,player03,train,pool,2.449,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_04.wav,guitarset,player03,train,pool,3.249,MIT (to confirm)
+guitarset/player03/03_Jazz3-137-Eb_comp_mix_05.wav,guitarset,player03,train,pool,3.149,MIT (to confirm)
+guitarset/player04/04_Funk1-114-Ab_comp_mix_00.wav,guitarset,player04,train,pool,25.239,MIT (to confirm)
+guitarset/player01/01_Rock1-90-C#_solo_mix_00.wav,guitarset,player01,val,pool,4.398,MIT (to confirm)
+guitarset/player01/01_Rock1-90-C#_solo_mix_01.wav,guitarset,player01,val,pool,11.295,MIT (to confirm)
+guitarset/player01/01_Rock1-90-C#_solo_mix_02.wav,guitarset,player01,val,pool,13.694,MIT (to confirm)
+guitarset/player00/00_Jazz2-187-F#_comp_mix_00.wav,guitarset,player00,train,pool,20.441,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_00.wav,guitarset,player02,train,pool,3.249,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_01.wav,guitarset,player02,train,pool,9.396,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_02.wav,guitarset,player02,train,pool,3.249,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_03.wav,guitarset,player02,train,pool,2.999,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_04.wav,guitarset,player02,train,pool,3.698,MIT (to confirm)
+guitarset/player02/02_Funk2-119-G_solo_mix_05.wav,guitarset,player02,train,pool,3.748,MIT (to confirm)
+guitarset/player05/05_Rock3-148-C_comp_mix_00.wav,guitarset,player05,test,pool,25.738,MIT (to confirm)
+guitarset/player03/03_Funk2-119-G_solo_mix_00.wav,guitarset,player03,train,pool,18.442,MIT (to confirm)
+guitarset/player03/03_Funk2-119-G_solo_mix_01.wav,guitarset,player03,train,pool,12.594,MIT (to confirm)
+guitarset/player04/04_Jazz3-137-Eb_solo_mix_00.wav,guitarset,player04,train,pool,8.146,MIT (to confirm)
+guitarset/player04/04_Jazz3-137-Eb_solo_mix_01.wav,guitarset,player04,train,pool,19.341,MIT (to confirm)
+guitarset/player01/01_SS1-68-E_comp_mix_00.wav,guitarset,player01,val,pool,42.331,MIT (to confirm)
+guitarset/player00/00_Rock1-130-A_comp_mix_00.wav,guitarset,player00,train,pool,22.14,MIT (to confirm)
+guitarset/player02/02_Jazz1-130-D_comp_mix_00.wav,guitarset,player02,train,pool,22.14,MIT (to confirm)
+guitarset/player05/05_Rock1-90-C#_comp_mix_00.wav,guitarset,player05,test,pool,10.295,MIT (to confirm)
+guitarset/player05/05_Rock1-90-C#_comp_mix_01.wav,guitarset,player05,test,pool,10.045,MIT (to confirm)
+guitarset/player05/05_Rock1-90-C#_comp_mix_02.wav,guitarset,player05,test,pool,10.695,MIT (to confirm)
+guitarset/player03/03_Funk1-97-C_comp_mix_00.wav,guitarset,player03,train,pool,29.387,MIT (to confirm)
+guitarset/player04/04_SS3-98-C_comp_mix_00.wav,guitarset,player04,train,pool,39.132,MIT (to confirm)
+guitarset/player01/01_Jazz3-150-C_solo_mix_00.wav,guitarset,player01,val,pool,22.94,MIT (to confirm)
+guitarset/player00/00_Jazz1-200-B_solo_mix_00.wav,guitarset,player00,train,pool,14.393,MIT (to confirm)
+guitarset/player02/02_Funk3-112-C#_solo_mix_00.wav,guitarset,player02,train,pool,3.898,MIT (to confirm)
+guitarset/player02/02_Funk3-112-C#_solo_mix_01.wav,guitarset,player02,train,pool,12.244,MIT (to confirm)
+guitarset/player02/02_Funk3-112-C#_solo_mix_02.wav,guitarset,player02,train,pool,16.992,MIT (to confirm)
+guitarset/player05/05_Jazz3-137-Eb_comp_mix_00.wav,guitarset,player05,test,pool,27.987,MIT (to confirm)
+guitarset/player03/03_Jazz2-187-F#_comp_mix_00.wav,guitarset,player03,train,pool,13.894,MIT (to confirm)
+guitarset/player03/03_Jazz2-187-F#_comp_mix_01.wav,guitarset,player03,train,pool,6.097,MIT (to confirm)
+guitarset/player04/04_Funk2-108-Eb_solo_mix_00.wav,guitarset,player04,train,pool,25.688,MIT (to confirm)
+guitarset/player04/04_Funk2-108-Eb_solo_mix_01.wav,guitarset,player04,train,pool,9.446,MIT (to confirm)
+guitarset/player01/01_Jazz1-130-D_solo_mix_00.wav,guitarset,player01,val,pool,3.348,MIT (to confirm)
+guitarset/player01/01_Jazz1-130-D_solo_mix_01.wav,guitarset,player01,val,pool,13.544,MIT (to confirm)
+guitarset/player00/00_Funk1-114-Ab_comp_mix_00.wav,guitarset,player00,train,pool,20.891,MIT (to confirm)
+guitarset/player00/00_Funk1-114-Ab_comp_mix_01.wav,guitarset,player00,train,pool,3.948,MIT (to confirm)
+guitarset/player02/02_Jazz1-200-B_comp_mix_00.wav,guitarset,player02,train,pool,14.393,MIT (to confirm)
+guitarset/player05/05_Funk3-98-A_solo_mix_00.wav,guitarset,player05,test,pool,8.146,MIT (to confirm)
+guitarset/player05/05_Funk3-98-A_solo_mix_01.wav,guitarset,player05,test,pool,3.948,MIT (to confirm)
+guitarset/player05/05_Funk3-98-A_solo_mix_02.wav,guitarset,player05,test,pool,3.848,MIT (to confirm)
+guitarset/player05/05_Funk3-98-A_solo_mix_03.wav,guitarset,player05,test,pool,3.149,MIT (to confirm)
+guitarset/player05/05_Funk3-98-A_solo_mix_04.wav,guitarset,player05,test,pool,6.597,MIT (to confirm)
+guitarset/player03/03_Rock2-85-F_comp_mix_00.wav,guitarset,player03,train,pool,45.13,MIT (to confirm)
+guitarset/player04/04_BN2-131-B_comp_mix_00.wav,guitarset,player04,train,pool,29.187,MIT (to confirm)
+guitarset/player01/01_SS3-84-Bb_solo_mix_00.wav,guitarset,player01,val,pool,5.398,MIT (to confirm)
+guitarset/player01/01_SS3-84-Bb_solo_mix_01.wav,guitarset,player01,val,pool,17.992,MIT (to confirm)
+guitarset/player01/01_SS3-84-Bb_solo_mix_02.wav,guitarset,player01,val,pool,4.298,MIT (to confirm)
+guitarset/player01/01_SS3-84-Bb_solo_mix_03.wav,guitarset,player01,val,pool,16.393,MIT (to confirm)
+guitarset/player00/00_SS1-68-E_solo_mix_00.wav,guitarset,player00,train,pool,42.331,MIT (to confirm)
+guitarset/player02/02_Rock2-142-D_comp_mix_00.wav,guitarset,player02,train,pool,27.038,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_00.wav,guitarset,player05,test,pool,3.998,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_01.wav,guitarset,player05,test,pool,3.498,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_02.wav,guitarset,player05,test,pool,8.446,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_03.wav,guitarset,player05,test,pool,3.948,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_04.wav,guitarset,player05,test,pool,4.198,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_05.wav,guitarset,player05,test,pool,4.198,MIT (to confirm)
+guitarset/player05/05_SS2-88-F_solo_mix_06.wav,guitarset,player05,test,pool,7.097,MIT (to confirm)
+guitarset/player03/03_Funk1-114-Ab_solo_mix_00.wav,guitarset,player03,train,pool,6.647,MIT (to confirm)
+guitarset/player03/03_Funk1-114-Ab_solo_mix_01.wav,guitarset,player03,train,pool,11.895,MIT (to confirm)
+guitarset/player04/04_Rock3-148-C_solo_mix_00.wav,guitarset,player04,train,pool,3.798,MIT (to confirm)
+guitarset/player04/04_Rock3-148-C_solo_mix_01.wav,guitarset,player04,train,pool,20.041,MIT (to confirm)
+guitarset/player01/01_Rock3-117-Bb_comp_mix_00.wav,guitarset,player01,val,pool,32.785,MIT (to confirm)
+guitarset/player00/00_BN2-131-B_solo_mix_00.wav,guitarset,player00,train,pool,29.287,MIT (to confirm)
+guitarset/player02/02_SS1-100-C#_comp_mix_00.wav,guitarset,player02,train,pool,28.787,MIT (to confirm)
+guitarset/player05/05_Jazz2-187-F#_comp_mix_00.wav,guitarset,player05,test,pool,20.491,MIT (to confirm)
+guitarset/player03/03_Funk1-114-Ab_comp_mix_00.wav,guitarset,player03,train,pool,24.839,MIT (to confirm)
+guitarset/player04/04_BN2-166-Ab_comp_mix_00.wav,guitarset,player04,train,pool,23.04,MIT (to confirm)
+guitarset/player01/01_BN3-119-G_comp_mix_00.wav,guitarset,player01,val,pool,31.736,MIT (to confirm)
+guitarset/player00/00_Funk2-108-Eb_comp_mix_00.wav,guitarset,player00,train,pool,35.534,MIT (to confirm)
+guitarset/player02/02_BN1-129-Eb_solo_mix_00.wav,guitarset,player02,train,pool,22.29,MIT (to confirm)
+guitarset/player05/05_SS3-84-Bb_solo_mix_00.wav,guitarset,player05,test,pool,7.147,MIT (to confirm)
+guitarset/player05/05_SS3-84-Bb_solo_mix_01.wav,guitarset,player05,test,pool,4.948,MIT (to confirm)
+guitarset/player05/05_SS3-84-Bb_solo_mix_02.wav,guitarset,player05,test,pool,8.096,MIT (to confirm)
+guitarset/player05/05_SS3-84-Bb_solo_mix_03.wav,guitarset,player05,test,pool,7.497,MIT (to confirm)
+guitarset/player05/05_SS3-84-Bb_solo_mix_04.wav,guitarset,player05,test,pool,13.344,MIT (to confirm)
+guitarset/player03/03_Rock3-148-C_comp_mix_00.wav,guitarset,player03,train,pool,25.938,MIT (to confirm)
+guitarset/player04/04_SS1-100-C#_solo_mix_00.wav,guitarset,player04,train,pool,7.946,MIT (to confirm)
+guitarset/player04/04_SS1-100-C#_solo_mix_01.wav,guitarset,player04,train,pool,3.748,MIT (to confirm)
+guitarset/player04/04_SS1-100-C#_solo_mix_02.wav,guitarset,player04,train,pool,8.246,MIT (to confirm)
+guitarset/player04/04_SS1-100-C#_solo_mix_03.wav,guitarset,player04,train,pool,4.448,MIT (to confirm)
+guitarset/player01/01_BN3-119-G_solo_mix_00.wav,guitarset,player01,val,pool,16.692,MIT (to confirm)
+guitarset/player01/01_BN3-119-G_solo_mix_01.wav,guitarset,player01,val,pool,14.893,MIT (to confirm)
+guitarset/player00/00_BN1-129-Eb_solo_mix_00.wav,guitarset,player00,train,pool,22.29,MIT (to confirm)
+guitarset/player02/02_Funk1-97-C_solo_mix_00.wav,guitarset,player02,train,pool,27.637,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_solo_mix_00.wav,guitarset,player05,test,pool,3.299,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_solo_mix_01.wav,guitarset,player05,test,pool,4.648,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_solo_mix_02.wav,guitarset,player05,test,pool,2.549,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_solo_mix_03.wav,guitarset,player05,test,pool,5.348,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_solo_mix_04.wav,guitarset,player05,test,pool,3.099,MIT (to confirm)
+guitarset/player03/03_Funk2-108-Eb_comp_mix_00.wav,guitarset,player03,train,pool,35.484,MIT (to confirm)
+guitarset/player04/04_Rock3-148-C_comp_mix_00.wav,guitarset,player04,train,pool,25.938,MIT (to confirm)
+guitarset/player01/01_Rock2-142-D_comp_mix_00.wav,guitarset,player01,val,pool,27.038,MIT (to confirm)
+guitarset/player00/00_SS2-107-Ab_solo_mix_00.wav,guitarset,player00,train,pool,35.884,MIT (to confirm)
+guitarset/player02/02_Rock1-90-C#_solo_mix_00.wav,guitarset,player02,train,pool,31.985,MIT (to confirm)
+guitarset/player05/05_Funk1-97-C_comp_mix_00.wav,guitarset,player05,test,pool,3.398,MIT (to confirm)
+guitarset/player03/03_Jazz1-130-D_comp_mix_00.wav,guitarset,player03,train,pool,3.748,MIT (to confirm)
+guitarset/player03/03_Jazz1-130-D_comp_mix_01.wav,guitarset,player03,train,pool,7.147,MIT (to confirm)
+guitarset/player03/03_Jazz1-130-D_comp_mix_02.wav,guitarset,player03,train,pool,3.648,MIT (to confirm)
+guitarset/player04/04_SS3-84-Bb_comp_mix_00.wav,guitarset,player04,train,pool,45.679,MIT (to confirm)

@@ -90,7 +90,8 @@ real file names (`python/inspect_raw.py`). Unexpected names are an error.
 
 ## Dry preparation (`python/prepare_dry.py`)
 
-1. Read, downmix to mono, resample to 22.05 kHz.
+1. Read, downmix to mono, resample to 22.05 kHz. Raw files with more than
+   100 full-scale samples (real clipping) are skipped.
 2. Peak-normalise the file, then mark 50 ms frames below -45 dBFS RMS as
    silent. Active runs closer than 0.3 s are merged. Runs shorter than 2.2 s
    are dropped. Each run becomes one segment.
@@ -108,6 +109,8 @@ real file names (`python/inspect_raw.py`). Unexpected names are an error.
   seeded. A source that is already in it is never re-split; a new group in an
   existing source is an error.
 - Pool sources: 70/15/15 of groups, at least one group in val and test.
+- VocalSet is stratified by voice (female/male), so each split gets both:
+  train 6 F + 8 M, val 1 F + 2 M, test 2 F + 1 M.
 - Held-out sources: every group is `heldout`.
 - A test asserts that no group appears in two splits.
 

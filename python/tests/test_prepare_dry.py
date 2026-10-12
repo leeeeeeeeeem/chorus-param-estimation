@@ -53,6 +53,14 @@ def test_assign_splits():
         assign_splits(["a", "b"], "pool", 0)
 
 
+def test_stratified_split_spreads_voices():
+    groups = [f"female{i}" for i in range(1, 10)] + [f"male{i}" for i in range(1, 12)]
+    for seed in range(5):
+        s = assign_splits(groups, "pool", seed, stratum=lambda g: g.rstrip("0123456789"))
+        count = lambda split, voice: sum(v == split and g.startswith(voice) for g, v in s.items())  # noqa: E731
+        assert [count(sp, v) for sp in ("train", "val", "test") for v in ("female", "male")] == [6, 8, 1, 2, 2, 1]
+
+
 def test_check_splits_catches_a_group_in_two_splits():
     splits = {"synth": {"g0": "train"}}
     rows = [dict(source="synth", group_id="g0", split="train"), dict(source="synth", group_id="g0", split="val")]
@@ -87,6 +95,17 @@ def test_end_to_end(raw_data):
 
     stats = list(csv.DictReader(open(raw_data / "dry" / "stats.csv")))
     assert all(int(s["raw_clipped"]) == 0 for s in stats)
+
+
+def test_heavily_clipped_files_are_skipped(raw_data):
+    t = np.arange(4 * 44100) / 44100
+    sf.write(raw_data / "raw" / "synth" / "g0" / "clipped.wav", np.clip(2 * np.sin(2 * np.pi * 220 * t), -1, 1), 44100)
+    cfg = TEST_SOURCES["synth"] | dict(target_min=10)  # big enough to read every file
+    rows, stats, _ = prepare_dry.prepare_source("synth", cfg, raw_data, 0)
+    clipped = [st for st in stats if st["raw_file"] == "g0/clipped.wav"]
+    assert len(clipped) == 1 and clipped[0]["raw_clipped"] > 100 and clipped[0]["duration_kept"] == 0
+    assert not any("clipped" in r["file"] for r in rows)
+    assert all(st["duration_kept"] > 0 for st in stats if st["raw_file"] != "g0/clipped.wav")
 
 
 def test_rerun_keeps_splits_and_rejects_new_groups(raw_data):

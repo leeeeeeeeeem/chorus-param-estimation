@@ -11,6 +11,7 @@ import json
 import random
 import shutil
 import zlib
+from collections import Counter
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +26,7 @@ MIN_SEGMENT = 2.2
 TARGET_RMS_DB = -20.0
 PEAK_DB = -1.0
 VAL_FRAC = TEST_FRAC = 0.15
+MAX_CLIPPED = 100  # raw files with more full-scale samples are skipped
 
 MANIFEST_COLS = ["file", "source", "group_id", "split", "role", "duration", "licence"]
 STATS_COLS = ["raw_file", "source", "raw_peak_db", "raw_clipped", "duration_raw", "duration_kept"]
@@ -59,13 +61,23 @@ def source_seed(seed: int, source: str) -> int:
     return seed * 1_000_003 + zlib.crc32(source.encode())
 
 
-def assign_splits(groups: list[str], role: str, seed: int) -> dict[str, str]:
+def assign_splits(groups: list[str], role: str, seed: int, stratum=None) -> dict[str, str]:
+    """stratum(group) -> label: each label is spread evenly over the order,
+    so val and test get a fair share of it."""
     if role == "heldout":
         return {g: "heldout" for g in groups}
     groups = sorted(groups)
     if len(groups) < 3:
         raise ValueError(f"need at least 3 groups for train/val/test, got {groups}")
     random.Random(seed).shuffle(groups)
+    if stratum:
+        size = Counter(stratum(g) for g in groups)
+        seen, pos = Counter(), {}
+        for g in groups:
+            s = stratum(g)
+            pos[g] = (seen[s] + 0.5) / size[s]
+            seen[s] += 1
+        groups.sort(key=pos.get)
     n_val = max(1, round(len(groups) * VAL_FRAC))
     n_test = max(1, round(len(groups) * TEST_FRAC))
     split = {g: "val" for g in groups[:n_val]}
@@ -108,7 +120,7 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
     out = data / "dry" / source
     shutil.rmtree(out, ignore_errors=True)
     target = cfg["target_min"] * 60
-    rows, stats, kept = [], [], 0.0
+    rows, stats, kept, clipped_files = [], [], 0.0, 0
     order = rng.sample(groups, len(groups))
     # One file per group per pass until the target is reached.
     while kept < target and any(queues.values()):
@@ -117,9 +129,11 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
                 continue
             p = queues[g].pop()
             raw, raw_sr = read(p)
+            clipped = int((np.abs(raw) >= 0.999).sum())
             x = to_mono(raw, raw_sr)
             peak = np.abs(x).max()
-            segs = find_segments(x / peak) if peak > 0 else []
+            segs = find_segments(x / peak) if peak > 0 and clipped <= MAX_CLIPPED else []
+            clipped_files += clipped > MAX_CLIPPED
             rel = p.relative_to(root)
             stem = "__".join(rel.with_suffix("").parts)
             for k, (s, e) in enumerate(segs):
@@ -129,11 +143,12 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
                                  role=cfg["role"], duration=round((e - s) / SR, 3), licence=cfg["licence"]))
                 kept += (e - s) / SR
             stats.append(dict(raw_file=str(rel), source=source, raw_peak_db=round(db(np.abs(raw).max()), 2),
-                              raw_clipped=int((np.abs(raw) >= 0.999).sum()),
+                              raw_clipped=clipped,
                               duration_raw=round(len(raw) / raw_sr, 3),
                               duration_kept=round(sum(e - s for s, e in segs) / SR, 3)))
     print(f"{source}: {len(rows)} segments, {kept / 60:.1f} of {cfg['target_min']} min, "
-          f"{len(stats)} files used, {excluded} excluded by parser, {len(groups)} groups")
+          f"{len(stats)} files read, {clipped_files} skipped for clipping, {excluded} excluded by parser, "
+          f"{len(groups)} groups")
     if kept < target:
         print(f"{source}: WARNING ran out of audio below the target")
     return rows, stats, groups
@@ -178,7 +193,7 @@ def main(argv=None, sources=SOURCES) -> None:
                 raise SystemExit(f"{name}: groups {sorted(new)} are not in splits.json. "
                                  f"Remove '{name}' from it to re-split on purpose.")
         else:
-            splits[name] = assign_splits(groups, cfg["role"], source_seed(args.seed, name))
+            splits[name] = assign_splits(groups, cfg["role"], source_seed(args.seed, name), cfg.get("stratum"))
         for r in rows:
             r["split"] = splits[name][r["group_id"]]
         manifest += rows
