@@ -16,7 +16,7 @@ import numpy as np
 import soundfile as sf
 
 from audio import SR, frame_rms_db, write_int16
-from prepare_dry import FRAME, SILENCE_DB
+from prepare_dry import FRAME, MAX_CLIPPED, SILENCE_DB
 
 
 def read_csv(path: Path) -> list[dict]:
@@ -51,7 +51,7 @@ def main(argv=None) -> None:
     stats = defaultdict(list)
     for s in read_csv(args.data / "dry" / "stats.csv"):
         stats[s["source"]].append(s)
-    print(f"{'source':12} {'files':>6} {'clipped':>8} {'worst':>7} {'raw h':>6} {'kept h':>6} "
+    print(f"{'source':12} {'files':>6} {'clipped':>8} {'worst':>7} {'skipped':>8} {'raw h':>6} {'kept h':>6} "
           f"{'dropped':>8} {'silent':>7}  minutes per split")
     for source, rows in sorted(by_source.items()):
         st = stats[source]
@@ -67,9 +67,11 @@ def main(argv=None) -> None:
         for r in rows:
             per_split[r["split"]] += float(r["duration"]) / 60
         print(f"{source:12} {len(st):6d} {sum(c > 0 for c in clipped):8d} {max(clipped, default=0):7d} "
+              f"{sum(c > MAX_CLIPPED for c in clipped):8d} "
               f"{raw_h:6.2f} {kept_h:6.2f} {1 - kept_h / max(raw_h, 1e-9):8.0%} {silent / max(total, 1):7.1%}  "
               + ", ".join(f"{k} {v:.1f}" for k, v in sorted(per_split.items())))
     print("\nclipped: raw files with samples at full scale; worst: most in one file;")
+    print(f"skipped: files not used because they have more than {MAX_CLIPPED} clipped samples;")
     print("dropped: raw time removed as silence; silent: 50 ms frames under "
           f"{SILENCE_DB:.0f} dBFS left inside kept segments.")
 
