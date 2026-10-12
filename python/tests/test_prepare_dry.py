@@ -102,9 +102,38 @@ def test_rerun_keeps_splits_and_rejects_new_groups(raw_data):
 
 
 def test_uninspected_parsers_refuse_to_guess(tmp_path):
-    for name in ("vocalset", "idmt_guitar", "guitarset", "vctk"):
-        with pytest.raises(NotImplementedError):
-            SOURCES[name]["group"](tmp_path / "x.wav", tmp_path)
+    with pytest.raises(NotImplementedError):
+        SOURCES["vctk"]["group"](tmp_path / "x.wav", tmp_path)
+
+
+# Paths copied from the real downloads.
+@pytest.mark.parametrize("source, rel, group", [
+    ("vocalset", "FULL/female2/scales/straight/f2_scales_straight_a.wav", "female2"),
+    ("vocalset", "FULL/male10/scales/fast_piano/scales_c_fast_piano_e.wav", "male10"),
+    ("vocalset", "FULL/male7/arpeggios/vibrato/m7_arpeggios_vibrato_e.wav", None),
+    ("vocalset", "FULL/female1/arpeggios/vibrado/f1_arpeggios_vibrado_a.wav", None),
+    ("vocalset", "FULL/male11/long_tones/trillo/m11_long_trillo_u.wav", None),
+    ("vocalset", "FULL/male7/scales/lip_trill/m7_scales_lip_trill_e.wav", None),
+    ("vocalset", "FULL/female7/excerpts/spoken/f7_dona_spoken.wav", None),
+    ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset4/Career SG/slow/reggae_ska/audio/reggae_4_100BPM.wav", "reggae_4"),
+    ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset4/acoustic_pickup/fast/country_folk/audio/folk_2_75BPM.wav", "folk_2"),
+    ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset4/acoustic_mic/slow/metal/audio/metal_2_150BPM.wav", None),
+    ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset2/audio/AR_Lick11_FN.wav", None),
+    ("guitarset", "04_Funk1-114-Ab_solo_mix.wav", "player04"),
+    ("guitarset", "00_SS1-100-C#_comp_mix.wav", "player00"),
+])
+def test_parsers_on_real_names(tmp_path, source, rel, group):
+    assert SOURCES[source]["group"](tmp_path / rel, tmp_path) == group
+
+
+@pytest.mark.parametrize("source, rel", [
+    ("vocalset", "FULL/female2/scales/f2_scales_a.wav"),
+    ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset4/Career SG/slow/pop/audio/pop_1.wav"),
+    ("guitarset", "player4_Funk1_mix.wav"),
+])
+def test_parsers_reject_unexpected_names(tmp_path, source, rel):
+    with pytest.raises(ValueError):
+        SOURCES[source]["group"](tmp_path / rel, tmp_path)
 
 
 @pytest.mark.skipif(not (REAL_DATA / "splits.json").exists(), reason="real data not prepared yet")

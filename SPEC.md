@@ -73,16 +73,20 @@ All sources must be dry: no reverb, delay, chorus or other effects.
 | own          | heldout | 15-20 min | session | own |
 | vctk         | heldout | ~30 min | speaker  | CC BY 4.0 |
 
-- vocalset: vibrato and trill takes are excluded (baked-in pitch modulation).
-- idmt_guitar: subset 4 only. All six takes of a piece share a group.
-  Never used in demo outputs.
-- guitarset: `audio_mono-pickup_mix` only.
+- vocalset: group is the singer folder. Technique folders `vibrato`,
+  `vibrado` (typo), `trill`, `trillo` and `lip_trill` are excluded (baked-in
+  modulation), and `spoken` too (speech stays unseen until VCTK).
+- idmt_guitar: subset 4 only, without `acoustic_mic` (a microphone, not DI).
+  That leaves 2 tempi x 3 guitars. Group is the piece name (`rock_1`), so all
+  six takes of a piece share a group. Never used in demo outputs.
+- guitarset: `audio_mono-pickup_mix` only. Group is the player (`player04`).
+  All players play the same 30 lead sheets.
 - vctk: v0.92, mic2 only, 12 speakers.
 - synth and own: my files, laid out as `data/raw/synth/<patch>/*.wav` and
   `data/raw/own/<session>/*.wav`. The folder name is the group.
 
 group_id parsing for downloaded sources is written only after looking at the
-real file names (`python/inspect_raw.py`).
+real file names (`python/inspect_raw.py`). Unexpected names are an error.
 
 ## Dry preparation (`python/prepare_dry.py`)
 
