@@ -17,3 +17,15 @@ IDMT-SMT-Guitar is NC-ND: use it for training and evaluation only, never in
 demo outputs (`demo_ok` is false in `dataset/params.csv`).
 
 GuitarSet: MIT per the mirdata loader. To confirm on Zenodo.
+
+## Steps
+
+```sh
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+scripts/download_data.sh                        # plus VCTK, synth and own by hand
+.venv/bin/python python/inspect_raw.py <source> # agree on group_id parsing first
+.venv/bin/python python/prepare_dry.py
+.venv/bin/python python/qc.py                   # listen to data/qc/
+.venv/bin/python python/make_dataset.py
+.venv/bin/pytest                                # includes checks on the real data
+```
