@@ -18,6 +18,7 @@ import numpy as np
 
 from audio import SR, db, frame_rms_db, read, to_mono, write_int16
 from sources import AUDIO_EXTS, SOURCES
+from vibrato import measure as measure_vibrato
 
 FRAME = int(0.05 * SR)
 SILENCE_DB = -45.0
@@ -29,7 +30,8 @@ VAL_FRAC = TEST_FRAC = 0.15
 MAX_CLIPPED = 100  # raw files with more full-scale samples are skipped
 
 MANIFEST_COLS = ["file", "source", "group_id", "split", "role", "duration", "licence"]
-STATS_COLS = ["raw_file", "source", "raw_peak_db", "raw_clipped", "duration_raw", "duration_kept"]
+STATS_COLS = ["raw_file", "source", "raw_peak_db", "raw_clipped", "duration_raw", "duration_kept",
+              "duration_vibrato"]
 
 
 def find_segments(x: np.ndarray) -> list[tuple[int, int]]:
@@ -131,7 +133,7 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
     out = data / "dry" / source
     shutil.rmtree(out, ignore_errors=True)
     target = cfg["target_min"] * 60
-    rows, stats, kept, clipped_files = [], [], 0.0, 0
+    rows, stats, kept, clipped_files, vibrato_s = [], [], 0.0, 0, 0.0
     order = rng.sample(groups, len(groups))
     # One file per group per pass until the target is reached.
     while kept < target and any(queues.values()):
@@ -147,18 +149,28 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
             clipped_files += clipped > MAX_CLIPPED
             rel = p.relative_to(root)
             stem = "__".join(rel.with_suffix("").parts)
+            file_kept = file_vibrato = 0.0
             for k, (s, e) in enumerate(segs):
+                seg = normalise(x[s:e])
+                if "max_vibrato" in cfg:
+                    m, (max_cents, max_periodicity) = measure_vibrato(seg), cfg["max_vibrato"]
+                    if m["extent_cents"] > max_cents and m["periodicity"] > max_periodicity:
+                        file_vibrato += (e - s) / SR
+                        continue
                 f = out / g / f"{stem}_{k:02d}.wav"
-                write_int16(f, normalise(x[s:e]))
+                write_int16(f, seg)
                 rows.append(dict(file=str(f.relative_to(data / "dry")), source=source, group_id=g,
                                  role=cfg["role"], duration=round((e - s) / SR, 3), licence=cfg["licence"]))
-                kept += (e - s) / SR
+                file_kept += (e - s) / SR
+            kept += file_kept
+            vibrato_s += file_vibrato
             stats.append(dict(raw_file=str(rel), source=source, raw_peak_db=round(db(np.abs(raw).max()), 2),
                               raw_clipped=clipped,
                               duration_raw=round(len(raw) / raw_sr, 3),
-                              duration_kept=round(sum(e - s for s, e in segs) / SR, 3)))
+                              duration_kept=round(file_kept, 3), duration_vibrato=round(file_vibrato, 3)))
     print(f"{source}: {len(rows)} segments, {kept / 60:.1f} of {cfg['target_min']} min, "
-          f"{len(stats)} files read, {clipped_files} skipped for clipping, {excluded} excluded by parser, "
+          f"{len(stats)} files read, {clipped_files} skipped for clipping, {vibrato_s / 60:.1f} min dropped "
+          f"for vibrato, {excluded} excluded by parser, "
           f"{len(groups)} groups")
     if kept < target:
         print(f"{source}: WARNING ran out of audio below the target")

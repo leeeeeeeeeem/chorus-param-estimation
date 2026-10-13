@@ -73,6 +73,9 @@ All sources must be dry: no reverb, delay, chorus or other effects.
 | own          | heldout | 15-20 min | session | own |
 | vctk         | heldout | ~30 min | speaker  | CC BY 4.0 |
 
+- vocalset: segments with vibrato over 30 cents at periodicity > 0.6 are
+  dropped in prepare (classical singers add vibrato to sustained notes even in
+  kept techniques). The target is filled from other takes.
 - vocalset: group is the singer folder. Technique folders `vibrato`,
   `vibrado` (typo), `trill`, `trillo` and `lip_trill` are excluded (baked-in
   modulation), and `spoken` too (speech stays unseen until VCTK).

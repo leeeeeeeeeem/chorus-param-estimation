@@ -71,7 +71,8 @@ def vctk_gender(speaker: str, root: Path) -> str:
 # stratum(group, root) labels groups that splits and max_groups keep balanced.
 SOURCES = {
     "vocalset": dict(role="pool", licence="CC BY 4.0", target_min=60, group=vocalset_group,
-                     stratum=lambda g, root: g.rstrip("0123456789")),  # female / male
+                     stratum=lambda g, root: g.rstrip("0123456789"),  # female / male
+                     max_vibrato=(30, 0.6)),  # drop segments over 30 cents with periodicity > 0.6
     "idmt_guitar": dict(role="pool", licence="CC BY-NC-ND 4.0", target_min=45, group=idmt_group),
     "guitarset": dict(role="pool", licence="MIT (to confirm)", target_min=30, group=guitarset_group),
     "synth": dict(role="pool", licence="own", target_min=45, group=group_from_folder),

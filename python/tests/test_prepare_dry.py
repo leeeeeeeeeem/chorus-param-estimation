@@ -118,6 +118,21 @@ def test_heavily_clipped_files_are_skipped(raw_data):
     assert all(st["duration_kept"] > 0 for st in stats if st["raw_file"] != "g0/clipped.wav")
 
 
+def test_vibrato_segments_are_dropped_when_configured(raw_data):
+    t = np.arange(4 * 44100) / 44100
+    f = 220 * 2 ** (60 / 1200 * np.sin(2 * np.pi * 5.5 * t))
+    x = sum(np.sin(k * 2 * np.pi * np.cumsum(f) / 44100) / k for k in range(1, 6)) * 0.3
+    sf.write(raw_data / "raw" / "synth" / "g0" / "vibrato.wav", np.concatenate([np.zeros(22050), x]), 44100)
+    cfg = TEST_SOURCES["synth"] | dict(target_min=10)
+    for limit, dropped in [(None, False), ((30, 0.6), True)]:
+        c = cfg | dict(max_vibrato=limit) if limit else cfg
+        rows, stats, _ = prepare_dry.prepare_source("synth", c, raw_data, 0)
+        st = next(st for st in stats if st["raw_file"] == "g0/vibrato.wav")
+        assert any("vibrato" in r["file"] for r in rows) != dropped
+        assert (st["duration_vibrato"] > 3.5) == dropped
+        assert all(st["duration_vibrato"] == 0 for st in stats if st["raw_file"] != "g0/vibrato.wav")
+
+
 def test_rerun_keeps_splits_and_rejects_new_groups(raw_data):
     run(raw_data)
     first = (raw_data / "splits.json").read_text()
