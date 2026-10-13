@@ -104,6 +104,15 @@ real file names (`python/inspect_raw.py`). Unexpected names are an error.
    licence) and `data/dry/stats.csv` (raw peak, clipped samples, silence
    dropped).
 
+## Vibrato measurement (`python/measure_vibrato.py`)
+
+pYIN pitch, note changes removed with a 0.68 s median filter, then the
+strongest 3.5 to 9 Hz wobble per voiced run: extent (cents, about 0.75 to 1.1
+of the true value), rate (Hz) and periodicity (share of wobble energy near
+that rate). Speech and fast scales have large extent but low periodicity, so
+both numbers are needed. Results go to `data/dry/vibrato.csv`.
+`--calibrate` measures the VocalSet technique folders as a reference.
+
 ## Splits
 
 - `data/splits.json` maps source -> group -> split. It is written once,
