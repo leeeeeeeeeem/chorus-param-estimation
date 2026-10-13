@@ -96,6 +96,19 @@ def check_splits(rows: list[dict], splits: dict) -> None:
             raise AssertionError(f"{key} is in more than one split")
 
 
+def select_groups(groups: list[str], cfg: dict, rng: random.Random, root: Path) -> list[str]:
+    """Keeps max_groups groups, the same number from each stratum if there is one."""
+    n = cfg.get("max_groups")
+    if not n or len(groups) <= n:
+        return groups
+    if "stratum" not in cfg:
+        return sorted(rng.sample(groups, n))
+    by: dict[str, list[str]] = {}
+    for g in groups:
+        by.setdefault(cfg["stratum"](g, root), []).append(g)
+    return sorted(g for k in sorted(by) for g in rng.sample(by[k], n // len(by)))
+
+
 def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[dict], list[dict], list[str]]:
     """Writes data/dry/<source>/ and returns (manifest rows without split, stats rows, groups)."""
     root = data / "raw" / source
@@ -112,9 +125,7 @@ def prepare_source(source: str, cfg: dict, data: Path, seed: int) -> tuple[list[
         raise ValueError(f"{source}: no audio found in {root}")
 
     rng = random.Random(source_seed(seed, source))
-    groups = sorted(by_group)
-    if "max_groups" in cfg and len(groups) > cfg["max_groups"]:
-        groups = sorted(rng.sample(groups, cfg["max_groups"]))
+    groups = select_groups(sorted(by_group), cfg, rng, root)
     queues = {g: rng.sample(by_group[g], len(by_group[g])) for g in groups}
 
     out = data / "dry" / source
@@ -193,7 +204,9 @@ def main(argv=None, sources=SOURCES) -> None:
                 raise SystemExit(f"{name}: groups {sorted(new)} are not in splits.json. "
                                  f"Remove '{name}' from it to re-split on purpose.")
         else:
-            splits[name] = assign_splits(groups, cfg["role"], source_seed(args.seed, name), cfg.get("stratum"))
+            root = args.data / "raw" / name
+            stratum = (lambda g: cfg["stratum"](g, root)) if "stratum" in cfg else None
+            splits[name] = assign_splits(groups, cfg["role"], source_seed(args.seed, name), stratum)
         for r in rows:
             r["split"] = splits[name][r["group_id"]]
         manifest += rows
