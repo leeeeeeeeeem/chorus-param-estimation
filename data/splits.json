@@ -73,6 +73,20 @@
   "ska_3": "train",
   "ska_4": "train"
  },
+ "vctk": {
+  "p237": "heldout",
+  "p243": "heldout",
+  "p244": "heldout",
+  "p254": "heldout",
+  "p257": "heldout",
+  "p258": "heldout",
+  "p259": "heldout",
+  "p265": "heldout",
+  "p274": "heldout",
+  "p294": "heldout",
+  "p306": "heldout",
+  "p351": "heldout"
+ },
  "vocalset": {
   "female1": "train",
   "female2": "val",
