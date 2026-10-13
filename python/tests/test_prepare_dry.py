@@ -1,5 +1,6 @@
 import csv
 import json
+import random
 
 import numpy as np
 import pytest
@@ -61,6 +62,15 @@ def test_stratified_split_spreads_voices():
         assert [count(sp, v) for sp in ("train", "val", "test") for v in ("female", "male")] == [6, 8, 1, 2, 2, 1]
 
 
+def test_max_groups_takes_equal_numbers_per_gender(tmp_path):
+    speakers = {f"p{100 + i}": "F" if i < 14 else "M" for i in range(20)}
+    (tmp_path / "speaker-info.txt").write_text(
+        "ID  AGE  GENDER  ACCENTS\n" + "".join(f"{s}  22  {g}    English\n" for s, g in speakers.items()))
+    for seed in range(5):
+        chosen = prepare_dry.select_groups(sorted(speakers), SOURCES["vctk"], random.Random(seed), tmp_path)
+        assert len(chosen) == 12 and sum(speakers[s] == "F" for s in chosen) == 6
+
+
 def test_check_splits_catches_a_group_in_two_splits():
     splits = {"synth": {"g0": "train"}}
     rows = [dict(source="synth", group_id="g0", split="train"), dict(source="synth", group_id="g0", split="val")]
@@ -120,11 +130,6 @@ def test_rerun_keeps_splits_and_rejects_new_groups(raw_data):
         run(raw_data, "synth")
 
 
-def test_uninspected_parsers_refuse_to_guess(tmp_path):
-    with pytest.raises(NotImplementedError):
-        SOURCES["vctk"]["group"](tmp_path / "x.wav", tmp_path)
-
-
 # Paths copied from the real downloads.
 @pytest.mark.parametrize("source, rel, group", [
     ("vocalset", "FULL/female2/scales/straight/f2_scales_straight_a.wav", "female2"),
@@ -140,6 +145,9 @@ def test_uninspected_parsers_refuse_to_guess(tmp_path):
     ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset2/audio/AR_Lick11_FN.wav", None),
     ("guitarset", "04_Funk1-114-Ab_solo_mix.wav", "player04"),
     ("guitarset", "00_SS1-100-C#_comp_mix.wav", "player00"),
+    ("vctk", "wav48_silence_trimmed/p236/p236_433_mic2.flac", "p236"),
+    ("vctk", "wav48_silence_trimmed/s5/s5_012_mic2.flac", "s5"),
+    ("vctk", "wav48_silence_trimmed/p236/p236_433_mic1.flac", None),
 ])
 def test_parsers_on_real_names(tmp_path, source, rel, group):
     assert SOURCES[source]["group"](tmp_path / rel, tmp_path) == group
@@ -149,6 +157,8 @@ def test_parsers_on_real_names(tmp_path, source, rel, group):
     ("vocalset", "FULL/female2/scales/f2_scales_a.wav"),
     ("idmt_guitar", "IDMT-SMT-GUITAR_V2/dataset4/Career SG/slow/pop/audio/pop_1.wav"),
     ("guitarset", "player4_Funk1_mix.wav"),
+    ("vctk", "wav48_silence_trimmed/p236/p237_433_mic2.flac"),
+    ("vctk", "wav48/p236/p236_433_mic2.flac"),
 ])
 def test_parsers_reject_unexpected_names(tmp_path, source, rel):
     with pytest.raises(ValueError):
