@@ -49,9 +49,9 @@ pub fn start_phase(p: &Params, sample_rate: f32) -> f32 {
     (p.lfo_phase as f64 - advance).rem_euclid(1.0) as f32
 }
 
-/// Renders the left output of a fresh `Chorus` with mono `dry` on both inputs.
-/// Output is `dry.len() - warmup_samples` long.
-pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<f32>, String> {
+/// Renders a fresh `Chorus` with mono `dry` on both inputs. Returns
+/// `[left, right]` frames, `dry.len() - warmup_samples` long.
+pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<[f32; 2]>, String> {
     p.validate()?;
     if p.warmup_samples > dry.len() {
         return Err(format!(
@@ -68,6 +68,11 @@ pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<f32>, Str
     chorus.set_lfo_phase(start_phase(p, sample_rate));
 
     let input = dry.iter().copied().chain(std::iter::repeat_n(0.0, LATENCY_SAMPLES));
-    let mut out: Vec<f32> = input.map(|x| chorus.process(x, x).0).collect();
+    let mut out: Vec<[f32; 2]> = input
+        .map(|x| {
+            let (l, r) = chorus.process(x, x);
+            [l, r]
+        })
+        .collect();
     Ok(out.split_off(p.warmup_samples + LATENCY_SAMPLES))
 }

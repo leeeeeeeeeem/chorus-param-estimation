@@ -68,7 +68,8 @@ def load_crop(path: Path, offset: int, gain_db: float) -> np.ndarray:
 
 
 def render_pair(x: np.ndarray, params: dict, render: Path) -> tuple[np.ndarray, np.ndarray]:
-    """Crop at SR -> (dry, wet) clips at SR, rendered at RENDER_SR.
+    """Crop at SR -> dry (CLIP,) and wet (CLIP, 2) left/right clips at SR,
+    rendered at RENDER_SR.
     Dry and wet take the same up/down path, so mix 0 nulls exactly. render keeps
     the warmup (the phase is stepped back instead), so no resampler edge lands
     at the clip start."""

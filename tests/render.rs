@@ -48,12 +48,16 @@ fn write_i16(path: &PathBuf, samples: &[i16]) {
     w.finalize().unwrap();
 }
 
-fn read_i16(path: &PathBuf) -> Vec<i16> {
-    WavReader::open(path).unwrap().samples::<i16>().map(Result::unwrap).collect()
+/// Reads a stereo int16 WAV as (left, right).
+fn read_stereo_i16(path: &PathBuf) -> (Vec<i16>, Vec<i16>) {
+    let mut reader = WavReader::open(path).unwrap();
+    assert_eq!(reader.spec().channels, 2);
+    let s: Vec<i16> = reader.samples::<i16>().map(Result::unwrap).collect();
+    s.chunks(2).map(|f| (f[0], f[1])).unzip()
 }
 
-/// Runs the `render` binary on int16 samples.
-fn run_bin(name: &str, dry: &[i16], json: &str) -> Vec<i16> {
+/// Runs the `render` binary on int16 samples. Returns (left, right).
+fn run_bin(name: &str, dry: &[i16], json: &str) -> (Vec<i16>, Vec<i16>) {
     let (dry_path, json_path, wet_path) =
         (tmp(&format!("{name}_dry.wav")), tmp(&format!("{name}.json")), tmp(&format!("{name}_wet.wav")));
     write_i16(&dry_path, dry);
@@ -63,11 +67,12 @@ fn run_bin(name: &str, dry: &[i16], json: &str) -> Vec<i16> {
         .status()
         .unwrap();
     assert!(status.success(), "render failed for {name}");
-    read_i16(&wet_path)
+    read_stereo_i16(&wet_path)
 }
 
 // Raw DSP: an impulse comes out at the same index at mix 0, and exactly the
-// set delay later at mix 1 with no depth. Anything else is latency.
+// set delay later at mix 1 with no depth, on both channels. Anything else is
+// latency.
 #[test]
 fn measured_latency_matches_constant() {
     let n = 4000;
@@ -77,11 +82,16 @@ fn measured_latency_matches_constant() {
         chorus.set_depth_ms(0.0);
         chorus.set_delay_ms(20.0);
         chorus.set_mix(mix);
-        let out: Vec<f32> = (0..n)
-            .map(|i| chorus.process(if i == at { 1.0 } else { 0.0 }, 0.0).0)
-            .collect();
-        let latency = argmax_abs(&out) as isize - (at + extra) as isize;
-        assert_eq!(latency, LATENCY_SAMPLES as isize, "mix {mix}");
+        let (left, right): (Vec<f32>, Vec<f32>) = (0..n)
+            .map(|i| {
+                let x = if i == at { 1.0 } else { 0.0 };
+                chorus.process(x, x)
+            })
+            .unzip();
+        for (name, out) in [("left", &left), ("right", &right)] {
+            let latency = argmax_abs(out) as isize - (at + extra) as isize;
+            assert_eq!(latency, LATENCY_SAMPLES as isize, "{name}, mix {mix}");
+        }
     }
 }
 
@@ -93,9 +103,10 @@ fn mix_zero_nulls_against_dry_through_binary() {
         r#"{{"rate_hz": 3.3, "depth_ms": 5.0, "delay_ms": 20.0, "mix": 0.0,
             "lfo_phase": 0.7, "warmup_samples": {warmup}}}"#
     );
-    let wet = run_bin("null", &dry, &json);
-    assert_eq!(wet.len(), dry.len() - warmup);
-    assert_eq!(wet, dry[warmup..], "mix 0 does not null");
+    let (left, right) = run_bin("null", &dry, &json);
+    assert_eq!(left.len(), dry.len() - warmup);
+    assert_eq!(left, dry[warmup..], "mix 0 does not null on the left");
+    assert_eq!(right, dry[warmup..], "mix 0 does not null on the right");
 }
 
 // After warmup trimming, the wet impulse is exactly delay_ms after the dry one.
@@ -108,13 +119,15 @@ fn binary_keeps_alignment_with_warmup() {
         r#"{{"rate_hz": 1.0, "depth_ms": 0.0, "delay_ms": 20.0, "mix": 1.0,
             "lfo_phase": 0.0, "warmup_samples": {warmup}}}"#
     );
-    let wet = run_bin("align", &dry, &json);
-    let peak = (0..wet.len()).max_by_key(|&i| wet[i].unsigned_abs()).unwrap();
-    assert_eq!(peak, 5000 - warmup + DELAY_20MS);
-    assert_eq!(wet[peak], 20000);
+    let (left, right) = run_bin("align", &dry, &json);
+    for wet in [left, right] {
+        let peak = (0..wet.len()).max_by_key(|&i| wet[i].unsigned_abs()).unwrap();
+        assert_eq!(peak, 5000 - warmup + DELAY_20MS);
+        assert_eq!(wet[peak], 20000);
+    }
 }
 
-/// Left channel of the chorus, built from the DSP's own parts with the LFO
+/// One channel of the chorus, built from the DSP's own parts with the LFO
 /// phase set directly.
 fn reference(dry: &[f32], p: &Params, phase: f32) -> Vec<f32> {
     let mut dl = DelayLine::new((SR * ((MAX_DELAY_MS + MAX_DEPTH_MS) / 1000.0)).ceil() as usize);
@@ -133,6 +146,13 @@ fn reference(dry: &[f32], p: &Params, phase: f32) -> Vec<f32> {
         .collect()
 }
 
+/// Both channels: the right LFO runs a quarter cycle ahead of the left.
+fn stereo_reference(dry: &[f32], p: &Params, phase: f32) -> Vec<[f32; 2]> {
+    let left = reference(dry, p, phase);
+    let right = reference(dry, p, phase + 0.25);
+    left.into_iter().zip(right).map(|(l, r)| [l, r]).collect()
+}
+
 #[test]
 fn lfo_starts_at_requested_phase() {
     let dry = noise(30000, 11, 0.9);
@@ -140,7 +160,7 @@ fn lfo_starts_at_requested_phase() {
         let p = params(rate, 5.0, 15.0, 0.8, phase);
         assert_eq!(start_phase(&p, SR), phase, "no warmup, no shift");
         let got = render(&dry, SR, &p).unwrap();
-        assert_eq!(got, reference(&dry, &p, phase), "rate {rate} phase {phase}");
+        assert_eq!(got, stereo_reference(&dry, &p, phase), "rate {rate} phase {phase}");
     }
 }
 
@@ -153,7 +173,7 @@ fn lfo_phase_counts_from_after_warmup() {
         let mut p = params(rate, 5.0, 12.0, 1.0, target);
         p.warmup_samples = warmup;
         let start = start_phase(&p, SR);
-        let expected = reference(&dry, &p, start)[warmup..].to_vec();
+        let expected = stereo_reference(&dry, &p, start)[warmup..].to_vec();
         assert_eq!(render(&dry, SR, &p).unwrap(), expected, "rate {rate}");
 
         // An LFO started at `start` matches one started at the target once
@@ -201,4 +221,13 @@ fn fresh_instance_gives_identical_output() {
     let dry = noise(10000, 17, 0.9);
     let p = params(1.3, 3.0, 9.0, 0.6, 0.4);
     assert_eq!(render(&dry, SR, &p).unwrap(), render(&dry, SR, &p).unwrap());
+}
+
+#[test]
+fn channels_differ_only_with_depth() {
+    let dry = noise(10000, 19, 0.9);
+    let same = render(&dry, SR, &params(1.3, 0.0, 9.0, 0.6, 0.4)).unwrap();
+    assert!(same.iter().all(|[l, r]| l == r), "depth 0 must give identical channels");
+    let wide = render(&dry, SR, &params(1.3, 3.0, 9.0, 0.6, 0.4)).unwrap();
+    assert!(wide.iter().any(|[l, r]| (l - r).abs() > 0.01), "depth 3 ms must give different channels");
 }

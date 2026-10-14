@@ -1,6 +1,6 @@
 //! render <dry.wav> <params.json> <wet.wav>
 //!
-//! Mono WAV in, mono WAV out in the same format (int16 or float32).
+//! Mono WAV in, stereo WAV out (left, right) in the same format (int16 or float32).
 
 use std::process::ExitCode;
 
@@ -28,10 +28,10 @@ fn run(dry_path: &str, params_path: &str, out_path: &str) -> Result<(), String> 
 
     let wet = render(&dry, spec.sample_rate as f32, &params)?;
 
-    let out_spec = WavSpec { channels: 1, ..spec };
+    let out_spec = WavSpec { channels: 2, ..spec };
     let mut writer = WavWriter::create(out_path, out_spec).map_err(|e| format!("{out_path}: {e}"))?;
     let mut clipped = 0;
-    for y in wet {
+    for y in wet.into_iter().flatten() {
         let r = if spec.sample_format == SampleFormat::Int {
             let s = (y * 32768.0).round();
             if !(-32768.0..=32767.0).contains(&s) {

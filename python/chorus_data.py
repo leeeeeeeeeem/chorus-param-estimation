@@ -7,7 +7,15 @@ import numpy as np
 import soundfile as sf
 import torch
 
-MODES = {"dry_wet": ("dry", "wet"), "wet": ("wet",)}
+MODES = ("dry_wet", "wet")
+# How the stereo wet clip is shown to the model, and how many channels it takes.
+WET_VIEWS = {
+    "left": 1,  # left output only
+    "lr": 2,  # left, right
+    "ms": 2,  # mid (L+R)/2, side (L-R)/2
+    "mono": 1,  # mid only: what a mono downmix hears
+    "random_mix": 1,  # a*L + (1-a)*R, a uniform 0..1 per item
+}
 N_FFT = 1024
 HOP = 256
 
@@ -40,13 +48,34 @@ def log_stft(audio: torch.Tensor, window: torch.Tensor) -> torch.Tensor:
     return torch.log(spec.abs() + 1e-5)
 
 
-class ChorusPairs(torch.utils.data.Dataset):
-    """Returns (features, labels): features (C, 513, 173), labels (4,) in [0, 1]."""
+def wet_view(wet: np.ndarray, view: str) -> np.ndarray:
+    """(samples, 2) left/right -> (channels, samples)."""
+    left, right = wet[:, 0], wet[:, 1]
+    if view == "left":
+        return left[None]
+    if view == "lr":
+        return np.stack([left, right])
+    if view == "ms":
+        return np.stack([(left + right) / 2, (left - right) / 2])
+    if view == "mono":
+        return ((left + right) / 2)[None]
+    if view == "random_mix":
+        a = torch.rand(()).item()  # torch RNG: seeded per DataLoader worker
+        return (a * left + (1 - a) * right)[None]
+    raise ValueError(f"view must be one of {list(WET_VIEWS)}")
 
-    def __init__(self, root: Path, split: str, mode: str = "dry_wet"):
+
+class ChorusPairs(torch.utils.data.Dataset):
+    """Returns (features, labels): features (C, 513, 173), labels (4,) in [0, 1].
+    C is the wet view's channels, plus 1 for the dry in dry_wet mode."""
+
+    def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left"):
         if mode not in MODES:
             raise ValueError(f"mode must be one of {list(MODES)}")
-        self.root, self.kinds = Path(root), MODES[mode]
+        if view not in WET_VIEWS:
+            raise ValueError(f"view must be one of {list(WET_VIEWS)}")
+        self.root, self.mode, self.view = Path(root), mode, view
+        self.channels = WET_VIEWS[view] + (mode == "dry_wet")
         with open(self.root / "params.csv", newline="") as f:
             self.rows = [r for r in csv.DictReader(f) if r["split"] == split]
         if not self.rows:
@@ -58,8 +87,10 @@ class ChorusPairs(torch.utils.data.Dataset):
 
     def __getitem__(self, i: int) -> tuple[torch.Tensor, torch.Tensor]:
         r = self.rows[i]
-        audio = np.stack([sf.read(self.root / r["split"] / f"{r['id']}_{k}.wav", dtype="float32")[0]
-                          for k in self.kinds])
-        x = log_stft(torch.from_numpy(audio), self.window)
+        path = self.root / r["split"] / r["id"]
+        audio = wet_view(sf.read(f"{path}_wet.wav", dtype="float32", always_2d=True)[0], self.view)
+        if self.mode == "dry_wet":
+            audio = np.concatenate([sf.read(f"{path}_dry.wav", dtype="float32")[0][None], audio])
+        x = log_stft(torch.from_numpy(np.ascontiguousarray(audio)), self.window)
         y = torch.tensor([scale(n, float(r[n])) for n in LABELS], dtype=torch.float32)
         return x, y

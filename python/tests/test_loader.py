@@ -7,7 +7,7 @@ from torch import nn
 import make_dataset
 import prepare_dry
 from audio import SR
-from chorus_data import LABELS, N_FFT, ChorusPairs, log_stft, scale, unscale
+from chorus_data import LABELS, N_FFT, ChorusPairs, log_stft, scale, unscale, wet_view
 from conftest import REAL_DATA, TEST_SOURCES
 
 SHAPE = (N_FFT // 2 + 1, 173)
@@ -67,17 +67,35 @@ def test_log_stft_peaks_at_the_tone_bin():
     assert spec[0, :, 50:-50].mean(dim=1).argmax().item() == 40
 
 
-@pytest.mark.parametrize("mode, channels", [("dry_wet", 2), ("wet", 1)])
-def test_items(synthetic, mode, channels):
-    ds = ChorusPairs(synthetic, "train", mode)
+def expected_wet(wet, view):
+    left, right = wet[:, 0], wet[:, 1]
+    return {"left": [left], "lr": [left, right], "ms": [(left + right) / 2, (left - right) / 2],
+            "mono": [(left + right) / 2]}[view]
+
+
+@pytest.mark.parametrize("mode", ["dry_wet", "wet"])
+@pytest.mark.parametrize("view", ["left", "lr", "ms", "mono"])
+def test_items(synthetic, mode, view):
+    ds = ChorusPairs(synthetic, "train", mode, view)
     assert len(ds) == 8
     x, y = ds[0]
-    assert x.shape == (channels, *SHAPE) and x.dtype == torch.float32 and torch.isfinite(x).all()
+    assert x.shape == (ds.channels, *SHAPE) and x.dtype == torch.float32 and torch.isfinite(x).all()
     assert y.shape == (4,) and ((0 <= y) & (y <= 1)).all()
     r = ds.rows[0]
     wet = sf.read(synthetic / "train" / f"{r['id']}_wet.wav", dtype="float32")[0]
-    assert torch.equal(x[-1], log_stft(torch.from_numpy(wet)[None], ds.window)[0]), "last channel is wet"
+    dry = sf.read(synthetic / "train" / f"{r['id']}_dry.wav", dtype="float32")[0]
+    signals = ([dry] if mode == "dry_wet" else []) + expected_wet(wet, view)
+    expected = log_stft(torch.from_numpy(np.stack(signals).astype(np.float32)), ds.window)
+    assert torch.allclose(x, expected, atol=1e-5), "channels are dry (if any), then the wet view"
     assert y[3].item() == pytest.approx(float(r["mix"]))
+
+
+def test_random_mix_is_between_left_and_right():
+    left, right = np.ones(100, np.float32), np.zeros(100, np.float32)
+    mixes = {float(wet_view(np.stack([left, right], axis=1), "random_mix")[0, 0]) for _ in range(20)}
+    assert len(mixes) > 10 and all(0 <= a <= 1 for a in mixes)
+    with pytest.raises(ValueError):
+        wet_view(np.stack([left, right], axis=1), "side")
 
 
 def test_dataloader_with_workers(synthetic):
@@ -86,28 +104,30 @@ def test_dataloader_with_workers(synthetic):
     assert [len(x) for x in xs] == [4, 4]
 
 
-def test_bad_mode_and_empty_split(synthetic):
+def test_bad_mode_view_and_empty_split(synthetic):
     with pytest.raises(ValueError):
         ChorusPairs(synthetic, "train", "stereo")
+    with pytest.raises(ValueError):
+        ChorusPairs(synthetic, "train", "wet", "side")
     with pytest.raises(ValueError):
         ChorusPairs(synthetic, "nope")
 
 
-@pytest.mark.parametrize("mode", ["dry_wet", "wet"])
-def test_tiny_model_overfits_one_batch(synthetic, mode):
-    x, y = next(iter(torch.utils.data.DataLoader(ChorusPairs(synthetic, "train", mode), batch_size=8)))
+@pytest.mark.parametrize("mode, view", [("dry_wet", "left"), ("wet", "left"), ("wet", "lr"), ("wet", "ms")])
+def test_tiny_model_overfits_one_batch(synthetic, mode, view):
+    x, y = next(iter(torch.utils.data.DataLoader(ChorusPairs(synthetic, "train", mode, view), batch_size=8)))
     first, last = overfit(x, y)
     assert last < 1e-3 and last < first / 50, (first, last)
 
 
 @has_real
-@pytest.mark.parametrize("mode", ["dry_wet", "wet"])
-def test_real_dataset_batch_and_overfit(mode):
-    channels = len(mode.split("_"))
-    for split in ("train", "val", "test"):
-        x, y = ChorusPairs(REAL, split, mode)[0]
+@pytest.mark.parametrize("mode, view", [("dry_wet", "left"), ("wet", "lr")])
+def test_real_dataset_batch_and_overfit(mode, view):
+    channels = ChorusPairs(REAL, "train", mode, view).channels
+    for split in ("train", "val", "test", "heldout"):
+        x, y = ChorusPairs(REAL, split, mode, view)[0]
         assert x.shape == (channels, *SHAPE) and torch.isfinite(x).all()
-    dl = torch.utils.data.DataLoader(ChorusPairs(REAL, "train", mode), batch_size=16, shuffle=True,
+    dl = torch.utils.data.DataLoader(ChorusPairs(REAL, "train", mode, view), batch_size=16, shuffle=True,
                                      num_workers=4, generator=torch.Generator().manual_seed(0))
     x, y = next(iter(dl))
     assert x.shape == (16, channels, *SHAPE) and ((0 <= y) & (y <= 1)).all()

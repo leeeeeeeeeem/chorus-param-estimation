@@ -34,9 +34,9 @@ def test_rows_files_and_ranges(dataset):
     assert {s: sum(r["split"] == s for r in rows) for s in COUNTS} == COUNTS
     assert len({r["id"] for r in rows}) == len(rows)
     for r in rows:
-        for kind in ("dry", "wet"):
+        for kind, channels in (("dry", 1), ("wet", 2)):
             info = sf.info(out / r["split"] / f"{r['id']}_{kind}.wav")
-            assert (info.samplerate, info.channels, info.frames, info.subtype) == (SR, 1, CLIP, "PCM_16")
+            assert (info.samplerate, info.channels, info.frames, info.subtype) == (SR, channels, CLIP, "PCM_16")
         assert 0.1 <= float(r["rate_hz"]) <= 5 and 0 <= float(r["depth_ms"]) <= 5
         assert 7 <= float(r["delay_ms"]) <= 25 and 0 <= float(r["mix"]) <= 1
         assert 0 <= float(r["lfo_phase"]) < 1 and -12 <= float(r["gain_db"]) <= -1
@@ -87,7 +87,8 @@ def test_mix_zero_pair_nulls(dataset):
     data, _, rows = dataset
     p = dict(rate_hz=3.3, depth_ms=5.0, delay_ms=20.0, mix=0.0, lfo_phase=0.7)
     dry, wet = make_dataset.render_pair(crop_from(data, rows), p, RENDER)
-    assert len(dry) == CLIP and np.array_equal(dry, wet)
+    assert len(dry) == CLIP and wet.shape == (CLIP, 2)
+    assert np.array_equal(dry, wet[:, 0]) and np.array_equal(dry, wet[:, 1])
 
 
 def test_pair_keeps_alignment():
@@ -96,7 +97,8 @@ def test_pair_keeps_alignment():
     p = dict(rate_hz=1.0, depth_ms=0.0, delay_ms=20.0, mix=1.0, lfo_phase=0.0)
     dry, wet = make_dataset.render_pair(x, p, RENDER)
     assert np.argmax(np.abs(dry)) == 1000
-    assert np.argmax(np.abs(wet)) == 1000 + 441  # 20 ms at 22.05 kHz
+    for ch in (0, 1):
+        assert np.argmax(np.abs(wet[:, ch])) == 1000 + 441  # 20 ms at 22.05 kHz
 
 
 def test_lfo_phase_is_at_the_clip_start(dataset, tmp_path):
@@ -108,7 +110,7 @@ def test_lfo_phase_is_at_the_clip_start(dataset, tmp_path):
     sf.write(tmp_path / "in.wav", hi, 2 * SR, subtype="FLOAT")
     (tmp_path / "p.json").write_text(json.dumps(p | {"warmup_samples": 2 * WARMUP}))
     subprocess.run([RENDER, tmp_path / "in.wav", tmp_path / "p.json", tmp_path / "out.wav"], check=True)
-    ref = make_dataset.down(np.concatenate([np.zeros(2 * WARMUP, np.float32), sf.read(tmp_path / "out.wav")[0]]))
+    ref = make_dataset.down(np.concatenate([np.zeros((2 * WARMUP, 2), np.float32), sf.read(tmp_path / "out.wav")[0]]))
     _, wet = make_dataset.render_pair(x, p, RENDER)
     # Away from the reference's artificial edge at the clip start.
     assert np.abs(wet[100:] - ref[WARMUP + 100 : WARMUP + CLIP]).max() < 1e-5

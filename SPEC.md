@@ -36,7 +36,8 @@ Ranges are the plugin's, which match the DSP clamps.
 `render` rejects values outside these ranges instead of letting the DSP clamp
 them, so labels always match what was rendered.
 
-`lfo_phase` is the left LFO phase at the first output sample. It is saved in
+`lfo_phase` is the left LFO phase at the first output sample (the right LFO
+is always a quarter cycle ahead). It is saved in
 the CSV but is not a training target.
 
 Training targets are scaled to [0, 1]: rate on a log scale, the rest linear.
@@ -48,9 +49,15 @@ Known blind spots, kept in the data on purpose:
 
 ## Mono / stereo
 
-Mono. Dry audio is mono. It goes into both DSP inputs (as the plugin does for
-a mono input) and only the left output is kept. The right output only adds a
-fixed 90° LFO offset, so it is left out for now.
+Mono in, stereo out. Dry audio is mono. It goes into both DSP inputs (as the
+plugin does for a mono input), and both outputs are stored: the wet WAV is
+stereo (left, right), the dry WAV mono.
+
+With mono input, L - R = mix * (x[n-dL] - x[n-dR]): the dry cancels, so the
+side channel is pure chorus. It is zero when depth or mix is 0. Real stereo
+sources, a chorus in a mix, or a mono downmix would break that, and the data
+never shows those, so a stereo model must also be evaluated on the `left` and
+`mono` views.
 
 ## Audio
 
@@ -151,10 +158,13 @@ both numbers are needed. Results go to `data/dry/vibrato.csv`.
   `params.csv` and `make_dataset.log`.
 - `params.csv` has a `demo_ok` column, false for idmt_guitar.
 
-Size: about 4.6 GB for all 26k pairs.
+Size: about 6.6 GB for all 26k pairs (mono dry, stereo wet).
 
 ## Features
 
 Log-magnitude STFT computed on CPU in the loader: n_fft 1024, hop 256, Hann.
+The loader picks how the stereo wet is shown (`view`), without re-rendering:
+`left` (default), `lr`, `ms` (mid, side), `mono` (mid only), or `random_mix`
+(a*L + (1-a)*R, a uniform per item). In `dry_wet` mode the dry is channel 0.
 1024 points at 22.05 kHz gives 21.5 Hz bins, enough to see comb notches
 from a 25 ms delay (40 Hz apart).
