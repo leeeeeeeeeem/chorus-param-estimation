@@ -168,3 +168,24 @@ The loader picks how the stereo wet is shown (`view`), without re-rendering:
 (a*L + (1-a)*R, a uniform per item). In `dry_wet` mode the dry is channel 0.
 1024 points at 22.05 kHz gives 21.5 Hz bins, enough to see comb notches
 from a 25 ms delay (40 Hz apart).
+
+## Evaluation (`python/evaluate.py`)
+
+Predictions are a CSV (id, rate_hz, depth_ms, delay_ms, mix), clipped to the
+label ranges. Errors are mean absolute: rate in octaves, depth and delay in
+ms, mix as is, plus the mean over all four on the 0..1 training scale
+(`scaled`). Reported per split, per source, and for the blind spots (mix < 0.1,
+depth < 0.5 ms, rate < 0.3 Hz). Test and held-out are for final numbers only;
+choices are made on val.
+
+## Baselines (`python/baselines.py`, results in `results/`, not in git)
+
+- `mean`: always the training average on the 0..1 scale. Any model must beat
+  it, in both modes.
+- `xcorr`: hand-made, `dry_wet` mode, left channel. Whiten dry and wet with the
+  dry's LPC filter, low-pass at 1 kHz, cross-correlate in 23 ms frames, remove
+  the dry's own autocorrelation (the dry part of the wet), then search the sine
+  path (centre, depth, rate, phase) that collects the most correlation, refine
+  it on the frame peaks, and fit the mix by least squares. Frame length,
+  low-pass and search were tuned on 300 val pairs.
+

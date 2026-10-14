@@ -4,24 +4,13 @@ import soundfile as sf
 import torch
 from torch import nn
 
-import make_dataset
-import prepare_dry
 from audio import SR
 from chorus_data import LABELS, N_FFT, ChorusPairs, log_stft, scale, unscale, wet_view
-from conftest import REAL_DATA, TEST_SOURCES
+from conftest import REAL_DATA
 
 SHAPE = (N_FFT // 2 + 1, 173)
 REAL = REAL_DATA / "dataset"
 has_real = pytest.mark.skipif(not (REAL / "params.csv").exists(), reason="real dataset not built yet")
-
-
-@pytest.fixture
-def synthetic(raw_data):
-    prepare_dry.main(["--data", str(raw_data)], sources=TEST_SOURCES)
-    out = raw_data / "dataset"
-    make_dataset.main(["--data", str(raw_data), "--out", str(out), "--workers", "4",
-                       "--n-train", "8", "--n-val", "2", "--n-test", "2", "--n-heldout", "2"])
-    return out
 
 
 class TinyCNN(nn.Module):

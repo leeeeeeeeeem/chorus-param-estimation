@@ -41,3 +41,16 @@ def raw_data(tmp_path: Path) -> Path:
     write_raw(data, "idmt_guitar", groups=4, files=2, sr=48000, seed=2)
     write_raw(data, "own", groups=2, files=2, seed=3)
     return data
+
+
+@pytest.fixture
+def synthetic(raw_data):
+    """A tiny rendered dataset: 8 train, 2 val, 2 test, 2 heldout pairs."""
+    import make_dataset
+    import prepare_dry
+
+    prepare_dry.main(["--data", str(raw_data)], sources=TEST_SOURCES)
+    out = raw_data / "dataset"
+    make_dataset.main(["--data", str(raw_data), "--out", str(out), "--workers", "4",
+                       "--n-train", "8", "--n-val", "2", "--n-test", "2", "--n-heldout", "2"])
+    return out
