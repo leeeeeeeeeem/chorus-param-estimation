@@ -54,11 +54,23 @@ fixed 90° LFO offset, so it is left out for now.
 
 ## Audio
 
-- 22.05 kHz mono. Clips are 2 s (44100 samples), int16 WAV.
-- Each clip is rendered with 2048 samples (93 ms) of real dry audio before
-  it, longer than the 30 ms max delay, then the warmup is cut. So the wet
-  clip has no silent start.
-- Measured latency of the DSP is 0 samples (tested).
+- Stored audio and features are 22.05 kHz mono. Clips are 2 s (44100 samples),
+  int16 WAV.
+- Rendering happens at 44.1 kHz, the plugin's usual rate. At 22.05 kHz the
+  Hermite interpolation loses up to 7 dB at 8.8 kHz at half-sample delays, and
+  the moving delay turns that into a high-frequency flutter tied to depth x
+  rate. At 44.1 kHz the loss stays under about 1 dB below 11 kHz.
+- Per pair: crop at 22.05 kHz, upsample 2x (`resample_poly`), render as float32,
+  downsample. The stored dry takes the same up/down path, so a mix 0 pair
+  nulls exactly and `dry_wet` cannot learn the resampler.
+- Each clip is rendered with 2048 samples (93 ms at 22.05 kHz) of real dry
+  audio before it and 64 after it, then both are cut. So the wet clip has no
+  silent start and no resampler edge.
+- `render` keeps the warmup in its output (`warmup_samples` 0) and gets the
+  LFO phase stepped back by the warmup instead, so `lfo_phase` in the CSV is the
+  left LFO phase at the first sample of the clip.
+- Measured latency of the DSP is 0 samples, and the resampling adds none
+  (tested).
 
 ## Sources
 

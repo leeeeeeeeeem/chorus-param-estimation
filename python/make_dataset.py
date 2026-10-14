@@ -19,18 +19,21 @@ from pathlib import Path
 
 import numpy as np
 import soundfile as sf
+from scipy.signal import resample_poly
 
 from audio import CLIP, SR, WARMUP, db, write_int16
 from sources import DEMO_EXCLUDED
 
 REPO = Path(__file__).resolve().parents[1]
 SPLITS = ["train", "val", "test", "heldout"]
-NEED = WARMUP + CLIP
+RENDER_SR = 2 * SR  # the plugin's usual rate; stored audio and features stay at SR
+TAIL = 64  # extra samples so resampler edge effects stay outside the clip
+NEED = WARMUP + CLIP + TAIL
 MIN_CROP_RMS_DB = -40.0
 MAX_TRIES = 50
 
 COLS = ["id", "split", "source", "group_id", "dry_source", "crop_offset", "gain_db",
-        "rate_hz", "depth_ms", "delay_ms", "mix", "lfo_phase", "wet_clipped", "demo_ok"]
+        "rate_hz", "depth_ms", "delay_ms", "mix", "lfo_phase", "render_sr", "wet_clipped", "demo_ok"]
 
 log = logging.getLogger("make_dataset")
 
@@ -50,6 +53,40 @@ def sample_params(rng: np.random.Generator) -> dict:
     return p
 
 
+def up(x: np.ndarray) -> np.ndarray:
+    return resample_poly(x, 2, 1, axis=0).astype(np.float32)
+
+
+def down(x: np.ndarray) -> np.ndarray:
+    return resample_poly(x, 1, 2, axis=0).astype(np.float32)
+
+
+def load_crop(path: Path, offset: int, gain_db: float) -> np.ndarray:
+    """NEED samples from offset, scaled so the peak is gain_db."""
+    x = sf.read(path, start=offset, frames=NEED, dtype="float32")[0]
+    return x * 10 ** ((gain_db - db(np.abs(x).max())) / 20)
+
+
+def render_pair(x: np.ndarray, params: dict, render: Path) -> tuple[np.ndarray, np.ndarray]:
+    """Crop at SR -> (dry, wet) clips at SR, rendered at RENDER_SR.
+    Dry and wet take the same up/down path, so mix 0 nulls exactly. render keeps
+    the warmup (the phase is stepped back instead), so no resampler edge lands
+    at the clip start."""
+    hi = up(x)
+    start = (params["lfo_phase"] - WARMUP * params["rate_hz"] / SR) % 1.0
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        sf.write(tmp / "in.wav", hi, RENDER_SR, subtype="FLOAT")
+        (tmp / "p.json").write_text(json.dumps(params | {"lfo_phase": start}))
+        r = subprocess.run([render, tmp / "in.wav", tmp / "p.json", tmp / "out.wav"],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            raise RuntimeError(f"render failed: {r.stderr.strip()}")
+        wet = sf.read(tmp / "out.wav", dtype="float32")[0]
+    clip = slice(WARMUP, WARMUP + CLIP)
+    return down(hi)[clip], down(wet)[clip]
+
+
 def make_pair(job: dict) -> dict:
     """Crops, renders and writes one pair. Returns its params.csv row."""
     rng = np.random.default_rng(job["seed"])
@@ -59,7 +96,7 @@ def make_pair(job: dict) -> dict:
         path = job["dry_root"] / seg["file"]
         offset = int(rng.integers(0, sf.info(path).frames - NEED + 1))
         x, _ = sf.read(path, start=offset, frames=NEED, dtype="float32")
-        if db(np.sqrt(np.mean(x[WARMUP:].astype(np.float64) ** 2))) > MIN_CROP_RMS_DB:
+        if db(np.sqrt(np.mean(x[WARMUP : WARMUP + CLIP].astype(np.float64) ** 2))) > MIN_CROP_RMS_DB:
             break
     else:
         raise RuntimeError(f"{job['id']}: no crop above {MIN_CROP_RMS_DB} dBFS in {MAX_TRIES} tries")
@@ -68,23 +105,15 @@ def make_pair(job: dict) -> dict:
     x = x * 10 ** ((gain_db - db(np.abs(x).max())) / 20)
     params = sample_params(rng)
 
+    dry, wet = render_pair(x, params, job["render"])
     out = job["out"] / job["split"]
-    dry_path, wet_path = out / f"{job['id']}_dry.wav", out / f"{job['id']}_wet.wav"
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        write_int16(tmp / "in.wav", x)
-        (tmp / "p.json").write_text(json.dumps(params | {"warmup_samples": WARMUP}))
-        r = subprocess.run([job["render"], tmp / "in.wav", tmp / "p.json", wet_path],
-                           capture_output=True, text=True)
-        if r.returncode != 0:
-            raise RuntimeError(f"{job['id']}: render failed: {r.stderr.strip()}")
-    write_int16(dry_path, x[WARMUP:])
-
-    wet = sf.read(wet_path, dtype="int16")[0]
-    clipped = int(((wet == 32767) | (wet == -32768)).sum())
+    write_int16(out / f"{job['id']}_dry.wav", dry)
+    write_int16(out / f"{job['id']}_wet.wav", wet)
+    scaled = np.round(wet * 32768)
+    clipped = int(((scaled > 32767) | (scaled < -32768)).sum())
     return dict(id=job["id"], split=job["split"], source=seg["source"], group_id=seg["group_id"],
                 dry_source=seg["file"], crop_offset=offset, gain_db=gain_db,
-                **params,
+                **params, render_sr=RENDER_SR,
                 wet_clipped=clipped, demo_ok=seg["source"] not in DEMO_EXCLUDED)
 
 
