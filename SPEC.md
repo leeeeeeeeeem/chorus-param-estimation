@@ -86,6 +86,9 @@ All sources must be dry: no reverb, delay, chorus or other effects.
   All players play the same 30 lead sheets.
 - vctk: v0.92, mic2 only (p280 and p315 have none). Group is the speaker.
   12 speakers picked with a fixed seed, 6 F and 6 M (`speaker-info.txt`).
+- synth and own are deferred (decided 14 Oct): the first dataset uses
+  vocalset, idmt_guitar, guitarset and vctk only. Synth would join the pool
+  later (re-render and retrain); own recordings only add held-out pairs.
 - synth and own: my files, laid out as `data/raw/synth/<patch>/*.wav` and
   `data/raw/own/<session>/*.wav`. The folder name is the group.
 
