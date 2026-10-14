@@ -33,8 +33,10 @@ class ChorusCNN(nn.Module):
             layers += [nn.Conv2d(c, out, 3, padding=1), nn.BatchNorm2d(out), nn.ReLU(),
                        nn.Conv2d(out, out, 3, padding=1), nn.BatchNorm2d(out), nn.ReLU(), nn.MaxPool2d(2)]
             c = out
-        self.features = nn.Sequential(*layers, nn.AdaptiveAvgPool2d((4, 8)))
-        self.head = nn.Sequential(nn.Flatten(), nn.Linear(c * 32, 256), nn.ReLU(), nn.Dropout(0.3),
+        # 513 x 173 -> 32 x 10 after the blocks -> 4 x 5. MPS only pools to
+        # sizes that divide the input evenly.
+        self.features = nn.Sequential(*layers, nn.AdaptiveAvgPool2d((4, 5)))
+        self.head = nn.Sequential(nn.Flatten(), nn.Linear(c * 20, 256), nn.ReLU(), nn.Dropout(0.3),
                                   nn.Linear(256, len(LABELS)), nn.Sigmoid())
 
     def forward(self, x):

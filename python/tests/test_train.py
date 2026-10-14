@@ -13,9 +13,12 @@ def read(path):
 
 
 def test_model_shapes():
-    for channels in (1, 2, 3):
-        out = train.ChorusCNN(channels)(torch.randn(4, channels, 513, 173))
-        assert out.shape == (4, len(LABELS)) and ((out >= 0) & (out <= 1)).all()
+    devices = ["cpu"] + (["mps"] if torch.backends.mps.is_available() else [])
+    for device in devices:
+        for channels in (1, 2, 3):
+            model = train.ChorusCNN(channels).to(device)
+            out = model(torch.randn(4, channels, 513, 173, device=device))
+            assert out.shape == (4, len(LABELS)) and ((out >= 0) & (out <= 1)).all(), device
 
 
 def test_train_writes_log_checkpoint_and_predictions(synthetic, tmp_path):
