@@ -1,5 +1,6 @@
 import csv
 
+import pytest
 import torch
 
 import evaluate
@@ -43,3 +44,34 @@ def test_training_reduces_the_loss(synthetic, tmp_path):
                 "--runs", str(tmp_path / "runs"), "--results", str(tmp_path / "results")])
     losses = [float(r["train_loss"]) for r in read(tmp_path / "runs" / "wet_left" / "log.csv")]
     assert min(losses[-5:]) < losses[0] / 3, losses
+
+
+def run(synthetic, tmp_path, name, *extra):
+    train.main(["--dataset", str(synthetic), "--mode", "wet", "--epochs", "4", "--batch-size", "4",
+                "--workers", "0", "--device", "cpu", "--name", name,
+                "--runs", str(tmp_path / "runs"), "--results", str(tmp_path / "results"), *extra])
+
+
+def test_stopped_and_resumed_run_matches_an_uninterrupted_one(synthetic, tmp_path):
+    run(synthetic, tmp_path, "straight")
+    run(synthetic, tmp_path, "resumed", "--stop-after", "2")
+    assert len(read(tmp_path / "runs" / "resumed" / "log.csv")) == 2
+    assert not (tmp_path / "results" / "resumed.csv").exists()
+    run(synthetic, tmp_path, "resumed", "--resume")
+
+    strip = lambda rows: [{k: v for k, v in r.items() if k != "seconds"} for r in rows]  # noqa: E731
+    assert strip(read(tmp_path / "runs" / "resumed" / "log.csv")) == strip(read(tmp_path / "runs" / "straight" / "log.csv"))
+    a = torch.load(tmp_path / "runs" / "straight" / "best.pt")
+    b = torch.load(tmp_path / "runs" / "resumed" / "best.pt")
+    assert all(torch.equal(a[k], b[k]) for k in a)
+    assert read(tmp_path / "results" / "resumed.csv") == read(tmp_path / "results" / "straight.csv")
+
+
+def test_existing_run_needs_resume_or_fresh(synthetic, tmp_path):
+    run(synthetic, tmp_path, "r", "--stop-after", "1")
+    with pytest.raises(SystemExit, match="--resume"):
+        run(synthetic, tmp_path, "r")
+    with pytest.raises(SystemExit, match="settings changed"):
+        run(synthetic, tmp_path, "r", "--resume", "--lr", "1e-3")
+    run(synthetic, tmp_path, "r", "--fresh", "--stop-after", "1")
+    assert len(read(tmp_path / "runs" / "r" / "log.csv")) == 1
