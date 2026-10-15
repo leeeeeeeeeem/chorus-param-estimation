@@ -20,6 +20,9 @@ WET_VIEWS = {
 # input it was not trained on: "mono" is a mono downmix, "left" one channel
 # copied to both. Both leave no side signal.
 WET_INPUTS = ("stereo", "mono", "left")
+# What a side-dropped item's wet becomes: the mid, or a random blend a*L + (1-a)*R
+# on both channels (covers the mid, a=0.5, and one channel alone, a=0 or 1).
+DROP_INPUTS = ("mono", "blend")
 N_FFT = 1024
 HOP = 256
 
@@ -74,7 +77,8 @@ class ChorusPairs(torch.utils.data.Dataset):
     C is the wet view's channels, plus 1 for the dry in dry_wet mode."""
 
     def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left",
-                 wet_input: str = "stereo", n_fft: int = N_FFT, side_drop: float = 0.0):
+                 wet_input: str = "stereo", n_fft: int = N_FFT, side_drop: float = 0.0,
+                 drop_input: str = "mono"):
         if mode not in MODES:
             raise ValueError(f"mode must be one of {list(MODES)}")
         if view not in WET_VIEWS:
@@ -83,6 +87,9 @@ class ChorusPairs(torch.utils.data.Dataset):
             raise ValueError(f"wet_input must be one of {list(WET_INPUTS)}")
         if not 0 <= side_drop <= 1:
             raise ValueError("side_drop must be in 0..1")
+        if drop_input not in DROP_INPUTS:
+            raise ValueError(f"drop_input must be one of {list(DROP_INPUTS)}")
+        self.drop_input = drop_input
         self.root, self.mode, self.view, self.wet_input = Path(root), mode, view, wet_input
         # Training only: with this probability an item's wet is replaced by its mono
         # downmix (side = 0), so one model also learns to cope with mono files.
@@ -101,7 +108,11 @@ class ChorusPairs(torch.utils.data.Dataset):
         r = self.rows[i]
         path = self.root / r["split"] / r["id"]
         wet = sf.read(f"{path}_wet.wav", dtype="float32", always_2d=True)[0]
-        if self.wet_input == "mono" or (self.side_drop and torch.rand(()).item() < self.side_drop):
+        dropped = bool(self.side_drop) and torch.rand(()).item() < self.side_drop
+        if dropped and self.drop_input == "blend":
+            a = torch.rand(()).item()
+            wet = np.repeat((a * wet[:, 0] + (1 - a) * wet[:, 1])[:, None], 2, axis=1)
+        elif self.wet_input == "mono" or dropped:
             wet = np.repeat(wet.mean(axis=1, keepdims=True), 2, axis=1)
         elif self.wet_input == "left":
             wet = np.repeat(wet[:, :1], 2, axis=1)

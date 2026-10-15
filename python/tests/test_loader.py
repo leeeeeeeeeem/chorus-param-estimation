@@ -159,3 +159,19 @@ def test_side_drop_gives_some_items_a_mono_wet(synthetic):
         assert not torch.equal(stereo[i][0], mono[i][0]), "synthetic wet must have a side signal"
     with pytest.raises(ValueError):
         ChorusPairs(synthetic, "train", "wet", "ms", side_drop=1.5)
+
+
+def test_blend_drop_gives_one_signal_on_both_sides_between_l_and_r(synthetic):
+    ds = ChorusPairs(synthetic, "train", "wet", "lr", side_drop=1.0, drop_input="blend")
+    r = ds.rows[0]
+    wet = sf.read(synthetic / "train" / f"{r['id']}_wet.wav", dtype="float32")[0]
+    left = log_stft(torch.from_numpy(wet[:, 0].copy())[None], torch.hann_window(N_FFT))[0]
+    seen = set()
+    torch.manual_seed(1)
+    for _ in range(20):
+        x = ds[0][0]
+        assert torch.equal(x[0], x[1]), "both channels carry the same blend"
+        seen.add(round(float((x[0] - left).abs().mean()), 3))
+    assert len(seen) > 5, "the blend changes between draws"
+    with pytest.raises(ValueError):
+        ChorusPairs(synthetic, "train", "wet", "ms", side_drop=0.5, drop_input="side")

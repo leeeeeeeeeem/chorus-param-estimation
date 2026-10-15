@@ -21,7 +21,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from chorus_data import LABELS, MODES, N_FFT, WET_VIEWS, ChorusPairs, unscale
+from chorus_data import DROP_INPUTS, LABELS, MODES, N_FFT, WET_VIEWS, ChorusPairs, unscale
 
 PRED_SPLITS = ("val", "test", "heldout")
 
@@ -61,7 +61,7 @@ def loader(ds, batch_size: int, workers: int, shuffle: bool, generator: torch.Ge
 
 
 # Settings that must match to resume a run.
-RUN_KEYS = ("mode", "view", "dataset", "epochs", "batch_size", "lr", "width", "max_train", "seed", "n_fft", "side_drop")
+RUN_KEYS = ("mode", "view", "dataset", "epochs", "batch_size", "lr", "width", "max_train", "seed", "n_fft", "side_drop", "drop_input")
 
 
 def save(obj, path: Path) -> None:
@@ -134,6 +134,8 @@ def main(argv=None) -> None:
     ap.add_argument("--n-fft", type=int, default=N_FFT, help="STFT window; 2048 shows long-delay notches better")
     ap.add_argument("--side-drop", type=float, default=0.0,
                     help="share of training items given a mono wet (side = 0), so the model also handles mono")
+    ap.add_argument("--drop-input", choices=DROP_INPUTS, default="mono",
+                    help="what a dropped item's wet becomes: the mid, or a random L/R blend")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--device", default="auto")
     ap.add_argument("--max-train", type=int, default=None, help="use only the first N training pairs")
@@ -156,7 +158,7 @@ def main(argv=None) -> None:
     device = pick_device(args.device)
 
     train_ds = ChorusPairs(args.dataset, "train", args.mode, args.view, n_fft=args.n_fft,
-                           side_drop=args.side_drop)
+                           side_drop=args.side_drop, drop_input=args.drop_input)
     if args.max_train:
         train_ds.rows = train_ds.rows[: args.max_train]
     val_ds = ChorusPairs(args.dataset, "val", args.mode, args.view, n_fft=args.n_fft)
@@ -174,7 +176,8 @@ def main(argv=None) -> None:
     best, history, first = float("inf"), [], 1
     if args.resume and (run_dir / "last.pt").exists():
         ckpt = torch.load(run_dir / "last.pt", map_location=device, weights_only=False)
-        saved = {"n_fft": str(N_FFT), "side_drop": "0.0", **ckpt["settings"]}  # runs from before these options
+        saved = {"n_fft": str(N_FFT), "side_drop": "0.0", "drop_input": "mono",
+                 **ckpt["settings"]}  # runs from before these options
         if saved != settings:
             changed = {k: (saved[k], v) for k, v in settings.items() if saved[k] != v}
             raise SystemExit(f"cannot resume {run_dir}: settings changed {changed}")

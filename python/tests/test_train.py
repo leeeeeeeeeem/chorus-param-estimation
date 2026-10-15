@@ -90,7 +90,8 @@ def test_n_fft_reaches_the_model_and_resume_accepts_old_runs(synthetic, tmp_path
     run(synthetic, tmp_path, "old", "--stop-after", "1")
     path = tmp_path / "runs" / "old" / "last.pt"
     ckpt = torch.load(path, weights_only=False)
-    del ckpt["settings"]["n_fft"], ckpt["settings"]["side_drop"]  # as saved before these options existed
+    for k in ("n_fft", "side_drop", "drop_input"):  # as saved before these options existed
+        del ckpt["settings"][k]
     torch.save(ckpt, path)
     run(synthetic, tmp_path, "old", "--resume", "--stop-after", "2")
     assert len(read(tmp_path / "runs" / "old" / "log.csv")) == 2
