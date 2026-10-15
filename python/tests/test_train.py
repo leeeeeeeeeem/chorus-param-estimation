@@ -18,8 +18,9 @@ def test_model_shapes():
     for device in devices:
         for channels in (1, 2, 3):
             model = train.ChorusCNN(channels).to(device)
-            out = model(torch.randn(4, channels, 513, 173, device=device))
-            assert out.shape == (4, len(LABELS)) and ((out >= 0) & (out <= 1)).all(), device
+            for bins in (513, 1025):
+                out = model(torch.randn(4, channels, bins, 173, device=device))
+                assert out.shape == (4, len(LABELS)) and ((out >= 0) & (out <= 1)).all(), device
 
 
 def test_train_writes_log_checkpoint_and_predictions(synthetic, tmp_path):
@@ -78,3 +79,18 @@ def test_existing_run_needs_resume_or_fresh(synthetic, tmp_path):
         run(synthetic, tmp_path, "r", "--resume", "--lr", "1e-3")
     run(synthetic, tmp_path, "r", "--fresh", "--stop-after", "1")
     assert len(read(tmp_path / "runs" / "r" / "log.csv")) == 1
+
+
+def test_n_fft_reaches_the_model_and_resume_accepts_old_runs(synthetic, tmp_path):
+    run(synthetic, tmp_path, "big", "--n-fft", "2048", "--stop-after", "1")
+    ckpt = torch.load(tmp_path / "runs" / "big" / "last.pt", weights_only=False)
+    assert ckpt["settings"]["n_fft"] == "2048"
+    with pytest.raises(SystemExit, match="settings changed"):
+        run(synthetic, tmp_path, "big", "--resume")
+    run(synthetic, tmp_path, "old", "--stop-after", "1")
+    path = tmp_path / "runs" / "old" / "last.pt"
+    ckpt = torch.load(path, weights_only=False)
+    del ckpt["settings"]["n_fft"]  # as saved before --n-fft existed
+    torch.save(ckpt, path)
+    run(synthetic, tmp_path, "old", "--resume", "--stop-after", "2")
+    assert len(read(tmp_path / "runs" / "old" / "log.csv")) == 2

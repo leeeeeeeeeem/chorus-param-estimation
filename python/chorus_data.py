@@ -47,8 +47,8 @@ def unscale(name: str, u: float) -> float:
 
 
 def log_stft(audio: torch.Tensor, window: torch.Tensor) -> torch.Tensor:
-    """(C, samples) -> (C, N_FFT // 2 + 1, frames)."""
-    spec = torch.stft(audio, N_FFT, HOP, window=window, return_complex=True)
+    """(C, samples) -> (C, n_fft // 2 + 1, frames), n_fft = the window length."""
+    spec = torch.stft(audio, len(window), HOP, window=window, return_complex=True)
     return torch.log(spec.abs() + 1e-5)
 
 
@@ -70,11 +70,11 @@ def wet_view(wet: np.ndarray, view: str) -> np.ndarray:
 
 
 class ChorusPairs(torch.utils.data.Dataset):
-    """Returns (features, labels): features (C, 513, 173), labels (4,) in [0, 1].
+    """Returns (features, labels): features (C, n_fft // 2 + 1, 173), labels (4,) in [0, 1].
     C is the wet view's channels, plus 1 for the dry in dry_wet mode."""
 
     def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left",
-                 wet_input: str = "stereo"):
+                 wet_input: str = "stereo", n_fft: int = N_FFT):
         if mode not in MODES:
             raise ValueError(f"mode must be one of {list(MODES)}")
         if view not in WET_VIEWS:
@@ -87,7 +87,7 @@ class ChorusPairs(torch.utils.data.Dataset):
             self.rows = [r for r in csv.DictReader(f) if r["split"] == split]
         if not self.rows:
             raise ValueError(f"no rows for split '{split}' in {self.root / 'params.csv'}")
-        self.window = torch.hann_window(N_FFT)
+        self.window = torch.hann_window(n_fft)
 
     def __len__(self) -> int:
         return len(self.rows)

@@ -56,6 +56,14 @@ def test_log_stft_peaks_at_the_tone_bin():
     assert spec[0, :, 50:-50].mean(dim=1).argmax().item() == 40
 
 
+def test_log_stft_window_sets_the_resolution():
+    f = 80 * SR / 2048
+    x = torch.sin(2 * torch.pi * f * torch.arange(2 * SR) / SR)[None].float()
+    spec = log_stft(x, torch.hann_window(2048))
+    assert spec.shape == (1, 1025, 173)
+    assert spec[0, :, 50:-50].mean(dim=1).argmax().item() == 80
+
+
 def expected_wet(wet, view):
     left, right = wet[:, 0], wet[:, 1]
     return {"left": [left], "lr": [left, right], "ms": [(left + right) / 2, (left - right) / 2],

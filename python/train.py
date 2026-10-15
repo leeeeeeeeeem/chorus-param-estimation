@@ -21,7 +21,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from chorus_data import LABELS, MODES, WET_VIEWS, ChorusPairs, unscale
+from chorus_data import LABELS, MODES, N_FFT, WET_VIEWS, ChorusPairs, unscale
 
 PRED_SPLITS = ("val", "test", "heldout")
 
@@ -61,7 +61,7 @@ def loader(ds, batch_size: int, workers: int, shuffle: bool, generator: torch.Ge
 
 
 # Settings that must match to resume a run.
-RUN_KEYS = ("mode", "view", "dataset", "epochs", "batch_size", "lr", "width", "max_train", "seed")
+RUN_KEYS = ("mode", "view", "dataset", "epochs", "batch_size", "lr", "width", "max_train", "seed", "n_fft")
 
 
 def save(obj, path: Path) -> None:
@@ -131,6 +131,7 @@ def main(argv=None) -> None:
     ap.add_argument("--batch-size", type=int, default=32)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--width", type=int, default=16)
+    ap.add_argument("--n-fft", type=int, default=N_FFT, help="STFT window; 2048 shows long-delay notches better")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--device", default="auto")
     ap.add_argument("--max-train", type=int, default=None, help="use only the first N training pairs")
@@ -152,10 +153,10 @@ def main(argv=None) -> None:
     torch.manual_seed(args.seed)
     device = pick_device(args.device)
 
-    train_ds = ChorusPairs(args.dataset, "train", args.mode, args.view)
+    train_ds = ChorusPairs(args.dataset, "train", args.mode, args.view, n_fft=args.n_fft)
     if args.max_train:
         train_ds.rows = train_ds.rows[: args.max_train]
-    val_ds = ChorusPairs(args.dataset, "val", args.mode, args.view)
+    val_ds = ChorusPairs(args.dataset, "val", args.mode, args.view, n_fft=args.n_fft)
     shuffle_rng = torch.Generator()
     train_dl = loader(train_ds, args.batch_size, args.workers, shuffle=True, generator=shuffle_rng)
     val_dl = loader(val_ds, args.batch_size, args.workers, shuffle=False)
@@ -170,8 +171,9 @@ def main(argv=None) -> None:
     best, history, first = float("inf"), [], 1
     if args.resume and (run_dir / "last.pt").exists():
         ckpt = torch.load(run_dir / "last.pt", map_location=device, weights_only=False)
-        if ckpt["settings"] != settings:
-            changed = {k: (ckpt["settings"][k], v) for k, v in settings.items() if ckpt["settings"][k] != v}
+        saved = {"n_fft": str(N_FFT), **ckpt["settings"]}  # runs from before --n-fft
+        if saved != settings:
+            changed = {k: (saved[k], v) for k, v in settings.items() if saved[k] != v}
             raise SystemExit(f"cannot resume {run_dir}: settings changed {changed}")
         model.load_state_dict(ckpt["model"])
         opt.load_state_dict(ckpt["opt"])
@@ -209,7 +211,7 @@ def main(argv=None) -> None:
     for wet_input, suffix in (("stereo", ""), ("mono", "_monoin"), ("left", "_leftin")):
         preds = []
         for split in PRED_SPLITS:
-            preds += predict(model, ChorusPairs(args.dataset, split, args.mode, args.view, wet_input), device,
+            preds += predict(model, ChorusPairs(args.dataset, split, args.mode, args.view, wet_input, args.n_fft), device,
                              args.batch_size, args.workers)
         out = args.results / f"{name}{suffix}.csv"
         with open(out, "w", newline="") as f:
