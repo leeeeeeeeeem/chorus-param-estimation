@@ -3,7 +3,9 @@
 python python/train.py --mode wet --view left
 python python/train.py --mode wet --view left --resume    # continue a stopped run
 Picks the epoch with the lowest val error, then predicts val, test and heldout.
-Writes runs/<name>/ (last.pt, best.pt, log.csv) and results/<name>.csv.
+Writes runs/<name>/ (last.pt, best.pt, log.csv) and results/<name>.csv, plus
+results/<name>_monoin.csv and results/<name>_leftin.csv: the same model fed a
+mono downmix, or the left channel on both sides, instead of the stereo wet.
 A full checkpoint is saved after every epoch, so a run can be stopped at any
 time (Ctrl-C, shutdown) and resumed; at most the current epoch is lost.
 """
@@ -201,17 +203,19 @@ def main(argv=None) -> None:
               f"{val_mae:.3f}  {seconds:5.1f} s{mark}")
 
     model.load_state_dict(torch.load(run_dir / "best.pt", map_location=device, weights_only=True))
-    preds = []
-    for split in PRED_SPLITS:
-        preds += predict(model, ChorusPairs(args.dataset, split, args.mode, args.view), device,
-                         args.batch_size, args.workers)
     args.results.mkdir(parents=True, exist_ok=True)
-    out = args.results / f"{name}.csv"
-    with open(out, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["id", *LABELS])
-        w.writeheader()
-        w.writerows(preds)
-    print(f"best val mae {best:.4f}; wrote {len(preds)} predictions to {out}")
+    print(f"best val mae {best:.4f}")
+    for wet_input, suffix in (("stereo", ""), ("mono", "_monoin"), ("left", "_leftin")):
+        preds = []
+        for split in PRED_SPLITS:
+            preds += predict(model, ChorusPairs(args.dataset, split, args.mode, args.view, wet_input), device,
+                             args.batch_size, args.workers)
+        out = args.results / f"{name}{suffix}.csv"
+        with open(out, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["id", *LABELS])
+            w.writeheader()
+            w.writerows(preds)
+        print(f"wrote {len(preds)} predictions ({wet_input} wet input) to {out}")
 
 
 if __name__ == "__main__":

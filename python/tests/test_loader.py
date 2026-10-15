@@ -122,3 +122,18 @@ def test_real_dataset_batch_and_overfit(mode, view):
     assert x.shape == (16, channels, *SHAPE) and ((0 <= y) & (y <= 1)).all()
     first, last = overfit(x, y, steps=1200)
     assert last < 1e-3 and last < first / 50, (first, last)
+
+
+def test_mono_and_left_input_leave_no_side_signal(synthetic):
+    r = ChorusPairs(synthetic, "train", "wet", "ms").rows[0]
+    wet = sf.read(synthetic / "train" / f"{r['id']}_wet.wav", dtype="float32")[0]
+    floor = np.log(1e-5)
+    for wet_input, source in (("mono", wet.mean(axis=1)), ("left", wet[:, 0])):
+        ms = ChorusPairs(synthetic, "train", "wet", "ms", wet_input)[0][0]
+        assert torch.allclose(ms[1], torch.full_like(ms[1], floor)), f"{wet_input}: side must be silent"
+        lr = ChorusPairs(synthetic, "train", "wet", "lr", wet_input)[0][0]
+        assert torch.equal(lr[0], lr[1])
+        expected = log_stft(torch.from_numpy(source.astype(np.float32))[None], torch.hann_window(N_FFT))[0]
+        assert torch.allclose(lr[0], expected, atol=1e-5)
+    with pytest.raises(ValueError):
+        ChorusPairs(synthetic, "train", "wet", "lr", "side")

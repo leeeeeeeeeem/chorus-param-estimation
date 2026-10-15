@@ -16,6 +16,10 @@ WET_VIEWS = {
     "mono": 1,  # mid only: what a mono downmix hears
     "random_mix": 1,  # a*L + (1-a)*R, a uniform 0..1 per item
 }
+# What the stored stereo wet is turned into before the view, to test a model on
+# input it was not trained on: "mono" is a mono downmix, "left" one channel
+# copied to both. Both leave no side signal.
+WET_INPUTS = ("stereo", "mono", "left")
 N_FFT = 1024
 HOP = 256
 
@@ -69,12 +73,15 @@ class ChorusPairs(torch.utils.data.Dataset):
     """Returns (features, labels): features (C, 513, 173), labels (4,) in [0, 1].
     C is the wet view's channels, plus 1 for the dry in dry_wet mode."""
 
-    def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left"):
+    def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left",
+                 wet_input: str = "stereo"):
         if mode not in MODES:
             raise ValueError(f"mode must be one of {list(MODES)}")
         if view not in WET_VIEWS:
             raise ValueError(f"view must be one of {list(WET_VIEWS)}")
-        self.root, self.mode, self.view = Path(root), mode, view
+        if wet_input not in WET_INPUTS:
+            raise ValueError(f"wet_input must be one of {list(WET_INPUTS)}")
+        self.root, self.mode, self.view, self.wet_input = Path(root), mode, view, wet_input
         self.channels = WET_VIEWS[view] + (mode == "dry_wet")
         with open(self.root / "params.csv", newline="") as f:
             self.rows = [r for r in csv.DictReader(f) if r["split"] == split]
@@ -88,7 +95,12 @@ class ChorusPairs(torch.utils.data.Dataset):
     def __getitem__(self, i: int) -> tuple[torch.Tensor, torch.Tensor]:
         r = self.rows[i]
         path = self.root / r["split"] / r["id"]
-        audio = wet_view(sf.read(f"{path}_wet.wav", dtype="float32", always_2d=True)[0], self.view)
+        wet = sf.read(f"{path}_wet.wav", dtype="float32", always_2d=True)[0]
+        if self.wet_input == "mono":
+            wet = np.repeat(wet.mean(axis=1, keepdims=True), 2, axis=1)
+        elif self.wet_input == "left":
+            wet = np.repeat(wet[:, :1], 2, axis=1)
+        audio = wet_view(wet, self.view)
         if self.mode == "dry_wet":
             audio = np.concatenate([sf.read(f"{path}_dry.wav", dtype="float32")[0][None], audio])
         x = log_stft(torch.from_numpy(np.ascontiguousarray(audio)), self.window)

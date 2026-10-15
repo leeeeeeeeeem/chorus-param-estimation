@@ -36,6 +36,9 @@ def test_train_writes_log_checkpoint_and_predictions(synthetic, tmp_path):
         for n, (lo, hi, _) in LABELS.items():
             assert lo - 1e-6 <= float(p[n]) <= hi + 1e-6
     assert {r["split"] for r in evaluate.summarise(preds, truth)} == {"val", "test", "heldout"}
+    for suffix in ("_monoin", "_leftin"):
+        other = read(tmp_path / "results" / f"dry_wet_lr{suffix}.csv")
+        assert [p["id"] for p in other] == [p["id"] for p in preds]
 
 
 def test_training_reduces_the_loss(synthetic, tmp_path):
