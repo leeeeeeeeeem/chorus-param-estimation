@@ -42,9 +42,11 @@ def test_predictions_are_clipped_to_the_ranges():
 
 
 def test_conditions_and_unknown_ids():
-    truth = [truth_row("a", mix=0.05), truth_row("b", depth_ms=0.2), truth_row("c", rate_hz=0.2)]
+    truth = [truth_row("a", mix=0.05), truth_row("b", depth_ms=0.2), truth_row("c", rate_hz=0.2),
+             truth_row("d", mix=0.95)]
     groups = {r["group"]: r["n"] for r in evaluate.summarise([pred(r) for r in truth], truth)}
     assert groups["mix < 0.1"] == 1 and groups["depth < 0.5 ms"] == 1 and groups["rate < 0.3 Hz"] == 1
+    assert groups["mix > 0.9"] == 1
     with pytest.raises(ValueError, match="not in params.csv"):
         evaluate.summarise([pred(truth_row("zzz"))], truth)
 

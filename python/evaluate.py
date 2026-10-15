@@ -20,6 +20,7 @@ ERRORS = ["rate_oct", "depth_ms", "delay_ms", "mix", "scaled"]
 # Where some labels cannot be heard (see SPEC.md).
 CONDITIONS = {
     "mix < 0.1": lambda r: float(r["mix"]) < 0.1,
+    "mix > 0.9": lambda r: float(r["mix"]) > 0.9,  # wet mode: no dry left, delay is a pure time shift
     "depth < 0.5 ms": lambda r: float(r["depth_ms"]) < 0.5,
     "rate < 0.3 Hz": lambda r: float(r["rate_hz"]) < 0.3,
 }
