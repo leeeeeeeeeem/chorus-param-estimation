@@ -74,14 +74,19 @@ class ChorusPairs(torch.utils.data.Dataset):
     C is the wet view's channels, plus 1 for the dry in dry_wet mode."""
 
     def __init__(self, root: Path, split: str, mode: str = "dry_wet", view: str = "left",
-                 wet_input: str = "stereo", n_fft: int = N_FFT):
+                 wet_input: str = "stereo", n_fft: int = N_FFT, side_drop: float = 0.0):
         if mode not in MODES:
             raise ValueError(f"mode must be one of {list(MODES)}")
         if view not in WET_VIEWS:
             raise ValueError(f"view must be one of {list(WET_VIEWS)}")
         if wet_input not in WET_INPUTS:
             raise ValueError(f"wet_input must be one of {list(WET_INPUTS)}")
+        if not 0 <= side_drop <= 1:
+            raise ValueError("side_drop must be in 0..1")
         self.root, self.mode, self.view, self.wet_input = Path(root), mode, view, wet_input
+        # Training only: with this probability an item's wet is replaced by its mono
+        # downmix (side = 0), so one model also learns to cope with mono files.
+        self.side_drop = side_drop
         self.channels = WET_VIEWS[view] + (mode == "dry_wet")
         with open(self.root / "params.csv", newline="") as f:
             self.rows = [r for r in csv.DictReader(f) if r["split"] == split]
@@ -96,7 +101,7 @@ class ChorusPairs(torch.utils.data.Dataset):
         r = self.rows[i]
         path = self.root / r["split"] / r["id"]
         wet = sf.read(f"{path}_wet.wav", dtype="float32", always_2d=True)[0]
-        if self.wet_input == "mono":
+        if self.wet_input == "mono" or (self.side_drop and torch.rand(()).item() < self.side_drop):
             wet = np.repeat(wet.mean(axis=1, keepdims=True), 2, axis=1)
         elif self.wet_input == "left":
             wet = np.repeat(wet[:, :1], 2, axis=1)

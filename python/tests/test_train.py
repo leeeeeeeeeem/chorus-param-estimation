@@ -90,7 +90,15 @@ def test_n_fft_reaches_the_model_and_resume_accepts_old_runs(synthetic, tmp_path
     run(synthetic, tmp_path, "old", "--stop-after", "1")
     path = tmp_path / "runs" / "old" / "last.pt"
     ckpt = torch.load(path, weights_only=False)
-    del ckpt["settings"]["n_fft"]  # as saved before --n-fft existed
+    del ckpt["settings"]["n_fft"], ckpt["settings"]["side_drop"]  # as saved before these options existed
     torch.save(ckpt, path)
     run(synthetic, tmp_path, "old", "--resume", "--stop-after", "2")
     assert len(read(tmp_path / "runs" / "old" / "log.csv")) == 2
+
+
+def test_side_drop_is_a_run_setting(synthetic, tmp_path):
+    run(synthetic, tmp_path, "sd", "--side-drop", "0.3", "--stop-after", "1")
+    ckpt = torch.load(tmp_path / "runs" / "sd" / "last.pt", weights_only=False)
+    assert ckpt["settings"]["side_drop"] == "0.3"
+    with pytest.raises(SystemExit, match="settings changed"):
+        run(synthetic, tmp_path, "sd", "--resume")

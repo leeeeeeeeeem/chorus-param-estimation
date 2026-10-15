@@ -145,3 +145,17 @@ def test_mono_and_left_input_leave_no_side_signal(synthetic):
         assert torch.allclose(lr[0], expected, atol=1e-5)
     with pytest.raises(ValueError):
         ChorusPairs(synthetic, "train", "wet", "lr", "side")
+
+
+def test_side_drop_gives_some_items_a_mono_wet(synthetic):
+    stereo = ChorusPairs(synthetic, "train", "wet", "ms")
+    mono = ChorusPairs(synthetic, "train", "wet", "ms", "mono")
+    assert torch.equal(ChorusPairs(synthetic, "train", "wet", "ms", side_drop=1.0)[0][0], mono[0][0])
+    torch.manual_seed(0)
+    half = ChorusPairs(synthetic, "train", "wet", "ms", side_drop=0.5)
+    dropped = [torch.equal(half[i % len(half)][0], mono[i % len(half)][0]) for i in range(200)]
+    assert 60 < sum(dropped) < 140
+    for i in range(min(5, len(stereo))):
+        assert not torch.equal(stereo[i][0], mono[i][0]), "synthetic wet must have a side signal"
+    with pytest.raises(ValueError):
+        ChorusPairs(synthetic, "train", "wet", "ms", side_drop=1.5)
