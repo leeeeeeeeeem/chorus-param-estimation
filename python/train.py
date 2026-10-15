@@ -79,9 +79,10 @@ def rng_state(device: torch.device) -> dict:
 
 
 def set_rng_state(state: dict, device: torch.device) -> None:
-    torch.set_rng_state(state["cpu"])
+    # torch.load(map_location=device) moves these to the device; both setters need CPU tensors.
+    torch.set_rng_state(state["cpu"].cpu())
     if device.type == "mps" and "mps" in state:
-        torch.mps.set_rng_state(state["mps"])
+        torch.mps.set_rng_state(state["mps"].cpu())
 
 
 def write_log(path: Path, history: list[dict]) -> None:
