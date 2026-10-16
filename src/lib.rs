@@ -52,6 +52,13 @@ pub fn start_phase(p: &Params, sample_rate: f32) -> f32 {
 /// Renders a fresh `Chorus` with mono `dry` on both inputs. Returns
 /// `[left, right]` frames, `dry.len() - warmup_samples` long.
 pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<[f32; 2]>, String> {
+    let frames: Vec<[f32; 2]> = dry.iter().map(|&x| [x, x]).collect();
+    render_stereo(&frames, sample_rate, p)
+}
+
+/// Renders a fresh `Chorus` with `dry[n][0]` on the left input and `dry[n][1]`
+/// on the right. Returns `[left, right]` frames, `dry.len() - warmup_samples` long.
+pub fn render_stereo(dry: &[[f32; 2]], sample_rate: f32, p: &Params) -> Result<Vec<[f32; 2]>, String> {
     p.validate()?;
     if p.warmup_samples > dry.len() {
         return Err(format!(
@@ -67,10 +74,10 @@ pub fn render(dry: &[f32], sample_rate: f32, p: &Params) -> Result<Vec<[f32; 2]>
     chorus.set_mix(p.mix);
     chorus.set_lfo_phase(start_phase(p, sample_rate));
 
-    let input = dry.iter().copied().chain(std::iter::repeat_n(0.0, LATENCY_SAMPLES));
+    let input = dry.iter().copied().chain(std::iter::repeat_n([0.0, 0.0], LATENCY_SAMPLES));
     let mut out: Vec<[f32; 2]> = input
-        .map(|x| {
-            let (l, r) = chorus.process(x, x);
+        .map(|[l, r]| {
+            let (l, r) = chorus.process(l, r);
             [l, r]
         })
         .collect();

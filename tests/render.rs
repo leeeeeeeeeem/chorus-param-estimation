@@ -4,7 +4,7 @@ use std::process::Command;
 use chorus_render::dsp::chorus::{Chorus, MAX_DELAY_MS, MAX_DEPTH_MS};
 use chorus_render::dsp::delay_line::DelayLine;
 use chorus_render::dsp::lfo::Lfo;
-use chorus_render::{LATENCY_SAMPLES, Params, render, start_phase};
+use chorus_render::{LATENCY_SAMPLES, Params, render, render_stereo, start_phase};
 use hound::{SampleFormat, WavReader, WavSpec, WavWriter};
 
 const SR: f32 = 22050.0;
@@ -230,4 +230,39 @@ fn channels_differ_only_with_depth() {
     assert!(same.iter().all(|[l, r]| l == r), "depth 0 must give identical channels");
     let wide = render(&dry, SR, &params(1.3, 3.0, 9.0, 0.6, 0.4)).unwrap();
     assert!(wide.iter().any(|[l, r]| (l - r).abs() > 0.01), "depth 3 ms must give different channels");
+}
+
+#[test]
+fn stereo_input_feeds_each_channel_its_own_signal() {
+    let x = noise(4000, 11, 0.5);
+    let p = params(1.3, 3.0, 9.0, 0.6, 0.4);
+    let mono = render(&x, SR, &p).unwrap();
+    let left_only: Vec<[f32; 2]> = x.iter().map(|&v| [v, 0.0]).collect();
+    let out = render_stereo(&left_only, SR, &p).unwrap();
+    assert!(out.iter().all(|f| f[1] == 0.0), "silent right input must give a silent right output");
+    assert!(out.iter().zip(&mono).all(|(a, b)| a[0] == b[0]), "left output must not depend on the right input");
+    let swapped: Vec<[f32; 2]> = x.iter().map(|&v| [0.0, v]).collect();
+    let out = render_stereo(&swapped, SR, &p).unwrap();
+    assert!(out.iter().all(|f| f[0] == 0.0));
+    assert!(out.iter().zip(&mono).all(|(a, b)| a[1] == b[1]));
+}
+
+#[test]
+fn binary_gives_the_same_output_for_mono_and_dual_mono_files() {
+    let dry: Vec<i16> = noise(3000, 5, 0.4).iter().map(|v| (v * 32767.0) as i16).collect();
+    let json = r#"{"rate_hz": 2.0, "depth_ms": 4.0, "delay_ms": 12.0, "mix": 0.5, "lfo_phase": 0.1}"#;
+    let mono = run_bin("dual_mono_ref", &dry, json);
+    let path = tmp("dual_mono_in.wav");
+    let spec = WavSpec { channels: 2, sample_rate: SR as u32, bits_per_sample: 16, sample_format: SampleFormat::Int };
+    let mut w = WavWriter::create(&path, spec).unwrap();
+    for &s in &dry {
+        w.write_sample(s).unwrap();
+        w.write_sample(s).unwrap();
+    }
+    w.finalize().unwrap();
+    std::fs::write(tmp("dual_mono.json"), json).unwrap();
+    let out = tmp("dual_mono_out.wav");
+    let status = Command::new(env!("CARGO_BIN_EXE_render")).args([&path, &tmp("dual_mono.json"), &out]).status().unwrap();
+    assert!(status.success());
+    assert_eq!(read_stereo_i16(&out), mono);
 }

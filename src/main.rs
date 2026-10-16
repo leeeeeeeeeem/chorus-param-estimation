@@ -1,10 +1,11 @@
 //! render <dry.wav> <params.json> <wet.wav>
 //!
-//! Mono WAV in, stereo WAV out (left, right) in the same format (int16 or float32).
+//! Mono or stereo WAV in, stereo WAV out (left, right) in the same format
+//! (int16 or float32). A mono input goes to both chorus inputs.
 
 use std::process::ExitCode;
 
-use chorus_render::{Params, render};
+use chorus_render::{Params, render_stereo};
 use hound::{SampleFormat, WavReader, WavSpec, WavWriter};
 
 fn run(dry_path: &str, params_path: &str, out_path: &str) -> Result<(), String> {
@@ -13,10 +14,10 @@ fn run(dry_path: &str, params_path: &str, out_path: &str) -> Result<(), String> 
 
     let mut reader = WavReader::open(dry_path).map_err(|e| format!("{dry_path}: {e}"))?;
     let spec = reader.spec();
-    if spec.channels != 1 {
-        return Err(format!("{dry_path}: expected mono, got {} channels", spec.channels));
+    if spec.channels != 1 && spec.channels != 2 {
+        return Err(format!("{dry_path}: expected mono or stereo, got {} channels", spec.channels));
     }
-    let dry: Vec<f32> = match (spec.sample_format, spec.bits_per_sample) {
+    let samples: Vec<f32> = match (spec.sample_format, spec.bits_per_sample) {
         (SampleFormat::Int, 16) => reader
             .samples::<i16>()
             .map(|s| s.map(|s| s as f32 / 32768.0))
@@ -26,7 +27,12 @@ fn run(dry_path: &str, params_path: &str, out_path: &str) -> Result<(), String> 
     }
     .map_err(|e| format!("{dry_path}: {e}"))?;
 
-    let wet = render(&dry, spec.sample_rate as f32, &params)?;
+    let dry: Vec<[f32; 2]> = if spec.channels == 1 {
+        samples.iter().map(|&x| [x, x]).collect()
+    } else {
+        samples.chunks_exact(2).map(|c| [c[0], c[1]]).collect()
+    };
+    let wet = render_stereo(&dry, spec.sample_rate as f32, &params)?;
 
     let out_spec = WavSpec { channels: 2, ..spec };
     let mut writer = WavWriter::create(out_path, out_spec).map_err(|e| format!("{out_path}: {e}"))?;
