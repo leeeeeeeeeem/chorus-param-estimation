@@ -6,6 +6,8 @@ import pytest
 import soundfile as sf
 
 import make_real_stereo
+from audio import read as read_audio, to_mono
+from conftest import REAL_DATA
 
 SR_RAW = 44100
 LAG = 44  # 1 ms at 44.1 kHz
@@ -55,3 +57,17 @@ def test_missing_microphone_files_are_an_error(raw):
     next((raw / "raw" / "guitarset_mic").glob("01_*")).unlink()
     with pytest.raises(SystemExit, match="microphone files missing"):
         make_real_stereo.main(["--data", str(raw), "--out", str(raw / "rs"), "--n", "2"])
+
+
+
+TAKE = "01_BN1-129-Eb_comp"
+
+
+@pytest.mark.skipif(not (REAL_DATA / "raw" / "guitarset_mic" / f"{TAKE}_mic.wav").exists(),
+                    reason="GuitarSet microphone files not downloaded")
+def test_real_mic_lag_is_acoustic_not_a_pitch_copy():
+    """Plain cross-correlation reads 8.7 ms on this take (a pitch copy); the
+    microphone is really about 2 ms behind the pickup."""
+    a = to_mono(*read_audio(REAL_DATA / "raw" / "guitarset" / f"{TAKE}_mix.wav"))
+    b = to_mono(*read_audio(REAL_DATA / "raw" / "guitarset_mic" / f"{TAKE}_mic.wav"))
+    assert 1.0 <= 1000 * make_real_stereo.lag_samples(a, b) / make_real_stereo.SR <= 4.0

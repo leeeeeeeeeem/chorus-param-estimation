@@ -40,11 +40,14 @@ def rms(x: np.ndarray) -> float:
 
 
 def lag_samples(a: np.ndarray, b: np.ndarray) -> int:
-    """Lag of b behind a, within +-25 ms, from the cross-correlation peak."""
+    """Lag of b behind a, within +-25 ms, by GCC-PHAT: the cross-spectrum is
+    whitened first, so the peaks of a pitched sound (one per pitch period) do not
+    outshine the true lag, as they do in a plain cross-correlation."""
     n = min(len(a), len(b), 30 * SR)
     a, b = a[:n] - a[:n].mean(), b[:n] - b[:n].mean()
     size = 1 << (2 * n - 1).bit_length()
-    c = np.fft.irfft(np.fft.rfft(b, size) * np.conj(np.fft.rfft(a, size)), size)
+    x = np.fft.rfft(b, size) * np.conj(np.fft.rfft(a, size))
+    c = np.fft.irfft(x / (np.abs(x) + 1e-12), size)
     lags = np.r_[np.arange(0, MAX_LAG + 1), np.arange(-MAX_LAG, 0)]
     vals = np.r_[c[: MAX_LAG + 1], c[-MAX_LAG:]]
     return int(lags[np.argmax(np.abs(vals))])
