@@ -71,3 +71,21 @@ def test_real_mic_lag_is_acoustic_not_a_pitch_copy():
     a = to_mono(*read_audio(REAL_DATA / "raw" / "guitarset" / f"{TAKE}_mix.wav"))
     b = to_mono(*read_audio(REAL_DATA / "raw" / "guitarset_mic" / f"{TAKE}_mic.wav"))
     assert 1.0 <= 1000 * make_real_stereo.lag_samples(a, b) / make_real_stereo.SR <= 4.0
+
+
+def test_mic_pairs_can_be_appended_to_a_training_set(raw):
+    ds = raw / "mixed"
+    make_real_stereo.main(["--data", str(raw), "--out", str(ds), "--n", "2", "--kinds", "mono"])
+    before = read(ds / "params.csv")
+    make_real_stereo.main(["--data", str(raw), "--split", "train", "--kinds", "mic", "--n", "3",
+                           "--append-to", str(ds), "--seed", "1"])
+    rows = read(ds / "params.csv")
+    assert rows[: len(before)] == before
+    added = rows[len(before):]
+    assert len(added) == 3 and {r["stereo_kind"] for r in added} == {"mic"} and {r["split"] for r in added} == {"train"}
+    assert {r["group_id"] for r in added} == {"player02"}, "only training players"
+    for r in added:
+        assert sf.read(ds / "train" / f"{r['id']}_wet.wav")[0].shape[1] == 2
+    with pytest.raises(SystemExit, match="already in"):
+        make_real_stereo.main(["--data", str(raw), "--split", "train", "--kinds", "mic", "--n", "3",
+                               "--append-to", str(ds), "--seed", "1"])

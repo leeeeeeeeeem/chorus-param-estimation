@@ -2,6 +2,8 @@
 
 python python/make_real_stereo.py                 # the val player, 500 crops
 python python/make_real_stereo.py --split test    # only for final numbers
+python python/make_real_stereo.py --split train --kinds mic --n 4000 \
+    --append-to data/dataset_mixed2                # real stereo for training
 
 Each crop is rendered twice with the same gain and chorus settings:
   mono  pickup on both plugin inputs, as in training
@@ -74,7 +76,9 @@ def make(job: dict) -> list[dict]:
     scale = 10 ** ((gain_db - db(max(np.abs(p).max(), np.abs(m).max()))) / 20)
     params = sample_params(rng)
     rows = []
-    for kind, dry_in in (("mono", p * scale), ("mic", np.stack([p * scale, m * scale], axis=1))):
+    inputs = {"mono": p * scale, "mic": np.stack([p * scale, m * scale], axis=1)}
+    for kind in job["kinds"]:
+        dry_in = inputs[kind]
         pid = f"{job['split']}_{i:06d}_{kind}"
         dry, wet = render_pair(dry_in.astype(np.float32), params, job["render"])
         write_int16(job["out"] / job["split"] / f"{pid}_dry.wav", dry)
@@ -98,14 +102,26 @@ def main(argv=None) -> None:
     ap.add_argument("--n", type=int, default=500, help="crops; each is rendered as mono and as mic")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--workers", type=int, default=os.cpu_count())
+    ap.add_argument("--kinds", default="mono,mic", help="which renders to make per crop")
+    ap.add_argument("--append-to", type=Path, default=None,
+                    help="add the pairs to this existing dataset (files and params.csv) instead")
     ap.add_argument("--overwrite", action="store_true")
     args = ap.parse_args(argv)
-    out = args.out or args.data / "dataset_realstereo"
-    if out.exists() and any(out.iterdir()):
-        if not args.overwrite:
-            raise SystemExit(f"{out} is not empty, pass --overwrite to replace it")
-        shutil.rmtree(out)
-    (out / args.split).mkdir(parents=True)
+    kinds = args.kinds.split(",")
+    if set(kinds) - {"mono", "mic"}:
+        raise SystemExit("--kinds takes mono and/or mic")
+    if args.append_to:
+        out = args.append_to
+        if not (out / "params.csv").exists():
+            raise SystemExit(f"{out} has no params.csv to append to")
+        (out / args.split).mkdir(exist_ok=True)
+    else:
+        out = args.out or args.data / "dataset_realstereo"
+        if out.exists() and any(out.iterdir()):
+            if not args.overwrite:
+                raise SystemExit(f"{out} is not empty, pass --overwrite to replace it")
+            shutil.rmtree(out)
+        (out / args.split).mkdir(parents=True)
 
     raw, mic_dir = args.data / "raw" / "guitarset", args.data / "raw" / "guitarset_mic"
     groups = json.loads((args.data / "splits.json").read_text())["guitarset"]
@@ -125,14 +141,22 @@ def main(argv=None) -> None:
     weights = np.array([sum(e - s for s, e in t["runs"]) for t in takes], dtype=float)
     chosen = rng.choice(len(takes), size=args.n, p=weights / weights.sum())
     render = build_render()
-    jobs = [dict(take=takes[t], index=i, seed=args.seed, split=args.split, out=out, render=render,
+    jobs = [dict(take=takes[t], index=i, seed=args.seed, split=args.split, out=out, render=render, kinds=kinds,
                  group=guitarset_group(raw / takes[t]["name"], raw)) for i, t in enumerate(chosen)]
     with ThreadPoolExecutor(args.workers) as pool:
         rows = [r for pair in pool.map(make, jobs) for r in pair]
-    with open(out / "params.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=STEREO_COLS)
-        w.writeheader()
-        w.writerows(rows)
+    if args.append_to:
+        with open(out / "params.csv", newline="") as f:
+            existing = {r["id"] for r in csv.DictReader(f)}
+        if clash := existing & {r["id"] for r in rows}:
+            raise SystemExit(f"{len(clash)} ids already in {out}, e.g. {sorted(clash)[0]}")
+        with open(out / "params.csv", "a", newline="") as f:
+            csv.DictWriter(f, fieldnames=STEREO_COLS).writerows(rows)
+    else:
+        with open(out / "params.csv", "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=STEREO_COLS)
+            w.writeheader()
+            w.writerows(rows)
     print(f"wrote {len(rows)} pairs to {out}, {sum(r['wet_clipped'] > 0 for r in rows)} with clipped wet")
 
 
