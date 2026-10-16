@@ -126,6 +126,8 @@ def main(argv=None) -> None:
     ap.add_argument("--mode", choices=MODES, default="wet")
     ap.add_argument("--view", choices=list(WET_VIEWS), default="left")
     ap.add_argument("--dataset", type=Path, default=Path("data/dataset"))
+    ap.add_argument("--eval-dataset", type=Path, default=None,
+                    help="where the final val/test/heldout predictions come from; default: --dataset")
     ap.add_argument("--name", default=None, help="default: <mode>_<view>")
     ap.add_argument("--epochs", type=int, default=30)
     ap.add_argument("--batch-size", type=int, default=32)
@@ -217,8 +219,8 @@ def main(argv=None) -> None:
     for wet_input, suffix in (("stereo", ""), ("mono", "_monoin"), ("left", "_leftin")):
         preds = []
         for split in PRED_SPLITS:
-            preds += predict(model, ChorusPairs(args.dataset, split, args.mode, args.view, wet_input, args.n_fft), device,
-                             args.batch_size, args.workers)
+            preds += predict(model, ChorusPairs(args.eval_dataset or args.dataset, split, args.mode, args.view,
+                                                wet_input, args.n_fft), device, args.batch_size, args.workers)
         out = args.results / f"{name}{suffix}.csv"
         with open(out, "w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=["id", *LABELS])

@@ -1,14 +1,18 @@
 """data/dataset/ val pairs -> data/dataset_stereo/: the same pairs with a stereo dry.
 
 python python/make_stereo_source.py
-python python/make_stereo_source.py --split val --out data/dataset_stereo
+python python/make_stereo_source.py --splits train,val --out data/dataset_mixed \
+    --kinds mono=0.4,pan=0.2,wide=0.2,balance=0.2       # a training set
 
 Each pair keeps its original crop, gain and chorus settings; only the plugin's
-input changes. Kinds, in turn per pair:
-  mono  x on both inputs (the original pair, bit for bit)
-  pan   cos(t)*x, sin(t)*x: 1 to 9 dB level difference, louder side random
-  corr  x, rho*x + sqrt(1-rho^2)*y: rho 0.3 to 0.9
-  wide  x, y
+input, or what happens after it, changes. Kinds (in turn per pair by default,
+or drawn with the weights given by --kinds):
+  mono     x on both inputs (the original pair, bit for bit)
+  pan      cos(t)*x, sin(t)*x: 1 to 9 dB level difference, louder side random
+  corr     x, rho*x + sqrt(1-rho^2)*y: rho 0.3 to 0.9
+  wide     x, y
+  balance  x on both inputs, then the quieter output channel turned down by
+           1 to 9 dB: a pan or balance knob after the chorus
 y is a second crop from the same group, level-matched to x. There is never a
 time offset between L and R: one would look like a chorus delay.
 """
@@ -26,7 +30,7 @@ import soundfile as sf
 from audio import CLIP, WARMUP, db, write_int16
 from make_dataset import COLS, NEED, build_render, load_crop, render_pair
 
-KINDS = ("mono", "pan", "corr", "wide")
+KINDS = ("mono", "pan", "corr", "wide", "balance")
 STEREO_COLS = [*COLS, "stereo_kind", "stereo_amount", "second_source", "second_offset"]
 
 
@@ -67,12 +71,11 @@ def stereo_dry(kind: str, x: np.ndarray, y: np.ndarray | None, rng: np.random.Ge
 
 
 def make(job: dict) -> dict:
-    row, i = job["row"], job["index"]
-    kind = KINDS[i % len(KINDS)]
+    row, i, kind = job["row"], job["index"], job["kind"]
     params = {k: float(row[k]) for k in ("rate_hz", "depth_ms", "delay_ms", "mix", "lfo_phase")}
     x = load_crop(job["data"] / "dry" / row["dry_source"], int(row["crop_offset"]), float(row["gain_db"]))
     extra = dict(stereo_kind=kind, stereo_amount=0.0, second_source="", second_offset="")
-    if kind == "mono":
+    if kind in ("mono", "balance"):
         dry_in = x
     else:
         rng = np.random.default_rng([job["seed"], i])
@@ -84,6 +87,13 @@ def make(job: dict) -> dict:
         dry_in = dry_in * 10 ** ((float(row["gain_db"]) - db(np.abs(dry_in).max())) / 20)  # same peak as the original
         extra["stereo_amount"] = amount
     dry, wet = render_pair(dry_in, params, job["render"])
+    if kind == "balance":
+        rng = np.random.default_rng([job["seed"], i])
+        diff_db = float(rng.uniform(1.0, 9.0)) * rng.choice([-1, 1])
+        quiet = 1 if diff_db > 0 else 0  # positive: left louder, as for pan
+        wet = wet.copy()
+        wet[:, quiet] *= 10 ** (-abs(diff_db) / 20)
+        extra["stereo_amount"] = round(diff_db, 3)
     out = job["out"] / row["split"]
     write_int16(out / f"{row['id']}_dry.wav", dry)
     write_int16(out / f"{row['id']}_wet.wav", wet)
@@ -96,7 +106,9 @@ def main(argv=None) -> None:
     ap.add_argument("--data", type=Path, default=Path("data"))
     ap.add_argument("--dataset", type=Path, default=None, help="default: <data>/dataset")
     ap.add_argument("--out", type=Path, default=None, help="default: <data>/dataset_stereo")
-    ap.add_argument("--split", default="val")
+    ap.add_argument("--splits", default="val", help="comma-separated splits to rebuild")
+    ap.add_argument("--kinds", default=None,
+                    help="kind=weight,... to draw kinds at random; default: all kinds in turn")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--workers", type=int, default=os.cpu_count())
     ap.add_argument("--overwrite", action="store_true")
@@ -107,17 +119,31 @@ def main(argv=None) -> None:
         if not args.overwrite:
             raise SystemExit(f"{out} is not empty, pass --overwrite to replace it")
         shutil.rmtree(out)
-    (out / args.split).mkdir(parents=True)
+    splits = args.splits.split(",")
+    for s in splits:
+        (out / s).mkdir(parents=True)
+    weights = None
+    if args.kinds:
+        weights = {k: float(v) for k, v in (kw.split("=") for kw in args.kinds.split(","))}
+        if unknown := set(weights) - set(KINDS):
+            raise SystemExit(f"unknown kinds {sorted(unknown)}; known: {list(KINDS)}")
 
     with open(src / "params.csv", newline="") as f:
-        rows = [r for r in csv.DictReader(f) if r["split"] == args.split]
+        rows = [r for r in csv.DictReader(f) if r["split"] in splits]
     with open(args.data / "manifest.csv", newline="") as f:
         groups = {}
         for r in csv.DictReader(f):
             groups.setdefault((r["split"], r["group_id"]), []).append(r)
     render = build_render()
-    jobs = [dict(row=r, index=i, seed=args.seed, groups=groups, data=args.data, out=out, render=render)
-            for i, r in enumerate(rows)]
+    def kind(i: int) -> str:
+        if weights is None:
+            return KINDS[i % len(KINDS)]
+        names = list(weights)
+        p = np.array([weights[k] for k in names]) / sum(weights.values())
+        return names[np.random.default_rng([args.seed, i, 1]).choice(len(names), p=p)]
+
+    jobs = [dict(row=r, index=i, kind=kind(i), seed=args.seed, groups=groups, data=args.data, out=out,
+                 render=render) for i, r in enumerate(rows)]
     with ThreadPoolExecutor(args.workers) as pool:
         made = list(pool.map(make, jobs))
     with open(out / "params.csv", "w", newline="") as f:
