@@ -118,7 +118,8 @@ class ChorusPairs(torch.utils.data.Dataset):
             wet = np.repeat(wet[:, :1], 2, axis=1)
         audio = wet_view(wet, self.view)
         if self.mode == "dry_wet":
-            audio = np.concatenate([sf.read(f"{path}_dry.wav", dtype="float32")[0][None], audio])
+            dry = sf.read(f"{path}_dry.wav", dtype="float32", always_2d=True)[0].mean(axis=1)  # stereo dry: its mid
+            audio = np.concatenate([dry[None], audio])
         x = log_stft(torch.from_numpy(np.ascontiguousarray(audio)), self.window)
         y = torch.tensor([scale(n, float(r[n])) for n in LABELS], dtype=torch.float32)
         return x, y

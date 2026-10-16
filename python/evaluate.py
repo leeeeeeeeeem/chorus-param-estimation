@@ -60,6 +60,8 @@ def summarise(preds: list[dict], truth: list[dict]) -> list[dict]:
         e = errors(p, t)
         groups[(t["split"], "all")].append(e)
         groups[(t["split"], f"source {t['source']}")].append(e)
+        if t.get("stereo_kind"):
+            groups[(t["split"], f"stereo {t['stereo_kind']}")].append(e)
         for name, test in CONDITIONS.items():
             if test(t):
                 groups[(t["split"], name)].append(e)
