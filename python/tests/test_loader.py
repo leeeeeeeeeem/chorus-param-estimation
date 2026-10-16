@@ -5,7 +5,7 @@ import torch
 from torch import nn
 
 from audio import SR
-from chorus_data import LABELS, N_FFT, ChorusPairs, log_stft, scale, unscale, wet_view
+from chorus_data import LABELS, N_FFT, ChorusPairs, log_stft, ms_phase_features, scale, unscale, wet_view
 from conftest import REAL_DATA
 
 SHAPE = (N_FFT // 2 + 1, 173)
@@ -175,3 +175,26 @@ def test_blend_drop_gives_one_signal_on_both_sides_between_l_and_r(synthetic):
     assert len(seen) > 5, "the blend changes between draws"
     with pytest.raises(ValueError):
         ChorusPairs(synthetic, "train", "wet", "ms", side_drop=0.5, drop_input="side")
+
+
+def test_ms_phase_reads_the_delay_between_side_and_mid():
+    rng = np.random.default_rng(0)
+    k = 5  # side is mid delayed by 5 samples
+    x = rng.normal(0, 0.3, 2 * SR + k).astype(np.float32)
+    mid, side = torch.from_numpy(x[k:].copy()), torch.from_numpy(x[:-k].copy())
+    f = ms_phase_features(torch.stack([mid, side]), torch.hann_window(N_FFT))
+    assert f.shape == (4, N_FFT // 2 + 1, 173)
+    angle = torch.atan2(f[3], f[2])[:, 20:-20].median(dim=1).values
+    for b in (10, 40, 80):
+        expected = -2 * np.pi * b * k / N_FFT
+        assert np.angle(np.exp(1j * (float(angle[b]) - expected))) == pytest.approx(0, abs=0.15), b
+    assert torch.allclose(f[:2], log_stft(torch.stack([mid, side]), torch.hann_window(N_FFT)))
+
+
+def test_ms_phase_view_shapes_and_silent_side(synthetic):
+    x = ChorusPairs(synthetic, "train", "wet", "ms_phase")[0][0]
+    assert x.shape == (4, *SHAPE) and torch.isfinite(x).all() and x[2:].abs().max() <= 1 + 1e-6
+    assert x[2:].abs().mean() > 0.1, "a chorus wet has a side signal with a phase"
+    mono = ChorusPairs(synthetic, "train", "wet", "ms_phase", "mono")[0][0]
+    assert mono[2:].abs().max() < 1e-3, "no side signal, no phase"
+    assert ChorusPairs(synthetic, "train", "dry_wet", "ms_phase")[0][0].shape == (5, *SHAPE)

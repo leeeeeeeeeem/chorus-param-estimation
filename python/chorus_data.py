@@ -15,6 +15,7 @@ WET_VIEWS = {
     "ms": 2,  # mid (L+R)/2, side (L-R)/2
     "mono": 1,  # mid only: what a mono downmix hears
     "random_mix": 1,  # a*L + (1-a)*R, a uniform 0..1 per item
+    "ms_phase": 4,  # mid and side magnitudes, plus cos and sin of the side-to-mid phase
 }
 # What the stored stereo wet is turned into before the view, to test a model on
 # input it was not trained on: "mono" is a mono downmix, "left" one channel
@@ -55,6 +56,18 @@ def log_stft(audio: torch.Tensor, window: torch.Tensor) -> torch.Tensor:
     return torch.log(spec.abs() + 1e-5)
 
 
+def ms_phase_features(mid_side: torch.Tensor, window: torch.Tensor) -> torch.Tensor:
+    """(2, samples) mid, side -> (4, bins, frames): log |mid|, log |side|, and the
+    cos and sin of the phase of side relative to mid. With a mono source the
+    ratio side/mid depends only on the chorus, not on the instrument; its
+    magnitude is in the first two channels, its phase (timing) in the last two.
+    A silent side gives 0 for both phase channels."""
+    spec = torch.stft(mid_side, len(window), HOP, window=window, return_complex=True)
+    cross = spec[1] * spec[0].conj()
+    unit = cross / (cross.abs() + 1e-8)
+    return torch.stack([torch.log(spec[0].abs() + 1e-5), torch.log(spec[1].abs() + 1e-5), unit.real, unit.imag])
+
+
 def wet_view(wet: np.ndarray, view: str) -> np.ndarray:
     """(samples, 2) left/right -> (channels, samples)."""
     left, right = wet[:, 0], wet[:, 1]
@@ -62,7 +75,7 @@ def wet_view(wet: np.ndarray, view: str) -> np.ndarray:
         return left[None]
     if view == "lr":
         return np.stack([left, right])
-    if view == "ms":
+    if view in ("ms", "ms_phase"):
         return np.stack([(left + right) / 2, (left - right) / 2])
     if view == "mono":
         return ((left + right) / 2)[None]
@@ -120,6 +133,12 @@ class ChorusPairs(torch.utils.data.Dataset):
         if self.mode == "dry_wet":
             dry = sf.read(f"{path}_dry.wav", dtype="float32", always_2d=True)[0].mean(axis=1)  # stereo dry: its mid
             audio = np.concatenate([dry[None], audio])
-        x = log_stft(torch.from_numpy(np.ascontiguousarray(audio)), self.window)
+        audio = torch.from_numpy(np.ascontiguousarray(audio))
+        if self.view == "ms_phase":
+            x = ms_phase_features(audio[-2:], self.window)
+            if self.mode == "dry_wet":
+                x = torch.cat([log_stft(audio[:1], self.window), x])
+        else:
+            x = log_stft(audio, self.window)
         y = torch.tensor([scale(n, float(r[n])) for n in LABELS], dtype=torch.float32)
         return x, y
