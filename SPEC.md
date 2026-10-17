@@ -8,8 +8,27 @@ Two input modes:
 
 ## DSP
 
-The chorus is `Chorus` from `crazy-chorus-dsp` (`../crazy-chorus/dsp`, a path
-dependency, read-only here).
+The chorus is `Chorus` from `crazy-chorus-dsp`, kept in this repository in
+`crazy-chorus-dsp/` (a Cargo workspace member, so `cargo test` also runs its own
+tests).
+
+The copy is frozen on purpose: every dataset and model here matches this exact
+DSP, so it does not follow later changes to the plugin.
+
+- Source: the `crazy-chorus` repository (github.com/leeeeeeeeeem/crazy-chorus),
+  folder `dsp/`, at commit `c7683f6` (16 Oct 2026). The DSP last changed in
+  `2b2ac31` "feat: add lfo phase setter" (12 Oct 2026).
+- Copied unchanged: `Cargo.toml` and `src/` (`chorus.rs`, `delay_line.rs`,
+  `lfo.rs`, `lib.rs`).
+- Checksum: `6bb51d4fa4559cb8f7023ca6d113bd32b1f151c0e2ca33fb5d5174ab0aa0bdd1`,
+  from `cd crazy-chorus-dsp && find . -type f | sort | xargs shasum -a 256 | shasum -a 256`.
+  `python/tests/test_dsp_frozen.py` fails if the files change.
+- Clippy reports a few style warnings in the copied files. They are left as
+  they are, because the copy is not edited.
+- To move to a newer DSP on purpose: copy the plugin's `dsp/` again, update the
+  commit and checksum here, then re-render the dataset and retrain, since every
+  stored pair and model was made with this version.
+  `scripts/check_dsp_drift.sh` shows whether the plugin has changed since.
 
 Per sample: `delay = delay_ms + depth_ms * sin(2π·phase)`, read with cubic
 Hermite, then `out = dry·(1-mix) + wet·mix`. The right LFO is fixed at
