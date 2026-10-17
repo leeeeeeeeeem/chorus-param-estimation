@@ -1,4 +1,4 @@
-# chorus-param-estimation
+# Chorus Parameter Estimation
 
 Can a small neural network listen to a clip processed by my chorus plugin
 (crazy-chorus) and tell which knob settings were used? The knobs are rate,
